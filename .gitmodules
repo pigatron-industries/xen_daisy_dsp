@@ -1,0 +1,3 @@
+[submodule "lib/DaisyDuino"]
+	path = lib/DaisyDuino
+	url = https://github.com/electro-smith/DaisyDuino.git

@@ -1,3 +1,6 @@
+#ifndef Formants_h
+#define Formants_h
+
 #include <inttypes.h>
 
 class Formant {
@@ -40,3 +43,5 @@ Formant bass_e[] =         { Formant(400, 40, 1), Formant(1620, 80,  0.251189), 
 Formant bass_i[] =         { Formant(250, 60, 1), Formant(1750, 90,  0.031623), Formant(2600, 100, 0.158489), Formant(3050, 120, 0.079433), Formant(3340, 120, 0.039811) };
 Formant bass_o[] =         { Formant(400, 40, 1), Formant(750,  80,  0.281838), Formant(2400, 100, 0.089125), Formant(2600, 120, 0.1),      Formant(2900, 120, 0.01)     };
 Formant bass_u[] =         { Formant(350, 40, 1), Formant(600,  80,  0.1),      Formant(2400, 100, 0.025119), Formant(2675, 120, 0.039811), Formant(2950, 120, 0.015849) };
+
+#endif

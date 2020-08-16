@@ -1,4 +1,5 @@
 #include "DaisyDuino.h"
+#include "io/PitchInput.h"
 
 DaisyHardware hardware;
 
@@ -7,15 +8,15 @@ size_t num_channels;
 Svf filterLeft;
 Svf filterRight;
 
-float frequency;
+PitchInput pitchInput(A0);
 
 #define LEFT 0
 #define RIGHT 1
 
 void AudioCallback(float **in, float **out, size_t size)
 {
-    filterLeft.SetFreq(frequency);
-    filterRight.SetFreq(frequency);
+    filterLeft.SetFreq(pitchInput.getFrequency());
+    filterRight.SetFreq(pitchInput.getFrequency());
 
     for (size_t i = 0; i < size; i++)
     {
@@ -40,8 +41,8 @@ void setup() {
     // Initialize Filter, and set parameters.
     filterLeft.Init(sample_rate);
     filterLeft.SetFreq(500.0);
-    filterLeft.SetRes(1);
-    filterLeft.SetDrive(1);
+    filterLeft.SetRes(0.85);
+    filterLeft.SetDrive(0.8);
 
     filterRight.Init(sample_rate);
     filterRight.SetFreq(500.0);
@@ -52,6 +53,5 @@ void setup() {
 }
 
 void loop() {
-    float frequencyCV = ((analogRead(A0) / 1023.0) * -10.0) + 10;
-    frequency = 27.5*powf(2, frequencyCV);
+    pitchInput.update();
 }

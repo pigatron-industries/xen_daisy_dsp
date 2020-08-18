@@ -5,6 +5,7 @@
 
 class Formant {
     public:
+        Formant() {}
         Formant(uint16_t _frequency, uint16_t _bandwidth, float _gain) : 
             frequency(_frequency), bandwidth(_bandwidth), gain(_gain) {}
         uint16_t frequency;

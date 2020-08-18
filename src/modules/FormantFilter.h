@@ -9,11 +9,12 @@ class FormantFilter {
     public:
         FormantFilter();
         void init(float sampleRate);
+        float process(float in);
 
-        void setFormant(Formant _formant);
+        void setFormant(Formant formant);
 
     private:
-
+        Formant formant;
         Svf highPassFilter;
         Svf lowPassFilter;
 

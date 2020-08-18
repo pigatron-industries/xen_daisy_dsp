@@ -1,5 +1,6 @@
 #include "DaisyDuino.h"
 #include "io/PitchInput.h"
+#include "modules/MultiFormantFilter.h"
 
 DaisyHardware hardware;
 
@@ -7,6 +8,8 @@ size_t num_channels;
 
 Svf filterLeft;
 Svf filterRight;
+
+MultiFormantFilter<5> filter;
 
 PitchInput pitchInput(A0);
 

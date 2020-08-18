@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 #include "DaisyDuino.h"
-#include "Formant.h"
+#include "data/Formant.h"
 
 class FormantFilter {
     public:

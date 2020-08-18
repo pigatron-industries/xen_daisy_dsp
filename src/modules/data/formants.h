@@ -2,7 +2,9 @@
 #define Formants_h
 
 #include <inttypes.h>
-#include "../modules/Formant.h"
+#include "Formant.h"
+
+#define VOCAL_FORMANT_SIZE 5
 
 //Vocal formant values taken from C Sound manual http://www.csounds.com/manual/html/MiscFormants.html
 

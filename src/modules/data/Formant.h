@@ -11,6 +11,9 @@ class Formant {
         uint16_t frequency;
         uint16_t bandwidth;
         float gain;
+
+        static Formant interpolate(Formant formant1, Formant formant2, float x);
+        static Formant interpolate(Formant formant1a, Formant formant2a, Formant formant1b, Formant formant2b, float x, float y);
 };
 
 #endif

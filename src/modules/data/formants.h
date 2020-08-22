@@ -14,7 +14,7 @@
 #define SOPRANO_O      { Formant(450, 40, 1), Formant(800,  80,  0.281838), Formant(2830, 100, 0.079433), Formant(3800, 120, 0.079433), Formant(4950, 120, 0.003162) }
 #define SOPRANO_U      { Formant(325, 50, 1), Formant(700,  60,  0.158489), Formant(2700, 170, 0.017783), Formant(3800, 180, 0.01),     Formant(4950, 200, 0.001)    }
 
-#define ALTO_I         { Formant(350, 50, 1), Formant(1700, 100, 0.1),      Formant(2700, 120, 0.031623), Formant(3700, 150, 0.015849), Formant(4950, 200, 60)       }
+#define ALTO_I         { Formant(350, 50, 1), Formant(1700, 100, 0.1),      Formant(2700, 120, 0.031623), Formant(3700, 150, 0.015849), Formant(4950, 200, 0.001)    }
 #define ALTO_E         { Formant(400, 60, 1), Formant(1600, 80,  0.063096), Formant(2700, 120, 0.031623), Formant(3300, 150, 0.017783), Formant(4950, 200, 0.001)    }
 #define ALTO_A         { Formant(800, 80, 1), Formant(1150, 90,  0.630957), Formant(2800, 120, 0.1),      Formant(3500, 130, 0.015849), Formant(4950, 140, 0.001)    }
 #define ALTO_O         { Formant(450, 70, 1), Formant(800,  80,  0.354813), Formant(2830, 100, 0.158489), Formant(3500, 130, 0.039811), Formant(4950, 135, 0.001778) }

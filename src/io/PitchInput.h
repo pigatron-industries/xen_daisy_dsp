@@ -11,8 +11,8 @@ class PitchInput {
 
         inline void update() {
             value = analogRead(pin);
-            voltage = ((value / 1023.0) * -10.0) + 10;
-            frequency = 27.5*powf(2, voltage);
+            voltage = ((value / 1023.0) * -10.0) + 5;
+            frequency = 880*powf(2, voltage);
         }
 
         inline float getFrequency() {

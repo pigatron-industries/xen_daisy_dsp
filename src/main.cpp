@@ -1,33 +1,26 @@
 #include "DaisyDuino.h"
 #include "io/PitchInput.h"
+#include "io/AnalogInput.h"
 #include "modules/Vocalizer.h"
 
 DaisyHardware hardware;
 
 size_t num_channels;
 
-Svf filterLeft;
-Svf filterRight;
-
 Vocalizer vocalizer;
+AnalogInput rangeInput(A0, -5, 5, 0, 5);
+AnalogInput vowelInput(A1, -5, 5, 0, 5);
 
-PitchInput pitchInput(A0);
 
 #define LEFT 0
 #define RIGHT 1
 
 void AudioCallback(float **in, float **out, size_t size)
 {
-    filterLeft.SetFreq(pitchInput.getFrequency());
-    filterRight.SetFreq(pitchInput.getFrequency());
+    vocalizer.setVowelAndRange(vowelInput.getVirtualValue(), rangeInput.getVirtualValue());
 
-    for (size_t i = 0; i < size; i++)
-    {
-        filterLeft.Process(in[LEFT][i]);
-        filterRight.Process(in[RIGHT][i]);
-
-        out[LEFT][i] = filterLeft.Low();
-        out[RIGHT][i] = filterRight.High();
+    for (size_t i = 0; i < size; i++) {
+        out[LEFT][i] = vocalizer.process(in[LEFT][i]);
     }
 }
 
@@ -42,19 +35,12 @@ void setup() {
     sample_rate = DAISY.get_samplerate();
 
     // Initialize Filter, and set parameters.
-    filterLeft.Init(sample_rate);
-    filterLeft.SetFreq(500.0);
-    filterLeft.SetRes(0.85);
-    filterLeft.SetDrive(0.8);
-
-    filterRight.Init(sample_rate);
-    filterRight.SetFreq(500.0);
-    filterRight.SetRes(0.85);
-    filterRight.SetDrive(0.8);
+    vocalizer.init(sample_rate);
 
     DAISY.begin(AudioCallback);
 }
 
 void loop() {
-    pitchInput.update();
+    rangeInput.update();
+    vowelInput.update();
 }

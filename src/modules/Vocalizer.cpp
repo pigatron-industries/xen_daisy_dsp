@@ -27,6 +27,12 @@ void Vocalizer::setRange(float _range) {
     calculateFormants();
 }
 
+void Vocalizer::setVowelAndRange(float _vowel, float _range) {
+    vowel = _vowel;
+    range = _range;
+    calculateFormants();
+}
+
 void Vocalizer::calculateFormants() {
     calculateFractions();
     Formant* formants1a = vocalFormants[rangeInt][vowelInt];
@@ -36,8 +42,9 @@ void Vocalizer::calculateFormants() {
 
     Formant interpolatedFormants[VOCAL_FORMANT_SIZE];
     for(uint8_t i = 0; i < VOCAL_FORMANT_SIZE; i++) {
-        interpolatedFormants[i] = Formant::interpolate(formants1a[i], formants2a[i], formants1b[i], formants2b[i], vowelFraction, rangeFraction);
+        interpolatedFormants[i] = Formant::interpolate(formants1a[i], formants2a[i], formants1b[i], formants2b[i], rangeFraction, vowelFraction);
     }
+
     filter.setFormants(interpolatedFormants);
 }
 

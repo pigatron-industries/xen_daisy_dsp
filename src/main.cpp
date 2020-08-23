@@ -10,6 +10,7 @@ size_t num_channels;
 Vocalizer vocalizer;
 AnalogInput rangeInput(A0, -5, 5, 0, 5);
 AnalogInput vowelInput(A1, -5, 5, 0, 5);
+AnalogInput pitchInput(A2, -5, 5, 1, 2);
 
 
 #define LEFT 0
@@ -18,6 +19,7 @@ AnalogInput vowelInput(A1, -5, 5, 0, 5);
 void AudioCallback(float **in, float **out, size_t size)
 {
     vocalizer.setVowelAndRange(vowelInput.getVirtualValue(), rangeInput.getVirtualValue());
+    vocalizer.setPitch(pitchInput.getVirtualValue());
 
     for (size_t i = 0; i < size; i++) {
         out[LEFT][i] = vocalizer.process(in[LEFT][i]);
@@ -43,4 +45,5 @@ void setup() {
 void loop() {
     rangeInput.update();
     vowelInput.update();
+    pitchInput.update();
 }

@@ -15,6 +15,8 @@ class Vocalizer {
         // 0=bass 1=tenor 2=countertenor 3=alto 4=soprano
         void setRange(float range);
 
+        void setPitch(float pitch);
+
         void setVowelAndRange(float vowel, float range);
 
         //setResonance();
@@ -25,6 +27,7 @@ class Vocalizer {
 
         float vowel;
         float range;
+        float pitch;
 
         uint8_t vowelInt;
         float vowelFraction;

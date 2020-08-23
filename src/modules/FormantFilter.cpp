@@ -16,10 +16,8 @@ void FormantFilter::init(float sampleRate) {
 
 float FormantFilter::process(float in) {
     lowPassFilter.Process(in);
-    float lowPass = lowPassFilter.Low();
-    highPassFilter.Process(lowPass);
-    float highPass = highPassFilter.High();
-    return highPass * formant.gain;
+    highPassFilter.Process(lowPassFilter.Low());
+    return highPassFilter.High() * formant.gain;
 }
 
 void FormantFilter::setFormant(Formant _formant) {

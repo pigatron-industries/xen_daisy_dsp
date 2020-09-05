@@ -1,12 +1,12 @@
-#ifndef Vocalizer_h
-#define Vocalizer_h
+#ifndef Vowelizer_h
+#define Vowelizer_h
 
 #include "MultiFormantFilter.h"
 #include "data/formants.h"
 
-class Vocalizer {
+class Vowelizer {
     public:
-        Vocalizer() {}
+        Vowelizer() {}
         void init(float sampleRate);
         float process(float in);
 

@@ -1,4 +1,4 @@
-#include "Vocalizer.h"
+#include "Vowelizer.h"
 #include <math.h>
 
 Formant vocalFormants[5][5][5] = { 
@@ -9,36 +9,36 @@ Formant vocalFormants[5][5][5] = {
     { SOPRANO_I, SOPRANO_E, SOPRANO_A, SOPRANO_O, SOPRANO_U }
 };
 
-void Vocalizer::init(float sampleRate) {
+void Vowelizer::init(float sampleRate) {
     filter.init(sampleRate);
 }
 
-float Vocalizer::process(float in) {
+float Vowelizer::process(float in) {
     return filter.process(in);
 }
 
-void Vocalizer::setVowel(float _vowel) {
+void Vowelizer::setVowel(float _vowel) {
     vowel = _vowel;
     calculateFormants();
 }
 
-void Vocalizer::setRange(float _range) {
+void Vowelizer::setRange(float _range) {
     range = _range;
     calculateFormants();
 }
 
-void Vocalizer::setPitch(float _pitch) {
+void Vowelizer::setPitch(float _pitch) {
     pitch = _pitch;
     calculateFormants();
 }
 
-void Vocalizer::setVowelAndRange(float _vowel, float _range) {
+void Vowelizer::setVowelAndRange(float _vowel, float _range) {
     vowel = _vowel;
     range = _range;
     calculateFormants();
 }
 
-void Vocalizer::calculateFormants() {
+void Vowelizer::calculateFormants() {
     calculateFractions();
     Formant* formants1a = vocalFormants[rangeInt][vowelInt];
     Formant* formants2a = vocalFormants[rangeInt+1][vowelInt];
@@ -54,7 +54,7 @@ void Vocalizer::calculateFormants() {
     filter.setFormants(interpolatedFormants);
 }
 
-void Vocalizer::calculateFractions() {
+void Vowelizer::calculateFractions() {
     float vowelMin;
     vowelFraction = modf(vowel, &vowelMin);
     vowelInt = vowelMin;

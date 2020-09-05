@@ -1,5 +1,5 @@
 #include "DaisyDuino.h"
-#include "processors/VowelizerProcessor.h"
+#include "processors/vowelizer/VowelizerProcessor.h"
 
 DaisyHardware hardware;
 size_t numChannels;

@@ -1,8 +1,8 @@
 #ifndef Vowelizer_h
 #define Vowelizer_h
 
-#include "MultiFormantFilter.h"
-#include "data/formants.h"
+#include "../../modules/MultiFormantFilter.h"
+#include "formants.h"
 
 class Vowelizer {
     public:

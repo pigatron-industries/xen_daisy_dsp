@@ -1,8 +1,8 @@
 #ifndef VowelizerProcessor_h
 #define VowelizerProcessor_h
 
-#include "../modules/Vowelizer.h"
-#include "../io/AnalogInput.h"
+#include "Vowelizer.h"
+#include "../../io/AnalogInput.h"
 
 class VowelizerProcessor {
     public:

@@ -38,6 +38,10 @@ void Vowelizer::setVowelAndRange(float _vowel, float _range) {
     calculateFormants();
 }
 
+void Vowelizer::setResonance(float resonance) {
+    filter.setResonance(resonance);
+}
+
 void Vowelizer::calculateFormants() {
     calculateFractions();
     Formant* formants1a = vocalFormants[rangeInt][vowelInt];

@@ -42,14 +42,14 @@ void TractController::process(float **in, float **out, size_t size) {
     }
 
     //Update Parameters
-    float tongueIndex = tongueX.getVirtualValue() * ((float) (tract.tongueIndexUpperBound() - tract.tongueIndexLowerBound())) + tract.tongueIndexLowerBound();
+    float tongueIndex = tongueX.getValue() * ((float) (tract.tongueIndexUpperBound() - tract.tongueIndexLowerBound())) + tract.tongueIndexLowerBound();
 	float innerTongueControlRadius = 2.05;
 	float outerTongueControlRadius = 3.5;
-    float tongueDiameter = tongueY.getVirtualValue() * (outerTongueControlRadius - innerTongueControlRadius) + innerTongueControlRadius;
+    float tongueDiameter = tongueY.getValue() * (outerTongueControlRadius - innerTongueControlRadius) + innerTongueControlRadius;
     float constrictionMin = 0.31;
     float constrictionMax = 2.0;
-    float constrictionIndex = constrictionX.getVirtualValue() * (float) tract.getTractIndexCount();
-    float constrictionDiameter = constrictionY.getVirtualValue();
+    float constrictionIndex = constrictionX.getValue() * (float) tract.getTractIndexCount();
+    float constrictionDiameter = constrictionY.getValue();
     // if (constrictionActive) {
 	// 	fricativeIntensity += 0.1; // TODO ex recto
 	// 	fricativeIntensity = minf(1.0, fricativeIntensity);

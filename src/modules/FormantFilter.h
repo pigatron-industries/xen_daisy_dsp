@@ -12,6 +12,7 @@ class FormantFilter {
         float process(float in);
 
         void setFormant(Formant formant);
+        void setResonance(float resonance);
 
     private:
         Formant formant;

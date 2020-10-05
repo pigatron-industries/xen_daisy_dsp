@@ -11,6 +11,7 @@ class MultiFormantFilter {
         void init(float sampleRate);
         float process(float in);
         void setFormants(Formant formants[SIZE]);
+        void setResonance(float resonance);
 
     private:
         FormantFilter filters[SIZE];
@@ -29,6 +30,13 @@ template <uint8_t SIZE>
 void MultiFormantFilter<SIZE>::setFormants(Formant formants[SIZE]) {
     for(uint8_t i = 0; i < SIZE; i++) {
         filters[i].setFormant(formants[i]);
+    }
+}
+
+template <uint8_t SIZE>
+void MultiFormantFilter<SIZE>::setResonance(float resonance) {
+    for(uint8_t i = 0; i < SIZE; i++) {
+        filters[i].setResonance(resonance);
     }
 }
 

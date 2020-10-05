@@ -14,13 +14,9 @@ class Vowelizer {
         void setVowel(float vowel);
         // 0=bass 1=tenor 2=countertenor 3=alto 4=soprano
         void setRange(float range);
-
         void setPitch(float pitch);
-
         void setVowelAndRange(float vowel, float range);
-
-        //setResonance();
-        //setDrive();
+        void setResonance(float resonance);
 
     private:
         MultiFormantFilter<VOCAL_FORMANT_SIZE> filter;

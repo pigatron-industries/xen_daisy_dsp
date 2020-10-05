@@ -17,17 +17,24 @@ class AnalogInput {
                 virtualRange = virtualMax - virtualMin;
         }
 
+        void setRange(float _virtualMin, float _virtualMax) {
+            virtualMin = _virtualMin;
+            virtualMax = _virtualMax;
+            virtualRange = virtualMax - virtualMin;
+        }
+
         inline void update() {
             value = analogRead(pin);
             voltage = ((value / 1023.0) * -10.0) + 5; //represents actual voltage on input of op-amp
-            virtualValue = (((voltage - realMin) * virtualRange) / realRange) + virtualMin;
+            float _virtualValue = (((voltage - realMin) * virtualRange) / realRange) + virtualMin;
+            virtualValue = smoothingWeight*_virtualValue + (1-smoothingWeight)*virtualValue;
         }
 
         inline float getVoltage() {
             return voltage;
         }
 
-        inline float getVirtualValue() {
+        inline float getValue() {
             return virtualValue;
         }
 
@@ -39,6 +46,8 @@ class AnalogInput {
         float virtualMax;
         float realRange;
         float virtualRange;
+
+        float smoothingWeight = 0.01;
 
         uint32_t value;
         float voltage;

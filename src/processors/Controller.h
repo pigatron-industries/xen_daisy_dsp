@@ -1,5 +1,5 @@
 #ifndef Controller_h
-#define TractProcessor_h
+#define Controller_h
 
 #include "DaisyDuino.h"
 

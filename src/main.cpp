@@ -1,16 +1,16 @@
 #include "DaisyDuino.h"
-#include "processors/vowelizer/VowelizerProcessor.h"
-#include "processors/vocaltract/TractProcessor.h"
+#include "processors/vowelizer/VowelizerController.h"
+#include "processors/vocaltract/TractController.h"
 
 DaisyHardware hardware;
 size_t numChannels;
 
-VowelizerProcessor vowelizerProcessor;
-TractProcessor tractProcessor;
+VowelizerController vowelizerController;
+TractController tractController;
 
 
 void AudioCallback(float **in, float **out, size_t size) {
-    vowelizerProcessor.process(in, out, size);
+    vowelizerController.process(in, out, size);
 }
 
 void setup() {
@@ -24,12 +24,12 @@ void setup() {
     sampleRate = DAISY.get_samplerate();
 
     // Initialize Filter, and set parameters.
-    vowelizerProcessor.init(sampleRate);
-    tractProcessor.init(sampleRate);
+    vowelizerController.init(sampleRate);
+    tractController.init(sampleRate);
 
     DAISY.begin(AudioCallback);
 }
 
 void loop() {
-    vowelizerProcessor.update();
+    vowelizerController.update();
 }

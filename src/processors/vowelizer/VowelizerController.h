@@ -1,12 +1,13 @@
-#ifndef VowelizerProcessor_h
-#define VowelizerProcessor_h
+#ifndef VowelizerController_h
+#define VowelizerController_h
 
+#include "../Controller.h"
 #include "Vowelizer.h"
 #include "../../io/AnalogInput.h"
 
-class VowelizerProcessor {
+class VowelizerController : public Controller {
     public:
-        VowelizerProcessor();
+        VowelizerController();
         void init(float sampleRate);
         void update();
         void process(float **in, float **out, size_t size);

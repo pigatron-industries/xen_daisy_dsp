@@ -1,27 +1,27 @@
-#include "TractProcessor.h"
+#include "TractController.h"
 
 #define LEFT 0
 #define RIGHT 1
 
-TractProcessor::TractProcessor():
+TractController::TractController():
     tongueX(A0, -5, 5, 0, 1),
     tongueY(A1, -5, 5, 0, 1),
     constrictionX(A2, -5, 5, 0, 1),
     constrictionY(A3, -5, 5, 0.3, 2) {
 }
 
-void TractProcessor::init(float sampleRate) {
+void TractController::init(float sampleRate) {
     tract.init(sampleRate, 48, defaultTractProps(15));
 }
 
-void TractProcessor::update() {
+void TractController::update() {
     tongueX.update();
     tongueY.update();
     constrictionX.update();
     constrictionY.update();
 }
 
-void TractProcessor::process(float **in, float **out, size_t size) {
+void TractController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
         float lambda1 = (float)i / (float)size;
         float lambda2 = ((float)i + 0.5) / (float)size;

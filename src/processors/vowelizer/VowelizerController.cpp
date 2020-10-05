@@ -1,25 +1,25 @@
-#include "VowelizerProcessor.h"
+#include "VowelizerController.h"
 
 #define LEFT 0
 #define RIGHT 1
 
-VowelizerProcessor::VowelizerProcessor():
+VowelizerController::VowelizerController():
     rangeInput(A0, -5, 5, 0, 5),
     vowelInput(A1, -5, 5, 0, 5),
     pitchInput(A2, -5, 5, 1, 2) {
 }
 
-void VowelizerProcessor::init(float sampleRate) {
+void VowelizerController::init(float sampleRate) {
     vowelizer.init(sampleRate);
 }
 
-void VowelizerProcessor::update() {
+void VowelizerController::update() {
     rangeInput.update();
     vowelInput.update();
     pitchInput.update();
 }
 
-void VowelizerProcessor::process(float **in, float **out, size_t size) {
+void VowelizerController::process(float **in, float **out, size_t size) {
     vowelizer.setVowelAndRange(vowelInput.getVirtualValue(), rangeInput.getVirtualValue());
     vowelizer.setPitch(pitchInput.getVirtualValue());
 

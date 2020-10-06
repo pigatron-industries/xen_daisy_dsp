@@ -11,3 +11,6 @@ void FilterBankController::update() {
 void FilterBankController::process(float **in, float **out, size_t size) {
 
 }
+
+void FilterBankController::render() {
+}

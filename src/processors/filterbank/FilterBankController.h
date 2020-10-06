@@ -6,10 +6,11 @@
 
 class FilterBankController : public Controller {
     public:
-        FilterBankController() {}
-        void init(float sampleRate);
-        void update();
-        void process(float **in, float **out, size_t size);
+        FilterBankController(Hardware& hardware) : Controller(hardware, "Filter Bank") {}
+        virtual void init(float sampleRate);
+        virtual void update();
+        virtual void process(float **in, float **out, size_t size);
+        virtual void render();
 
     private:
 

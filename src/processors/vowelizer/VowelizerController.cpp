@@ -24,3 +24,5 @@ void VowelizerController::process(float **in, float **out, size_t size) {
     }
 }
 
+void VowelizerController::render() {
+}

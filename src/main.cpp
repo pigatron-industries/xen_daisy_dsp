@@ -1,40 +1,30 @@
 #include "DaisyDuino.h"
 #include <RotaryEncoder.h>
-#include "processors/filter/FilterController.h"
+#include "MainController.h"
+#include "processors/filter/DualFilterController.h"
+#include "processors/filterbank/FilterBankController.h"
 #include "processors/vowelizer/VowelizerController.h"
 #include "processors/vocaltract/TractController.h"
 #include "io/PushButton.h"
+#include "io/Hardware.h"
 
 DaisyHardware hardware;
 size_t numChannels;
 
-PushButton encoderButton(28);
-RotaryEncoder encoder(29, 30);
+Hardware hw;
 
-FilterController filterController(encoder);
-VowelizerController vowelizerController;
-TractController tractController;
+DualFilterController filterController(hw);
+FilterBankController filterBankController(hw);
+VowelizerController vowelizerController(hw);
+TractController tractController(hw);
 
-enum ModeSelect {
-    FILTER,
-    VOWELIZER,
-    TRACT
-};
-ModeSelect mode = ModeSelect::FILTER;
+#define CONTROLLER_SIZE 4
+Controller* controllers[CONTROLLER_SIZE] = {&filterController, &filterBankController, &vowelizerController, &tractController};
+MainController mainController(hw, controllers, CONTROLLER_SIZE);
 
 
 void AudioCallback(float **in, float **out, size_t size) {
-    switch(mode) {
-        case FILTER:
-            filterController.process(in, out, size);
-            break;
-        case VOWELIZER:
-            vowelizerController.process(in, out, size);
-            break;
-        case TRACT:
-            tractController.process(in, out, size);
-            break;
-    }
+    mainController.process(in, out, size);
 }
 
 void setup() {
@@ -53,26 +43,10 @@ void setup() {
     filterController.init(sampleRate);
 
     DAISY.begin(AudioCallback);
+
+    mainController.init();
 }
 
 void loop() {
-    encoder.tick();
-    if(encoderButton.update()) {
-        if(encoderButton.released()) {
-            mode = static_cast<ModeSelect>((mode + 1) % (ModeSelect::TRACT + 1));
-            Serial.println(mode);
-        }
-    }
-
-    switch(mode) {
-        case FILTER:
-            filterController.update();
-            break;
-        case VOWELIZER:
-            vowelizerController.update();
-            break;
-        case TRACT:
-            tractController.update();
-            break;
-    }
+    mainController.update();
 }

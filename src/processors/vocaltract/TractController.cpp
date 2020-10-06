@@ -3,12 +3,6 @@
 #define LEFT 0
 #define RIGHT 1
 
-TractController::TractController():
-    tongueX(A0, -5, 5, 0, 1),
-    tongueY(A1, -5, 5, 0, 1),
-    constrictionX(A2, -5, 5, 0, 1),
-    constrictionY(A3, -5, 5, 0.3, 2) {
-}
 
 void TractController::init(float sampleRate) {
     tract.init(sampleRate, 48, defaultTractProps(15));
@@ -64,4 +58,7 @@ void TractController::process(float **in, float **out, size_t size) {
     tract.setRestDiameter(tongueIndex, tongueDiameter);
 	tract.setConstriction(constrictionIndex, constrictionDiameter, fricativeIntensity);
     tract.finishBlock();
+}
+
+void TractController::render() {
 }

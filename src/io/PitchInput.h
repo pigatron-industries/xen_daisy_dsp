@@ -30,7 +30,7 @@ class PitchInput {
         float voltage;
         float frequency;
 
-        float zeroFrequency = 440;
+        float zeroFrequency = 880;
 
 };
 

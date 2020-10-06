@@ -14,7 +14,7 @@ public:
     bool update() { return debouncer.update(); }
     bool released() { return debouncer.rose(); }
     bool pressed() { return debouncer.fell(); }
-    bool read() { return debouncer.read(); }
+    bool held() { return !debouncer.read(); }
     unsigned long duration() { return debouncer.duration(); }
     unsigned long previousDuration() { return debouncer.previousDuration(); }
 

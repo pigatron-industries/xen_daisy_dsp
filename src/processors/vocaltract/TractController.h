@@ -8,20 +8,21 @@
 
 class TractController : public Controller {
     public:
-        TractController();
-        void init(float sampleRate);
-        void update();
-        void process(float **in, float **out, size_t size);
+        TractController(Hardware& hardware) : Controller(hardware, "Vocal Tract") {}
+        virtual void init(float sampleRate);
+        virtual void update();
+        virtual void process(float **in, float **out, size_t size);
+        virtual void render();
 
     private:
         Tract tract;
         WhiteNoise whiteNoise;
         BiquadFilter fricativeFilter;
 
-        AnalogInput tongueX;
-        AnalogInput tongueY;
-        AnalogInput constrictionX;
-        AnalogInput constrictionY;
+        AnalogInput tongueX = AnalogInput(A0, -5, 5, 0, 1);
+        AnalogInput tongueY = AnalogInput(A1, -5, 5, 0, 1);
+        AnalogInput constrictionX = AnalogInput(A2, -5, 5, 0, 1);
+        AnalogInput constrictionY = AnalogInput(A3, -5, 5, 0.3, 2);
 
         float fricativeIntensity = 0.0;
 

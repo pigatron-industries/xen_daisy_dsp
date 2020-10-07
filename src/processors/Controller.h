@@ -12,9 +12,9 @@ class Controller {
         Controller(Hardware& hardware, char* name) : hw(hardware) { this->name = name; }
         char* getName() { return name; }
         virtual void init(float sampleRate) = 0;
-        virtual void update() = 0;
+        virtual void update() {}
         virtual void process(float **in, float **out, size_t size) = 0;
-        virtual void render() = 0;
+        virtual void render() {}
 
     protected:
         Hardware& hw;

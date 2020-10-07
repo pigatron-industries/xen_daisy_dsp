@@ -56,5 +56,7 @@ void MainController::render() {
     hw.tft.print("          ");
     hw.tft.drawLine(0, 16, hw.tft.width()-1, 16, TFT_OLIVE);
 
-    controllers[activeController]->render();
+    if(!controllerSelectMode) {
+        controllers[activeController]->render();
+    }
 }

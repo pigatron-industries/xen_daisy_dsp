@@ -1,0 +1,30 @@
+#ifndef FlangerController_h
+#define FlangerController_h
+
+#include "../Controller.h"
+#include "../../io/AnalogInput.h"
+#include "../../io/CrossfadeInput.h"
+#include "Delay.h"
+
+class FlangerController : public Controller {
+    public:
+        FlangerController(Hardware& hardware) : Controller(hardware, "Flanger") {}
+        virtual void init(float sampleRate);
+        virtual void process(float **in, float **out, size_t size);
+        virtual void update();
+
+    private:
+        AnalogInput delayTimeInput = AnalogInput(A0, -5, 5, 0.0005, 0.01);
+        AnalogInput feedbackInput = AnalogInput(A1, -5, 5, 0, 1);
+        CrossfadeInput dryWetMixInput = CrossfadeInput(A2, -5, 5);
+        bool invertedFeedback = false;
+
+        Delay delayLeft;
+        Delay delayRight;
+
+        int sampleRate;
+
+        void setDelay(float delayTime);
+};
+
+#endif

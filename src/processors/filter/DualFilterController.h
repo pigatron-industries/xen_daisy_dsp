@@ -29,6 +29,7 @@ class DualFilterController : public Controller {
 
         void printFilterType(FilterWrapper::FilterType type);
         void renderFrequencies();
+        void channelSelect();
 };
 
 #endif

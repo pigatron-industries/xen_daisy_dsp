@@ -23,6 +23,10 @@ size_t numChannels;
     #include "processors/vocaltract/TractController.h"
     TractController tractController(hw);
 #endif
+#if defined(XEN_FLANGER)
+    #include "processors/flanger/FlangerController.h"
+    FlangerController flangerController(hw);
+#endif
 
 Controller* controllers[XEN_CONTROLLER_COUNT] = {
     #if defined(XEN_DUAL_FILTER)
@@ -35,7 +39,10 @@ Controller* controllers[XEN_CONTROLLER_COUNT] = {
         &vowelizerController, 
     #endif
     #if defined(XEN_VOCAL_TRACT)
-        &tractController
+        &tractController,
+    #endif
+    #if defined(XEN_FLANGER)
+        &flangerController,
     #endif
 };
 MainController mainController(hw, controllers, XEN_CONTROLLER_COUNT);

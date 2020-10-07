@@ -1,26 +1,44 @@
 #include "DaisyDuino.h"
 #include <RotaryEncoder.h>
 #include "MainController.h"
-#include "processors/filter/DualFilterController.h"
-#include "processors/filterbank/FilterBankController.h"
-#include "processors/vowelizer/VowelizerController.h"
-#include "processors/vocaltract/TractController.h"
-#include "io/PushButton.h"
 #include "io/Hardware.h"
 
+Hardware hw;
 DaisyHardware hardware;
 size_t numChannels;
 
-Hardware hw;
+#if defined(XEN_DUAL_FILTER)
+    #include "processors/filter/DualFilterController.h"
+    DualFilterController filterController(hw);
+#endif
+#if defined(XEN_FILTER_BANK)
+    #include "processors/filterbank/FilterBankController.h"
+    FilterBankController filterBankController(hw);
+#endif
+#if defined(XEN_VOWEL_FILTER)
+    #include "processors/vowelizer/VowelizerController.h"
+    VowelizerController vowelizerController(hw);
+#endif
+#if defined(XEN_VOCAL_TRACT)
+    #include "processors/vocaltract/TractController.h"
+    TractController tractController(hw);
+#endif
 
-DualFilterController filterController(hw);
-FilterBankController filterBankController(hw);
-VowelizerController vowelizerController(hw);
-TractController tractController(hw);
-
-#define CONTROLLER_SIZE 4
-Controller* controllers[CONTROLLER_SIZE] = {&filterController, &filterBankController, &vowelizerController, &tractController};
-MainController mainController(hw, controllers, CONTROLLER_SIZE);
+Controller* controllers[XEN_CONTROLLER_COUNT] = {
+    #if defined(XEN_DUAL_FILTER)
+        &filterController,
+    #endif
+    #if defined(XEN_FILTER_BANK)
+        &filterBankController, 
+    #endif
+    #if defined(XEN_VOWEL_FILTER)
+        &vowelizerController, 
+    #endif
+    #if defined(XEN_VOCAL_TRACT)
+        &tractController
+    #endif
+};
+MainController mainController(hw, controllers, XEN_CONTROLLER_COUNT);
 
 
 void AudioCallback(float **in, float **out, size_t size) {
@@ -37,14 +55,9 @@ void setup() {
     numChannels = hardware.num_channels;
     sampleRate = DAISY.get_samplerate();
 
-    // Initialize Filter, and set parameters.
-    vowelizerController.init(sampleRate);
-    tractController.init(sampleRate);
-    filterController.init(sampleRate);
+    mainController.init(sampleRate);
 
     DAISY.begin(AudioCallback);
-
-    mainController.init();
 }
 
 void loop() {

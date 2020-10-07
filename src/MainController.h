@@ -6,7 +6,7 @@
 class MainController {
     public:
         MainController(Hardware& hardware, Controller** controllers, int size);
-        void init();
+        void init(float sampleRate);
         void update();
         void process(float **in, float **out, size_t size);
         void render();

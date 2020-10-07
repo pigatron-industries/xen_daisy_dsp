@@ -18,8 +18,8 @@ class DualFilterController : public Controller {
 
     private:
         PitchInput frequencyInput1 = PitchInput(A0);
-        AnalogInput resonanceInput1 = AnalogInput(A1, -5, 5, 0.001, 1);
-        PitchInput frequencyInput2 = PitchInput(A2);
+        AnalogInput resonanceInput1 = AnalogInput(A2, -5, 5, 0.001, 1);
+        PitchInput frequencyInput2 = PitchInput(A1);
         AnalogInput resonanceInput2 = AnalogInput(A3, -5, 5, 0.001, 1);
 
         FilterWrapper filter1;

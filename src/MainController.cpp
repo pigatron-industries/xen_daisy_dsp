@@ -5,8 +5,11 @@ MainController::MainController(Hardware& hardware, Controller** controllers, int
     this->controllerSize = size;
 }
 
-void MainController::init() {
+void MainController::init(float sampleRate) {
     hw.init();
+    for(int i = 0; i < controllerSize; i++) {
+        controllers[i]->init(sampleRate);
+    }
     render();
 }
 

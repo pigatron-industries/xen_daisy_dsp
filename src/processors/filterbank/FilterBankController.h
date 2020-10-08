@@ -1,6 +1,7 @@
 #ifndef FilterBankController_h
 #define FilterBankController_h
 
+#include "FilterBank.h"
 #include "../Controller.h"
 #include "../../io/AnalogInput.h"
 
@@ -13,6 +14,7 @@ class FilterBankController : public Controller {
         virtual void render();
 
     private:
+        FilterBank filterBank;
 
 };
 

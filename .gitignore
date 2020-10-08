@@ -37,3 +37,8 @@
 .gcc-flags.json
 .vscode
 .DS_Store
+
+# Eagle files
+*.*#*
+*.zip
+*.pro

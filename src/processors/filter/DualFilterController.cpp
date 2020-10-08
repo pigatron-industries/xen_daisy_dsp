@@ -90,9 +90,6 @@ void DualFilterController::printFilterType(FilterWrapper::FilterType type) {
         case FilterWrapper::FilterType::SVF_PEAK:
             hw.tft.print("SVF Peak        ");
             break;
-        case FilterWrapper::FilterType::BIQUAD_BAND_PASS:
-            hw.tft.print("Biquad Band Pass");
-            break;
         case FilterWrapper::FilterType::MOOG_LADDER:
             hw.tft.print("Moog Ladder     ");
             break;

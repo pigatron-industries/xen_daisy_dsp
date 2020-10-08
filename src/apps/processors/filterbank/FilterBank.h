@@ -1,7 +1,7 @@
 #ifndef FilterBank_h
 #define FilterBank_h
 
-#include "../../modules/FilterWrapper.h"
+#include "../../../modules/FilterWrapper.h"
 
 #define MAX_FILTER_COUNT 40
 

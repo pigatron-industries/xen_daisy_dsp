@@ -1,9 +1,9 @@
 #ifndef VowelizerController_h
 #define VowelizerController_h
 
-#include "../Controller.h"
+#include "../../../Controller.h"
 #include "Vowelizer.h"
-#include "../../io/AnalogInput.h"
+#include "../../../io/AnalogInput.h"
 
 class VowelizerController : public Controller {
     public:

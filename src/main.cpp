@@ -8,23 +8,23 @@ DaisyHardware hardware;
 size_t numChannels;
 
 #if defined(XEN_DUAL_FILTER)
-    #include "processors/filter/DualFilterController.h"
+    #include "apps/processors/filter/DualFilterController.h"
     DualFilterController filterController(hw);
 #endif
 #if defined(XEN_FILTER_BANK)
-    #include "processors/filterbank/FilterBankController.h"
+    #include "apps/processors/filterbank/FilterBankController.h"
     FilterBankController filterBankController(hw);
 #endif
 #if defined(XEN_VOWEL_FILTER)
-    #include "processors/vowelizer/VowelizerController.h"
+    #include "apps/processors/vowelizer/VowelizerController.h"
     VowelizerController vowelizerController(hw);
 #endif
 #if defined(XEN_VOCAL_TRACT)
-    #include "processors/vocaltract/TractController.h"
+    #include "apps/processors/vocaltract/TractController.h"
     TractController tractController(hw);
 #endif
 #if defined(XEN_FLANGER)
-    #include "processors/flanger/FlangerController.h"
+    #include "apps/processors/flanger/FlangerController.h"
     FlangerController flangerController(hw);
 #endif
 

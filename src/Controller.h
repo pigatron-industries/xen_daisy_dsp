@@ -2,7 +2,7 @@
 #define Controller_h
 
 #include "DaisyDuino.h"
-#include "../io/Hardware.h"
+#include "io/Hardware.h"
 
 #define LINE_HEIGHT 16
 #define TEXT_INDENT 2

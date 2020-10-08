@@ -1,7 +1,7 @@
 #ifndef MainController_h
 #define MainController_h
 
-#include "processors/Controller.h"
+#include "Controller.h"
 
 class MainController {
     public:

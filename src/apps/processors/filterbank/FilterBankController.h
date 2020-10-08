@@ -2,8 +2,8 @@
 #define FilterBankController_h
 
 #include "FilterBank.h"
-#include "../Controller.h"
-#include "../../io/AnalogInput.h"
+#include "../../../Controller.h"
+#include "../../../io/AnalogInput.h"
 
 class FilterBankController : public Controller {
     public:

@@ -1,9 +1,9 @@
 #ifndef FlangerController_h
 #define FlangerController_h
 
-#include "../Controller.h"
-#include "../../io/AnalogInput.h"
-#include "../../io/CrossfadeInput.h"
+#include "../../../Controller.h"
+#include "../../../io/AnalogInput.h"
+#include "../../../io/CrossfadeInput.h"
 #include "Delay.h"
 
 class FlangerController : public Controller {

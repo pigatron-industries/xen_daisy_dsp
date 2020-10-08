@@ -1,10 +1,10 @@
 #ifndef TractController_h
 #define TractController_h
 
-#include "../Controller.h"
+#include "../../../Controller.h"
+#include "../../../io/AnalogInput.h"
+#include "../../../modules/BiquadFilter.h"
 #include "Tract.h"
-#include "../../io/AnalogInput.h"
-#include "../../modules/BiquadFilter.h"
 
 class TractController : public Controller {
     public:

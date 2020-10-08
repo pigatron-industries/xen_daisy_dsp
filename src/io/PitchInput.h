@@ -9,6 +9,10 @@ class PitchInput {
         PitchInput(uint8_t _pin) : pin(_pin) {
         }
 
+        PitchInput(uint8_t _pin, float zeroFrequency) : pin(_pin) {
+            this->zeroFrequency = zeroFrequency;
+        }
+
         inline void update() {
             value = analogRead(pin);
             voltage = ((value / 1023.0) * -10.0) + 5;

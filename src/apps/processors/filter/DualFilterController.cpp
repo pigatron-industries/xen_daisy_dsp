@@ -46,52 +46,58 @@ void DualFilterController::channelSelect() {
 }
 
 void DualFilterController::render() {
-    hw.tft.setCursor(TEXT_INDENT, LINE_HEIGHT+1, 2);
-    hw.tft.fillRect(0, LINE_HEIGHT+1, hw.tft.width()-1, LINE_HEIGHT, selectedChannel == 1 ? TFT_NAVY : TFT_BLACK);
-    hw.tft.setTextColor(selectedChannel == 1 ? TFT_CYAN : TFT_DARKCYAN, selectedChannel == 1 ? TFT_NAVY : TFT_BLACK);
-    hw.tft.print("1 > ");
-    printFilterType(filter1.getType());
+    #if defined(XEN_TFT)
+        hw.tft.setCursor(TEXT_INDENT, LINE_HEIGHT+1, 2);
+        hw.tft.fillRect(0, LINE_HEIGHT+1, hw.tft.width()-1, LINE_HEIGHT, selectedChannel == 1 ? TFT_NAVY : TFT_BLACK);
+        hw.tft.setTextColor(selectedChannel == 1 ? TFT_CYAN : TFT_DARKCYAN, selectedChannel == 1 ? TFT_NAVY : TFT_BLACK);
+        hw.tft.print("1 > ");
+        printFilterType(filter1.getType());
 
-    hw.tft.setCursor(2, LINE_HEIGHT*3+1, 2);
-    hw.tft.fillRect(0, LINE_HEIGHT*3+1, hw.tft.width()-1, LINE_HEIGHT, selectedChannel == 2 ? TFT_NAVY : TFT_BLACK);
-    hw.tft.setTextColor(selectedChannel == 2 ? TFT_CYAN : TFT_DARKCYAN, selectedChannel == 2 ? TFT_NAVY : TFT_BLACK);
-    hw.tft.print("2 > ");
-    printFilterType(filter2.getType());
+        hw.tft.setCursor(2, LINE_HEIGHT*3+1, 2);
+        hw.tft.fillRect(0, LINE_HEIGHT*3+1, hw.tft.width()-1, LINE_HEIGHT, selectedChannel == 2 ? TFT_NAVY : TFT_BLACK);
+        hw.tft.setTextColor(selectedChannel == 2 ? TFT_CYAN : TFT_DARKCYAN, selectedChannel == 2 ? TFT_NAVY : TFT_BLACK);
+        hw.tft.print("2 > ");
+        printFilterType(filter2.getType());
 
-    renderFrequencies();
+        renderFrequencies();
+    #endif
 }
 
 void DualFilterController::renderFrequencies() {
-    hw.tft.setTextColor(TFT_DARKCYAN, TFT_BLACK);
-    hw.tft.setCursor(TEXT_INDENT, LINE_HEIGHT*2+1, 2);
-    hw.tft.print(frequencyInput1.getFrequency(), 1);
-    hw.tft.print("    ");
+    #if defined(XEN_TFT)
+        hw.tft.setTextColor(TFT_DARKCYAN, TFT_BLACK);
+        hw.tft.setCursor(TEXT_INDENT, LINE_HEIGHT*2+1, 2);
+        hw.tft.print(frequencyInput1.getFrequency(), 1);
+        hw.tft.print("    ");
 
-    hw.tft.setTextColor(TFT_DARKCYAN, TFT_BLACK);
-    hw.tft.setCursor(TEXT_INDENT, LINE_HEIGHT*4+1, 2);
-    hw.tft.print(frequencyInput2.getFrequency(), 1);
-    hw.tft.print("    ");
+        hw.tft.setTextColor(TFT_DARKCYAN, TFT_BLACK);
+        hw.tft.setCursor(TEXT_INDENT, LINE_HEIGHT*4+1, 2);
+        hw.tft.print(frequencyInput2.getFrequency(), 1);
+        hw.tft.print("    ");
+    #endif
 }
 
 void DualFilterController::printFilterType(FilterWrapper::FilterType type) {
-    switch(type) {
-        case FilterWrapper::FilterType::SVF_BAND_PASS:
-            hw.tft.print("SVF Band Pass   ");
-            break;
-        case FilterWrapper::FilterType::SVF_LOW_PASS:
-            hw.tft.print("SVF Low Pass    ");
-            break;
-        case FilterWrapper::FilterType::SVF_HIGH_PASS:
-            hw.tft.print("SVF High Pass   ");
-            break;
-        case FilterWrapper::FilterType::SVF_NOTCH:
-            hw.tft.print("SVF Notch       ");
-            break;
-        case FilterWrapper::FilterType::SVF_PEAK:
-            hw.tft.print("SVF Peak        ");
-            break;
-        case FilterWrapper::FilterType::MOOG_LADDER:
-            hw.tft.print("Moog Ladder     ");
-            break;
-    }
+    #if defined(XEN_TFT)
+        switch(type) {
+            case FilterWrapper::FilterType::SVF_BAND_PASS:
+                hw.tft.print("SVF Band Pass   ");
+                break;
+            case FilterWrapper::FilterType::SVF_LOW_PASS:
+                hw.tft.print("SVF Low Pass    ");
+                break;
+            case FilterWrapper::FilterType::SVF_HIGH_PASS:
+                hw.tft.print("SVF High Pass   ");
+                break;
+            case FilterWrapper::FilterType::SVF_NOTCH:
+                hw.tft.print("SVF Notch       ");
+                break;
+            case FilterWrapper::FilterType::SVF_PEAK:
+                hw.tft.print("SVF Peak        ");
+                break;
+            case FilterWrapper::FilterType::MOOG_LADDER:
+                hw.tft.print("Moog Ladder     ");
+                break;
+        }
+    #endif
 }

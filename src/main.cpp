@@ -27,6 +27,10 @@ size_t numChannels;
     #include "apps/processors/flanger/FlangerController.h"
     FlangerController flangerController(hw);
 #endif
+#if defined(XEN_GLOTTIS)
+    #include "apps/generators/glottis/GlottisController.h"
+    GlottisController glottisController(hw);
+#endif
 
 Controller* controllers[XEN_CONTROLLER_COUNT] = {
     #if defined(XEN_DUAL_FILTER)
@@ -43,6 +47,9 @@ Controller* controllers[XEN_CONTROLLER_COUNT] = {
     #endif
     #if defined(XEN_FLANGER)
         &flangerController,
+    #endif
+    #if defined(XEN_GLOTTIS)
+        &glottisController,
     #endif
 };
 MainController mainController(hw, controllers, XEN_CONTROLLER_COUNT);

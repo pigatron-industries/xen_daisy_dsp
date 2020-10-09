@@ -61,6 +61,3 @@ void TractController::process(float **in, float **out, size_t size) {
 	tract.setConstriction(constrictionIndex, constrictionDiameter, fricativeIntensity);
     tract.finishBlock();
 }
-
-void TractController::render() {
-}

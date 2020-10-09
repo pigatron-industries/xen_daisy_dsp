@@ -12,7 +12,6 @@ class TractController : public Controller {
         virtual void init(float sampleRate);
         virtual void update();
         virtual void process(float **in, float **out, size_t size);
-        virtual void render();
 
     private:
         Tract tract;

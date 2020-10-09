@@ -46,25 +46,3 @@ void MainController::update() {
 void MainController::process(float **in, float **out, size_t size) {
     controllers[activeController]->process(in, out, size);
 }
-
-void MainController::render() {
-    
-
-
-    // #if defined(XEN_TFT)
-    //     hw.tft.setCursor(2, 0, 2);
-    //     if(controllerSelectMode) {
-    //         hw.tft.fillRect(0, 0, hw.tft.width()-1, 16, TFT_NAVY);
-    //         hw.tft.setTextColor(TFT_YELLOW, TFT_NAVY);
-    //     } else {
-    //         hw.tft.setTextColor(TFT_OLIVE, TFT_BLACK);
-    //     }
-    //     hw.tft.print(controllers[activeController]->getName());
-    //     hw.tft.print("          ");
-    //     hw.tft.drawLine(0, 16, hw.tft.width()-1, 16, TFT_OLIVE);
-
-    //     if(!controllerSelectMode) {
-    //         controllers[activeController]->render();
-    //     }
-    // #endif
-}

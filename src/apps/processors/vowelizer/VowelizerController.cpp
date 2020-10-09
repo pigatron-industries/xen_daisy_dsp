@@ -25,6 +25,3 @@ void VowelizerController::process(float **in, float **out, size_t size) {
         out[LEFT][i] = vowelizer.process(in[LEFT][i]);
     }
 }
-
-void VowelizerController::render() {
-}

@@ -9,7 +9,6 @@ class MainController {
         void init(float sampleRate);
         void update();
         void process(float **in, float **out, size_t size);
-        void render();
 
     private:
         int activeController = 0;

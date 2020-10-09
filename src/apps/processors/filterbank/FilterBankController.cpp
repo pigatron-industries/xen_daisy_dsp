@@ -19,6 +19,3 @@ void FilterBankController::process(float **in, float **out, size_t size) {
         out[LEFT][i] = filterBank.process(in[LEFT][i]);
     }
 }
-
-void FilterBankController::render() {
-}

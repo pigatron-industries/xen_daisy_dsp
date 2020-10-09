@@ -40,7 +40,7 @@ void DualFilterController::update() {
     if(Hardware::hw.encoderButton.pressed()) {
         displayPage.nextSelection();
     }
-    
+
     displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2));
     displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2));
 }
@@ -51,24 +51,6 @@ void DualFilterController::process(float **in, float **out, size_t size) {
         out[RIGHT][i] = filter2.process(in[RIGHT][i]);
     }
 }
-
-
-void DualFilterController::render() {
-}
-
-//void DualFilterController::renderFrequencies() {
-    // #if defined(XEN_TFT)
-    //     hw.tft.setTextColor(TFT_DARKCYAN, TFT_BLACK);
-    //     hw.tft.setCursor(TEXT_INDENT, LINE_HEIGHT*2+1, 2);
-    //     hw.tft.print(frequencyInput1.getFrequency(), 1);
-    //     hw.tft.print("    ");
-
-    //     hw.tft.setTextColor(TFT_DARKCYAN, TFT_BLACK);
-    //     hw.tft.setCursor(TEXT_INDENT, LINE_HEIGHT*4+1, 2);
-    //     hw.tft.print(frequencyInput2.getFrequency(), 1);
-    //     hw.tft.print("    ");
-    // #endif
-//}
 
 char* DualFilterController::getFilterTypeText(FilterWrapper::FilterType type) {
     switch(type) {

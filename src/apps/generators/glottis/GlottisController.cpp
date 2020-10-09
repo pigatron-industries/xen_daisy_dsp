@@ -18,13 +18,12 @@ void GlottisController::init(float sampleRate) {
 void GlottisController::update() {
     pitchInput.update();
     tensenessInput.update();
+
+    glottis.setFrequency(pitchInput.getFrequency());
+    glottis.setTenseness(tensenessInput.getValue());
 }
 
 void GlottisController::process(float **in, float **out, size_t size) {
-    //Update Parameters
-    glottis.setFrequency(pitchInput.getFrequency());
-    glottis.setTenseness(tensenessInput.getValue());
-
     for (size_t i = 0; i < size; i++) {
 
         //Noise

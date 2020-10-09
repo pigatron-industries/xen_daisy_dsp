@@ -14,7 +14,7 @@ class FlangerController : public Controller {
         virtual void update();
 
     private:
-        AnalogInput delayTimeInput = AnalogInput(A0, -5, 5, 0.0005, 0.01);
+        AnalogInput delayTimeInput = AnalogInput(A0, -5, 5, 0.0001, 0.01);
         AnalogInput feedbackInput = AnalogInput(A1, -5, 5, 0, 1);
         CrossfadeInput dryWetMixInput = CrossfadeInput(A2, -5, 5);
         bool invertedFeedback = false;

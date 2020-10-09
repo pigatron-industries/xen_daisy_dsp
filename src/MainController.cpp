@@ -43,8 +43,9 @@ void MainController::update() {
         if(event == UIEvent::EVENT_LONG_PRESS) {
             controllers[activeController]->getDisplayPage()->setSelection(0);
         }
-        controllers[activeController]->update();
     }
+
+    controllers[activeController]->update();
 
     if(refreshTimer.isFinished()) {
         controllers[activeController]->updateDisplay();

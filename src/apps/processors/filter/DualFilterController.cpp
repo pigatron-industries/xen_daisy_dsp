@@ -31,8 +31,8 @@ void DualFilterController::update() {
 }
 
 void DualFilterController::updateDisplay() {
-    displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2) + "   ");
-    displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2) + "   ");
+    displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2));
+    displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2));
 }
 
 void DualFilterController::event(UIEvent event, int itemIndex) {
@@ -58,7 +58,7 @@ void DualFilterController::process(float **in, float **out, size_t size) {
     }
 }
 
-char* DualFilterController::getFilterTypeText(FilterWrapper::FilterType type) {
+String DualFilterController::getFilterTypeText(FilterWrapper::FilterType type) {
     switch(type) {
         case FilterWrapper::FilterType::SVF_BAND_PASS:
             return "SVF Band Pass";

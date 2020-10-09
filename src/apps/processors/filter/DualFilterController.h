@@ -26,7 +26,7 @@ class DualFilterController : public Controller {
         FilterWrapper filter1;
         FilterWrapper filter2;
 
-        char* getFilterTypeText(FilterWrapper::FilterType type);
+        String getFilterTypeText(FilterWrapper::FilterType type);
 };
 
 #endif

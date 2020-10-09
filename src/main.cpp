@@ -8,7 +8,7 @@ size_t numChannels;
 
 #if defined(XEN_DUAL_FILTER)
     #include "apps/processors/filter/DualFilterController.h"
-    DualFilterController filterController;
+    DualFilterController dualFilterController;
 #endif
 #if defined(XEN_FILTER_BANK)
     #include "apps/processors/filterbank/FilterBankController.h"
@@ -30,29 +30,12 @@ size_t numChannels;
     #include "apps/generators/glottis/GlottisController.h"
     GlottisController glottisController;
 #endif
+#if defined(XEN_FREQUENCYANALYSER)
+    #include "apps/analysers/frequencyanalyser/FrequencyController.h"
+    FrequencyController frequencyController;
+#endif
 
-Controller* controllers[XEN_CONTROLLER_COUNT] = {
-    #if defined(XEN_DUAL_FILTER)
-        &filterController,
-    #endif
-    #if defined(XEN_FILTER_BANK)
-        &filterBankController, 
-    #endif
-    #if defined(XEN_VOWEL_FILTER)
-        &vowelizerController, 
-    #endif
-    #if defined(XEN_VOCAL_TRACT)
-        &tractController,
-    #endif
-    #if defined(XEN_FLANGER)
-        &flangerController,
-    #endif
-    #if defined(XEN_GLOTTIS)
-        &glottisController,
-    #endif
-};
-MainController mainController(controllers, XEN_CONTROLLER_COUNT);
-
+MainController mainController;
 
 void AudioCallback(float **in, float **out, size_t size) {
     mainController.process(in, out, size);
@@ -61,6 +44,28 @@ void AudioCallback(float **in, float **out, size_t size) {
 void setup() {
     Serial.begin(115200);
     Serial.println("Pigatron Industries");
+
+    #if defined(XEN_DUAL_FILTER)
+        mainController.registerController(&dualFilterController);
+    #endif
+    #if defined(XEN_FILTER_BANK)
+        mainController.registerController(&filterBankController);
+    #endif
+    #if defined(XEN_VOWEL_FILTER)
+        mainController.registerController(&vowelizerController);
+    #endif
+    #if defined(XEN_VOCAL_TRACT)
+        mainController.registerController(&tractController);
+    #endif
+    #if defined(XEN_FLANGER)
+        mainController.registerController(&flangerController);
+    #endif
+    #if defined(XEN_GLOTTIS)
+        mainController.registerController(&glottisController);
+    #endif
+    #if defined(XEN_FREQUENCYANALYSER)
+        mainController.registerController(&frequencyController);
+    #endif
 
     float sampleRate;
     // Initialize for Daisy pod at 48kHz

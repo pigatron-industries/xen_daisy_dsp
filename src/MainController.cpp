@@ -1,8 +1,9 @@
 #include "MainController.h"
 
-MainController::MainController(Controller** controllers, int size) {
-    this->controllers = controllers;
-    this->controllerSize = size;
+
+void MainController::registerController(Controller* controller) {
+    controllers[controllerSize] = controller;
+    controllerSize++;
 }
 
 void MainController::init(float sampleRate) {

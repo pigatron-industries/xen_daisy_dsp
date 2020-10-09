@@ -19,6 +19,9 @@ void Display::render() {
 }
 
 void Display::render(bool all) {
+    if(all) {
+        tft.fillScreen(TFT_BLACK); 
+    }
     for(int index = 0; index < displayedPage->size; index++) {
         renderItem(index, all);
     }

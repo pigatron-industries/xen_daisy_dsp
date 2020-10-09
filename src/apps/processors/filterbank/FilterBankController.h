@@ -7,7 +7,7 @@
 
 class FilterBankController : public Controller {
     public:
-        FilterBankController(Hardware& hardware) : Controller(hardware, "Filter Bank") {}
+        FilterBankController() {}
         virtual void init(float sampleRate);
         virtual void update();
         virtual void process(float **in, float **out, size_t size);

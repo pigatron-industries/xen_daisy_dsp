@@ -3,23 +3,20 @@
 
 #include <RotaryEncoder.h>
 #include "PushButton.h"
-#if defined(XEN_TFT)
-    #include <TFT_eSPI.h>
-#endif
+#include "display/Display.h"
 
 class Hardware {
 
 public:
-    Hardware() {}
+    static Hardware hw;
     void init();
 
     PushButton encoderButton = PushButton(28);
     RotaryEncoder encoder = RotaryEncoder(29, 30);
-    
-    #if defined(XEN_TFT)
-        TFT_eSPI tft = TFT_eSPI();
-    #endif
+    Display display;
 
+private:
+    Hardware() {}
 };
 
 #endif

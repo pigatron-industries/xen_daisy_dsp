@@ -5,14 +5,13 @@
 
 class MainController {
     public:
-        MainController(Hardware& hardware, Controller** controllers, int size);
+        MainController(Controller** controllers, int size);
         void init(float sampleRate);
         void update();
         void process(float **in, float **out, size_t size);
         void render();
 
     private:
-        Hardware& hw;
         int activeController = 0;
         int controllerSize;
         Controller** controllers;

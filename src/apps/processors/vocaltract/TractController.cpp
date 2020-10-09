@@ -6,6 +6,8 @@
 
 void TractController::init(float sampleRate) {
     tract.init(sampleRate, 48, defaultTractProps(15));
+
+    displayPage.initTitle("Vocal Tract");
 }
 
 void TractController::update() {

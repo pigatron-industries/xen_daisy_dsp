@@ -8,7 +8,7 @@
 
 class TractController : public Controller {
     public:
-        TractController(Hardware& hardware) : Controller(hardware, "Vocal Tract") {}
+        TractController() {}
         virtual void init(float sampleRate);
         virtual void update();
         virtual void process(float **in, float **out, size_t size);

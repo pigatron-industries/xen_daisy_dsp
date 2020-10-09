@@ -8,7 +8,7 @@
 
 class FlangerController : public Controller {
     public:
-        FlangerController(Hardware& hardware) : Controller(hardware, "Flanger") {}
+        FlangerController() {}
         virtual void init(float sampleRate);
         virtual void process(float **in, float **out, size_t size);
         virtual void update();

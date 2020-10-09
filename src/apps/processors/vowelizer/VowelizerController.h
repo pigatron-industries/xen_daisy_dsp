@@ -7,7 +7,7 @@
 
 class VowelizerController : public Controller {
     public:
-        VowelizerController(Hardware& hardware) : Controller(hardware, "Vowel Filter") {}
+        VowelizerController() {}
         virtual void init(float sampleRate);
         virtual void update();
         virtual void process(float **in, float **out, size_t size);

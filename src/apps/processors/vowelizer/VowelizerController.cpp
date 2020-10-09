@@ -5,6 +5,8 @@
 
 void VowelizerController::init(float sampleRate) {
     vowelizer.init(sampleRate);
+
+    displayPage.initTitle("Vowel Filter");
 }
 
 void VowelizerController::update() {

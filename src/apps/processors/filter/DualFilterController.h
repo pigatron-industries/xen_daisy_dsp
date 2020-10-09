@@ -10,7 +10,7 @@
 
 class DualFilterController : public Controller {
     public:
-        DualFilterController(Hardware& hardware) : Controller(hardware, "Dual Filter") {}
+        DualFilterController() {}
         virtual void init(float sampleRate);
         virtual void update();
         virtual void process(float **in, float **out, size_t size);
@@ -25,11 +25,7 @@ class DualFilterController : public Controller {
         FilterWrapper filter1;
         FilterWrapper filter2;
 
-        int selectedChannel = 0;
-
-        void printFilterType(FilterWrapper::FilterType type);
-        void renderFrequencies();
-        void channelSelect();
+        char* getFilterTypeText(FilterWrapper::FilterType type);
 };
 
 #endif

@@ -3,33 +3,32 @@
 #include "MainController.h"
 #include "io/Hardware.h"
 
-Hardware hw;
 DaisyHardware hardware;
 size_t numChannels;
 
 #if defined(XEN_DUAL_FILTER)
     #include "apps/processors/filter/DualFilterController.h"
-    DualFilterController filterController(hw);
+    DualFilterController filterController;
 #endif
 #if defined(XEN_FILTER_BANK)
     #include "apps/processors/filterbank/FilterBankController.h"
-    FilterBankController filterBankController(hw);
+    FilterBankController filterBankController;
 #endif
 #if defined(XEN_VOWEL_FILTER)
     #include "apps/processors/vowelizer/VowelizerController.h"
-    VowelizerController vowelizerController(hw);
+    VowelizerController vowelizerController;
 #endif
 #if defined(XEN_VOCAL_TRACT)
     #include "apps/processors/vocaltract/TractController.h"
-    TractController tractController(hw);
+    TractController tractController;
 #endif
 #if defined(XEN_FLANGER)
     #include "apps/processors/flanger/FlangerController.h"
-    FlangerController flangerController(hw);
+    FlangerController flangerController;
 #endif
 #if defined(XEN_GLOTTIS)
     #include "apps/generators/glottis/GlottisController.h"
-    GlottisController glottisController(hw);
+    GlottisController glottisController;
 #endif
 
 Controller* controllers[XEN_CONTROLLER_COUNT] = {
@@ -52,7 +51,7 @@ Controller* controllers[XEN_CONTROLLER_COUNT] = {
         &glottisController,
     #endif
 };
-MainController mainController(hw, controllers, XEN_CONTROLLER_COUNT);
+MainController mainController(controllers, XEN_CONTROLLER_COUNT);
 
 
 void AudioCallback(float **in, float **out, size_t size) {

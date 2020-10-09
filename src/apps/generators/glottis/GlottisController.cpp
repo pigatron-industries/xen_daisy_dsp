@@ -3,10 +3,6 @@
 #define LEFT 0
 #define RIGHT 1
 
-GlottisController::GlottisController(Hardware& hardware): 
-    Controller(hardware, "Glottis") {
-        pitchInput.setZeroFrequency(110);
-}
 
 void GlottisController::init(float sampleRate) {
     whiteNoise.Init();
@@ -15,6 +11,8 @@ void GlottisController::init(float sampleRate) {
     aspirateFilter.setQ(0.5);
     aspirateFilter.setFrequency(500);
     glottis.init(sampleRate);
+
+    displayPage.initTitle("Glottis");
 }
 
 void GlottisController::update() {

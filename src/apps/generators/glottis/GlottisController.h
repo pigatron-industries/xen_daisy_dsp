@@ -10,7 +10,7 @@
 
 class GlottisController : public Controller {
     public:
-        GlottisController(Hardware& hardware);
+        GlottisController() {}
         virtual void init(float sampleRate);
         virtual void update();
         virtual void process(float **in, float **out, size_t size);

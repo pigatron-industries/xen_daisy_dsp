@@ -8,6 +8,8 @@ void FlangerController::init(float sampleRate) {
     delayLeft.init(sampleRate);
     delayRight.init(sampleRate);
     //delayTimeInput.setRange(0.001, 1);
+
+    displayPage.initTitle("Comb Filter (Flanger)");
 }
 
 void FlangerController::process(float **in, float **out, size_t size) {

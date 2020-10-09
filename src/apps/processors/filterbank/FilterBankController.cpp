@@ -7,6 +7,8 @@ void FilterBankController::init(float sampleRate) {
     filterBank.init(sampleRate);
     filterBank.setSize(10);
     filterBank.setBankBandPass(32.0, 243/128);
+
+    displayPage.initTitle("Filter Bank");
 }
 
 void FilterBankController::update() {

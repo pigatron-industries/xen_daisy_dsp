@@ -2,6 +2,7 @@
 #define MainController_h
 
 #include "Controller.h"
+#include "io/Timer.h"
 
 class MainController {
     public:
@@ -15,7 +16,9 @@ class MainController {
         int controllerSize;
         Controller** controllers;
 
-        bool controllerSelectMode = false;
+        Timer refreshTimer;
+
+        UIEvent updateUIEvent();
 
 };
 

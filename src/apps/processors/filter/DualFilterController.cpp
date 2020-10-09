@@ -28,21 +28,27 @@ void DualFilterController::update() {
     filter1.setResonance(resonanceInput1.getValue());
     filter2.setFrequency(frequencyInput2.getFrequency());
     filter2.setResonance(resonanceInput2.getValue());
+}
 
-    if(Hardware::hw.encoder.getDirection() == RotaryEncoder::Direction::CLOCKWISE) {
-        if(displayPage.selectedItem != -1) {
+void DualFilterController::updateDisplay() {
+    displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2) + "   ");
+    displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2) + "   ");
+}
+
+void DualFilterController::event(UIEvent event, int itemIndex) {
+    if(itemIndex > 0) {
+        if(event == UIEvent::EVENT_CLOCKWISE) {
             FilterWrapper& filter = displayPage.selectedItem == FIELD_FILTER1_TYPE ? filter1 : filter2;
             FilterWrapper::FilterType newType = static_cast<FilterWrapper::FilterType>((filter.getType() + 1)%(FilterWrapper::FilterType::MOOG_LADDER + 1));
             filter.setType(newType);
-            displayPage.setText(displayPage.selectedItem, getFilterTypeText(filter.getType()));
+            displayPage.setText(itemIndex, getFilterTypeText(filter.getType()));
+        } else if (event == UIEvent::EVENT_COUNTERCLOCKWISE) {
+            FilterWrapper& filter = displayPage.selectedItem == FIELD_FILTER1_TYPE ? filter1 : filter2;
+            FilterWrapper::FilterType newType = static_cast<FilterWrapper::FilterType>(filter.getType() > 0 ? filter.getType() - 1 : FilterWrapper::FilterType::MOOG_LADDER);
+            filter.setType(newType);
+            displayPage.setText(itemIndex, getFilterTypeText(filter.getType()));
         }
     }
-    if(Hardware::hw.encoderButton.pressed()) {
-        displayPage.nextSelection();
-    }
-
-    displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2));
-    displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2));
 }
 
 void DualFilterController::process(float **in, float **out, size_t size) {

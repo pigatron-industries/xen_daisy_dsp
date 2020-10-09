@@ -1,10 +1,12 @@
 #include "Display.h"
 
+
 void Display::init() {
     tft.init();
     tft.setRotation(3);
     tft.fillScreen(TFT_BLACK);
     tft.setTextSize(1);
+    tft.setTextWrap(false);
 }
 
 void Display::setDisplayedPage(DisplayPage* page) {
@@ -25,21 +27,21 @@ void Display::render(bool all) {
 void Display::renderItem(int index, bool all) {
     DisplayItem &item = displayedPage->items[index];
     if(all || item.dirty) {
-        Serial.println(index);
-        int cursorX = index * LINE_HEIGHT;
+        int cursorY = index * LINE_HEIGHT;
 
-        tft.setCursor(LINE_INDENT, cursorX, LINE_FONT);
-        if(index == displayedPage->selectedItem) {
-            tft.fillRect(0, cursorX, tft.width()-1, LINE_HEIGHT, TFT_NAVY);
-            tft.setTextColor(index == 0 ? TFT_YELLOW : TFT_CYAN, TFT_NAVY);
-        } else {
-            tft.fillRect(0, cursorX, tft.width()-1, LINE_HEIGHT, TFT_BLACK);
-            tft.setTextColor(index == 0 ? TFT_OLIVE : TFT_DARKCYAN, TFT_BLACK);
-        }
+        bool selected = index == displayedPage->selectedItem;
+        int32_t backgroundColour = selected ? TFT_NAVY : TFT_BLACK;
+        int32_t textColour = index == 0 ? 
+                                (selected ? TFT_YELLOW : TFT_OLIVE) :
+                                (selected ? TFT_CYAN : TFT_DARKCYAN);
 
-        tft.print(item.text);
+        tft.setTextColor(textColour, backgroundColour);
+        int16_t textWidth = tft.drawString(item.text, LINE_INDENT, cursorY, LINE_FONT);
+        tft.fillRect(0, cursorY, LINE_INDENT, LINE_HEIGHT, backgroundColour);
+        tft.fillRect(LINE_INDENT+textWidth, cursorY, tft.width()-1-textWidth-LINE_INDENT, LINE_HEIGHT, backgroundColour);
+       
         if(index == 0) {
-            tft.drawLine(0, cursorX+LINE_HEIGHT-1, tft.width()-1, cursorX+LINE_HEIGHT-1, TFT_OLIVE);
+            tft.drawLine(0, cursorY+LINE_HEIGHT-1, tft.width()-1, cursorY+LINE_HEIGHT-1, TFT_OLIVE);
         }
 
         item.dirty = false;

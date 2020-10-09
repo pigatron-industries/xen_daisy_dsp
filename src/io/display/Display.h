@@ -2,6 +2,7 @@
 #define Display_h
 
 #include "DisplayPage.h"
+#include "../Timer.h"
 
 #if defined(XEN_TFT)
     #include <TFT_eSPI.h>
@@ -18,9 +19,7 @@ public:
     void init();
     void setDisplayedPage(DisplayPage* page);
     void render();
-    // void setSelection(int index);
-    // void setText(int index, char* text);
-
+    
 private:
     #if defined(XEN_TFT)
         TFT_eSPI tft = TFT_eSPI();

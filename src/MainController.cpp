@@ -7,6 +7,7 @@ MainController::MainController(Controller** controllers, int size) {
 
 void MainController::init(float sampleRate) {
     Hardware::hw.init();
+    refreshTimer.start(100000);
     for(int i = 0; i < controllerSize; i++) {
         controllers[i]->init(sampleRate);
     }
@@ -14,33 +15,63 @@ void MainController::init(float sampleRate) {
 }
 
 void MainController::update() {
-    Hardware::hw.encoder.tick();
-    Hardware::hw.encoderButton.update();
+    UIEvent event = updateUIEvent();
 
-    if(!controllerSelectMode) {
-        if(Hardware::hw.encoderButton.held() && Hardware::hw.encoderButton.duration() > 1000) {
-            controllerSelectMode = true;
-            controllers[activeController]->getDisplayPage()->setSelection(0);
-        }
-        controllers[activeController]->update();
-    } else {
-        RotaryEncoder::Direction dir = Hardware::hw.encoder.getDirection();
-        if(dir == RotaryEncoder::Direction::CLOCKWISE) {
+    if(controllers[activeController]->getDisplayPage()->selectedItem == 0) {
+        // When title is selected then encoder switches controller
+        if(event == UIEvent::EVENT_CLOCKWISE) {
             activeController = ((activeController + 1) % (controllerSize));
             controllers[activeController]->getDisplayPage()->setSelection(0);
             Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
-        } else if(dir == RotaryEncoder::Direction::COUNTERCLOCKWISE) {
+        } else if(event == UIEvent::EVENT_COUNTERCLOCKWISE) {
             activeController = activeController > 0 ? activeController - 1 : controllerSize - 1;
             controllers[activeController]->getDisplayPage()->setSelection(0);
             Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
         }
-        if(Hardware::hw.encoderButton.pressed()) {
-            controllerSelectMode = false;
+        if(event == UIEvent::EVENT_SHORT_PRESS) {
             controllers[activeController]->getDisplayPage()->setSelection(-1);
         }
+    } else {
+        if(event == UIEvent::EVENT_CLOCKWISE) {
+            controllers[activeController]->event(event, controllers[activeController]->getDisplayPage()->selectedItem);
+        } else if (event == UIEvent::EVENT_COUNTERCLOCKWISE) {
+            controllers[activeController]->event(event, controllers[activeController]->getDisplayPage()->selectedItem);
+        }
+        if(event == UIEvent::EVENT_SHORT_PRESS) {
+            controllers[activeController]->getDisplayPage()->nextSelection();
+        }
+        if(event == UIEvent::EVENT_LONG_PRESS) {
+            controllers[activeController]->getDisplayPage()->setSelection(0);
+        }
+        controllers[activeController]->update();
+    }
+
+    if(refreshTimer.isFinished()) {
+        controllers[activeController]->updateDisplay();
+        refreshTimer.start();
     }
 
     Hardware::hw.display.render();
+}
+
+UIEvent MainController::updateUIEvent() {
+    Hardware::hw.encoderButton.update();
+    Hardware::hw.encoder.tick();
+    RotaryEncoder::Direction dir = Hardware::hw.encoder.getDirection();
+
+    if(Hardware::hw.encoderButton.held() && Hardware::hw.encoderButton.duration() >= 1000) {
+        return UIEvent::EVENT_LONG_PRESS;
+    }
+    if(dir == RotaryEncoder::Direction::CLOCKWISE) {
+        return UIEvent::EVENT_CLOCKWISE;
+    }
+    if(dir == RotaryEncoder::Direction::COUNTERCLOCKWISE) {
+        return UIEvent::EVENT_COUNTERCLOCKWISE;
+    }
+    if(Hardware::hw.encoderButton.released() && Hardware::hw.encoderButton.previousDuration() < 1000) {
+        return UIEvent::EVENT_SHORT_PRESS;
+    }
+    return UIEvent::EVENT_NONE;
 }
 
 void MainController::process(float **in, float **out, size_t size) {

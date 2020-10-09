@@ -8,6 +8,14 @@
 #define LINE_HEIGHT 16
 #define TEXT_INDENT 2
 
+enum UIEvent {
+    EVENT_NONE,
+    EVENT_CLOCKWISE,
+    EVENT_COUNTERCLOCKWISE,
+    EVENT_SHORT_PRESS,
+    EVENT_LONG_PRESS
+};
+
 class Controller {
     public:
         Controller() {}
@@ -16,6 +24,8 @@ class Controller {
 
         virtual void init(float sampleRate) = 0;
         virtual void update() {}
+        virtual void updateDisplay() {}
+        virtual void event(UIEvent event, int itemIndex) {}
         virtual void process(float **in, float **out, size_t size) = 0;
 
     protected:

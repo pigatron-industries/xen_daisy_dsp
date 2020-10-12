@@ -49,7 +49,7 @@ void FilterBank::setBankBandPass(float firstFrequency, float frequencyRatio) {
         filters[i].setType(FilterWrapper::FilterType::SVF_BAND_PASS);
         filters[i].setFrequency(frequency);
         filters[i].setGain(1);
-        filters[i].setResonance(0.8);
+        filters[i].setResonance(0);
         frequency = frequency * frequencyRatio;
     }
     processOrder = ProcessOrder::PARALLEL;

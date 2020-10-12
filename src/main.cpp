@@ -14,6 +14,10 @@ size_t numChannels;
     #include "apps/processors/filterbank/FilterBankController.h"
     FilterBankController filterBankController;
 #endif
+#if defined(XEN_VOCODER)
+    #include "apps/processors/vocoder/VocoderController.h"
+    VocoderController vocoderController;
+#endif
 #if defined(XEN_VOWEL_FILTER)
     #include "apps/processors/vowelizer/VowelizerController.h"
     VowelizerController vowelizerController;
@@ -53,6 +57,9 @@ void setup() {
     #endif
     #if defined(XEN_VOWEL_FILTER)
         mainController.registerController(&vowelizerController);
+    #endif
+    #if defined(XEN_VOCODER)
+        mainController.registerController(&vocoderController);
     #endif
     #if defined(XEN_VOCAL_TRACT)
         mainController.registerController(&tractController);

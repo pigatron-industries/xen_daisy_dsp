@@ -13,6 +13,17 @@ class FilterBankController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
+        AnalogInput gainInput1 = AnalogInput(A0, -5, 5, 0, 1);
+        AnalogInput gainInput2 = AnalogInput(A1, -5, 5, 0, 1);
+        AnalogInput gainInput3 = AnalogInput(A2, -5, 5, 0, 1);
+        AnalogInput gainInput4 = AnalogInput(A3, -5, 5, 0, 1);
+        AnalogInput gainInput5 = AnalogInput(A4, -5, 5, 0, 1);
+        AnalogInput gainInput6 = AnalogInput(A5, -5, 5, 0, 1);
+        AnalogInput gainInput7 = AnalogInput(A6, -5, 5, 0, 1);
+        AnalogInput gainInput8 = AnalogInput(A7, -5, 5, 0, 1);
+        AnalogInput gainInput9 = AnalogInput(A8, -5, 5, 0, 1);
+        AnalogInput gainInput10 = AnalogInput(A9, -5, 5, 0, 1);
+
         FilterBank filterBank;
 
 };

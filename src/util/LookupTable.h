@@ -2,6 +2,8 @@
 #define LookupTable_h
 
 #include <math.h>
+#include <string>
+#include <iostream>
 
 template <int tableSize>
 class LookupTable {
@@ -23,12 +25,16 @@ class LookupTable {
             }
         }
 
+        int toIndex(float input) {
+            return int(((input - inputMin) * tableRange) / inputRange);
+        }
+
         float get(float input) {
             float i = ((input - inputMin) * tableRange) / inputRange;
             return outputs[int(i)];
         }
 
-        float get(int index) {
+        float getByIndex(int index) {
             return outputs[index];
         }
 
@@ -41,24 +47,27 @@ class LookupTable {
 };
 
 
+template <int tableSize>
+class TrigLookup : public LookupTable<tableSize> {
+    public:
+        TrigLookup() : LookupTable<tableSize>(sinf, 0, M_PI/2) {}
 
-LookupTable<255> sineLookup = LookupTable<255>(sinf, 0, M_PI/2);
+        float sin(float input) {
+            int sign = 1;
+            if(input >= M_PI*2) {
+                input = fmod(input, M_PI*2);
+            }
+            if(input >= M_PI) {
+                input = fmod(input, M_PI);
+                sign = -1;
+            } else if(input >= M_PI*0.5001) {
+                input = M_PI - input;
+            }
+            return sign * LookupTable<tableSize>::get(input);
+        }
+};
 
 
-float l_sin(float input) {
-    int sign = 1;
-    if(input >= M_PI*2) {
-        input = fmod(input, M_PI*2);
-    }
-    if(input >= M_PI) {
-        input = fmod(input, M_PI);
-        sign = -1;
-    } else if(input >= M_PI/2) {
-        input = M_PI - input;
-    }
-    
-    return sign * sineLookup.get(input);
-}
 
 
 #endif

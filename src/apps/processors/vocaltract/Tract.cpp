@@ -1,5 +1,5 @@
 #include "Tract.h"
-#include "../../../modules/util.h"
+#include "../../../util/util.h"
 
 t_tractProps defaultTractProps(int n) {
     t_tractProps props;

@@ -1,8 +1,11 @@
 #ifndef VocoderBand_h
 #define VocoderBand_h
 
-#include "DaisyDuino.h"
+#include <DaisyDuino.h>
+#include "../../../modules/Oscillator.h"
 #include "EnvelopeFollower.h"
+
+using namespace pigatron;
 
 class VocoderBand {
     public:
@@ -15,10 +18,10 @@ class VocoderBand {
         void setUseCarrierOscillator(bool value) { useCarrierOscillator = value; }
 
     private:
-        Svf modulatorFilter;
+        daisysp::Svf modulatorFilter;
         EnvelopeFollower envelopeFollower;
-        Svf carrierFilter;
-        Oscillator carrierOscillator;
+        daisysp::Svf carrierFilter;
+        pigatron::Oscillator carrierOscillator;
         bool useCarrierOscillator = false;
 
 };

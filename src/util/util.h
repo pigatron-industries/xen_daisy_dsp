@@ -1,7 +1,8 @@
 #ifndef util_h
 #define util_h
 
-#include <math.h>
+//#include <math.h>
+#include <Arduino.h>
 
 #define M_PI 3.14159265358979323846f
 

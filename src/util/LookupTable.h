@@ -1,33 +1,29 @@
 #ifndef LookupTable_h
 #define LookupTable_h
 
-#include <math.h>
-#include <string>
-#include <iostream>
 #include "util.h"
 
 template <int size>
 class LookupTable {
     public:
-        LookupTable(float (*func)(float), float inputMin, float inputMax) {
-            populate(func, inputMin, inputMax);
+        LookupTable(float (*func)(float), float inputMax) {
+            populate(func, inputMax);
         }
 
-        void populate(float (*func)(float), float inputMin, float inputMax) {
-            this->inputMin = inputMin;
+        void populate(float (*func)(float), float inputMax) {
             this->inputMax = inputMax;
-            this->inputRange = inputMax - inputMin;
             this->tableRange = size-1;
+            this->rangeFactor = tableRange / inputMax;
 
             for(int i = 0; i < size; i++) {
-                float input = ((float(i) * inputRange) / tableRange) + inputMin;
+                float input = ((float(i) * inputMax) / tableRange);
                 float output = func(input);
                 outputs[i] = output;
             }
         }
 
         float toIndex(float input) {
-            return ((input - inputMin) * tableRange) / inputRange;
+            return input * rangeFactor;
         }
 
         float get(float input) {
@@ -40,10 +36,9 @@ class LookupTable {
         }
 
     protected:
-        float inputMin;
         float inputMax;
-        float inputRange;
         float tableRange;
+        float rangeFactor;
         float outputs[size];
 };
 
@@ -51,7 +46,7 @@ class LookupTable {
 template <int size>
 class TrigLookup : public LookupTable<size> {
     public:
-        TrigLookup() : LookupTable<size>(sinf, 0, M_PI/2) {}
+        TrigLookup() : LookupTable<size>(sinf, M_PI/2) {}
 
         float sin(float input) {
             float index = LookupTable<size>::toIndex(input);
@@ -82,7 +77,14 @@ class TrigLookup : public LookupTable<size> {
         }
 };
 
+#define TRIG_LOOKUP_SIZE 50
 
+class LookupTables {
+    public:
+        static TrigLookup<TRIG_LOOKUP_SIZE> trigLookup;
+};
+
+TrigLookup<TRIG_LOOKUP_SIZE> LookupTables::trigLookup;
 
 
 #endif

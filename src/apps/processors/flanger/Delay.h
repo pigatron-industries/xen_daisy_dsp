@@ -3,7 +3,7 @@
 
 #include "DaisyDuino.h"
 
-#define MAX_DELAY static_cast<size_t>(48000*1)  // 1000ms
+#define MAX_DELAY static_cast<size_t>(48000*0.1)  // 100ms
 
 class Delay {
     public:

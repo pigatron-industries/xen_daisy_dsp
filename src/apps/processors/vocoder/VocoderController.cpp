@@ -7,8 +7,8 @@
 
 void VocoderController::init(float sampleRate) {
     vocoder.init(sampleRate);
-    vocoder.initBands(55.0, 0.3333, 6); // 1/3 octave 400 cents
-    vocoder.setUseCarrierOscillator(false);
+    vocoder.initBands(55.0, 0.3333, 1); // 1/3 octave 400 cents
+    vocoder.setUseCarrierOscillator(true);
 
     displayPage.initTitle("Vocoder");
     displayPage.initField(FIELD_VOCODER_BANDS, String(vocoder.getBandCount()), false);
@@ -21,7 +21,7 @@ void VocoderController::update() {
 }
 
 void VocoderController::updateDisplay() { 
-    vocoder.initBands(55.0, frequencyRatio.getValue(), 6); //TODO only call this when input value has changed significantly OR limit to specific frequencies
+    //vocoder.initBands(55.0, frequencyRatio.getValue(), 6); //TODO only call this when input value has changed significantly OR limit to specific frequencies
     displayPage.setText(FIELD_VOCODER_BANDS, String(vocoder.getBandCount()));
 }
 

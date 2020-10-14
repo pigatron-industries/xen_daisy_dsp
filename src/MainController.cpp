@@ -54,6 +54,12 @@ void MainController::update() {
     }
 
     Hardware::hw.display.render();
+
+    #if defined(PROFILE_PROCESS)
+        if(profiler.isFull()) {
+            profiler.dumpAverageTime();
+        }
+    #endif
 }
 
 UIEvent MainController::updateUIEvent() {
@@ -77,5 +83,11 @@ UIEvent MainController::updateUIEvent() {
 }
 
 void MainController::process(float **in, float **out, size_t size) {
+    #if defined(PROFILE_PROCESS)
+        profiler.start();
+    #endif
     controllers[activeController]->process(in, out, size);
+    #if defined(PROFILE_PROCESS)
+        profiler.end();
+    #endif
 }

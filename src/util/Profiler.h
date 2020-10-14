@@ -13,12 +13,21 @@ class Profiler {
             startTime = micros();
         }
 
-        inline void stop() {
-            times[position] = micros() - startTime;
-            if(position >= PROFILER_SAMPLES) {
-                position = 0;
-                dumpAverageTime();
+        inline void end() {
+            if(!full) {
+                unsigned long endTime = micros();
+                if(endTime > startTime) {
+                    times[position++] = endTime - startTime;
+                    if(position >= PROFILER_SAMPLES) {
+                        position = 0;
+                        full = true;
+                    }
+                }
             }
+        }
+
+        inline bool isFull() {
+            return full;
         }
 
         inline void dumpAverageTime() {
@@ -29,12 +38,15 @@ class Profiler {
             average = average / PROFILER_SAMPLES;
             Serial.print("Average time: ");
             Serial.println(average);
+            full = false;
+            position = 0;
         }
 
 
     private:
         unsigned long startTime;
         unsigned long times[PROFILER_SAMPLES];
+        bool full;
         int position = 0;
 
 };

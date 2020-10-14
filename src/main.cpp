@@ -6,6 +6,10 @@
 DaisyHardware hardware;
 size_t numChannels;
 
+#if defined(XEN_OSCILLATOR)
+    #include "apps/generators/oscillator/OscillatorController.h"
+    OscillatorController oscillatorController;
+#endif
 #if defined(XEN_DUAL_FILTER)
     #include "apps/processors/filter/DualFilterController.h"
     DualFilterController dualFilterController;
@@ -49,6 +53,9 @@ void setup() {
     Serial.begin(115200);
     Serial.println("Pigatron Industries");
 
+    #if defined(XEN_OSCILLATOR)
+        mainController.registerController(&oscillatorController);
+    #endif
     #if defined(XEN_DUAL_FILTER)
         mainController.registerController(&dualFilterController);
     #endif

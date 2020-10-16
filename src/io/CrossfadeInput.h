@@ -11,10 +11,12 @@ class CrossfadeInput : public AnalogInput {
             AnalogInput(_pin, _realMin, _realMax, 0, 1) {
         }
 
-        inline void update() {
-            AnalogInput::update();
-            dryLevel = std::sqrt(getValue());
-            wetLevel = std::sqrt(1-getValue());
+        inline bool update() {
+            if(AnalogInput::update()) {
+                dryLevel = sqrtf(getValue());
+                wetLevel = sqrtf(1-getValue());
+            }
+            return isChanged();
         }
 
         inline float getDryLevel() { return dryLevel; }

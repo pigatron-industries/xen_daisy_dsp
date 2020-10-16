@@ -20,19 +20,27 @@ void DualFilterController::init(float sampleRate) {
 }
 
 void DualFilterController::update() {
-    frequencyInput1.update();
-    resonanceInput1.update();
-    frequencyInput2.update();
-    resonanceInput2.update();
-    filter1.setFrequency(frequencyInput1.getFrequency());
-    filter1.setResonance(resonanceInput1.getValue());
-    filter2.setFrequency(frequencyInput2.getFrequency());
-    filter2.setResonance(resonanceInput2.getValue());
+    if(frequencyInput1.update()) {
+        filter1.setFrequency(frequencyInput1.getFrequency());
+    }
+    if(resonanceInput1.update()) {
+        filter1.setResonance(resonanceInput1.getValue());
+    }
+    if(frequencyInput2.update()) {
+        filter2.setFrequency(frequencyInput2.getFrequency());
+    }
+    if(resonanceInput2.update()) {
+        filter2.setResonance(resonanceInput2.getValue());
+    }
 }
 
 void DualFilterController::updateDisplay() {
-    displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2));
-    displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2));
+    if(frequencyInput1.isChanged()) {
+        displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2));
+    }
+    if(frequencyInput2.isChanged()) {
+        displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2));
+    }
 }
 
 void DualFilterController::event(UIEvent event, int itemIndex) {

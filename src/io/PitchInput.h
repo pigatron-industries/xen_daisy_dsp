@@ -3,20 +3,22 @@
 
 #include <inttypes.h>
 #include "DaisyDuino.h"
+#include "AbstractInput.h"
 
-class PitchInput {
+class PitchInput : public AbstractInput {
     public:
-        PitchInput(uint8_t _pin) : pin(_pin) {
+        PitchInput(uint8_t _pin) : AbstractInput(_pin) {
         }
 
-        PitchInput(uint8_t _pin, float zeroFrequency) : pin(_pin) {
+        PitchInput(uint8_t _pin, float zeroFrequency) : AbstractInput(_pin) {
             this->zeroFrequency = zeroFrequency;
         }
 
-        inline void update() {
-            value = analogRead(pin);
-            voltage = ((value / 1023.0) * -10.0) + 5;
-            frequency = zeroFrequency*powf(2, voltage);
+        inline bool update() {
+            if(readVoltage()) {
+                frequency = zeroFrequency*powf(2, getVoltage());
+            }
+            return isChanged();
         }
 
         inline float getFrequency() {
@@ -28,14 +30,8 @@ class PitchInput {
         }
 
     private:
-        uint8_t pin;
-
-        uint32_t value;
-        float voltage;
-        float frequency;
-
         float zeroFrequency = 880;
-
+        float frequency;
 };
 
 #endif

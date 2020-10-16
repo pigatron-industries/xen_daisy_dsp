@@ -8,6 +8,12 @@ void DisplayPage::initTitle(String text) {
     items[0].selectable = false;
 }
 
+void DisplayPage::initField(int index, bool selectable) {
+    if(index >= size) size = index+1;
+    items[index].text = String("");
+    items[index].selectable = selectable;
+}
+
 void DisplayPage::initField(int index, String text, bool selectable) {
     if(index >= size) size = index+1;
     items[index].text = text;

@@ -14,9 +14,9 @@ void DualFilterController::init(float sampleRate) {
 
     displayPage.initTitle("Dual Filter");
     displayPage.initField(FIELD_FILTER1_TYPE, getFilterTypeText(filter1.getType()), true);
-    displayPage.initField(FIELD_FILTER1_FREQ, "0", false);
+    displayPage.initField(FIELD_FILTER1_FREQ, false);
     displayPage.initField(FIELD_FILTER2_TYPE, getFilterTypeText(filter1.getType()), true);
-    displayPage.initField(FIELD_FILTER2_FREQ, "0", false);
+    displayPage.initField(FIELD_FILTER2_FREQ, false);
 }
 
 void DualFilterController::update() {

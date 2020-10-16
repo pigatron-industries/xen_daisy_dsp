@@ -13,9 +13,9 @@ void VocoderController::init(float sampleRate) {
     vocoder.setUseCarrierOscillator(false);
 
     displayPage.initTitle("Vocoder");
-    displayPage.initField(FIELD_VOCODER_BANDS, String("Bands: ") + String(vocoder.getBandCount()), false);
-    displayPage.initField(FIELD_VOCODER_FREQUENCYBASE, String("Frequency Base: ") + String(vocoder.getFrequencyBase()), false);
-    displayPage.initField(FIELD_VOCODER_PITCHINTERVAL, String("Pitch Interval: ") + String(vocoder.getPitchInterval()), false);
+    displayPage.initField(FIELD_VOCODER_BANDS, false);
+    displayPage.initField(FIELD_VOCODER_FREQUENCYBASE, false);
+    displayPage.initField(FIELD_VOCODER_PITCHINTERVAL, false);
 }
 
 void VocoderController::update() { 
@@ -24,10 +24,11 @@ void VocoderController::update() {
     pitchIntervalInput.update();
     bandsInput.update();
     vocoder.setResonance(resonanceInput.getValue());
-    vocoder.initBands(frequencyBaseInput.getValue(), pitchIntervalInput.getValue(), int(bandsInput.getValue()));
+    vocoder.initBands(frequencyBaseInput.getValue(), pitchIntervalInput.getValue(), int(bandsInput.getValue())); //TODO only call if there has been a change
 }
 
 void VocoderController::updateDisplay() { 
+    //TODO only update fields when there is a change
     displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(vocoder.getBandCount()));
     displayPage.setText(FIELD_VOCODER_FREQUENCYBASE, String("Frequency Base: ") + String(vocoder.getFrequencyBase()));
     displayPage.setText(FIELD_VOCODER_PITCHINTERVAL, String("Pitch Interval: ") + String(vocoder.getPitchInterval(), 4));

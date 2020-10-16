@@ -8,6 +8,7 @@
 class DisplayPage {
     public:
         void initTitle(String text);
+        void initField(int index, bool selectable);
         void initField(int index, String text, bool selectable);
 
         void setText(int index, String text);

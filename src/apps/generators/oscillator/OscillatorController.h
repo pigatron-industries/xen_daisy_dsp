@@ -2,7 +2,7 @@
 #define OscillatorController_h
 
 #include "../../../Controller.h"
-#include "../../../io/PitchInput.h"
+#include "../../../io/input/PitchInput.h"
 
 class OscillatorController : public Controller {
     public:

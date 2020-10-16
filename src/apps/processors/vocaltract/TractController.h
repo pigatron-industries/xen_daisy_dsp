@@ -2,7 +2,7 @@
 #define TractController_h
 
 #include "../../../Controller.h"
-#include "../../../io/AnalogInput.h"
+#include "../../../io/input/AnalogInput.h"
 #include "../../../modules/BiquadFilter.h"
 #include "Tract.h"
 

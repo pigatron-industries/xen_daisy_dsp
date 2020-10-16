@@ -5,8 +5,8 @@
 #include "Glottis.h"
 #include "../../../Controller.h"
 #include "../../../modules/BiquadFilter.h"
-#include "../../../io/PitchInput.h"
-#include "../../../io/AnalogInput.h"
+#include "../../../io/input/PitchInput.h"
+#include "../../../io/input/AnalogInput.h"
 
 class GlottisController : public Controller {
     public:

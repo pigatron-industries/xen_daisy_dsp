@@ -1,5 +1,5 @@
-#ifndef CvInput_h
-#define CvInput_h
+#ifndef AnalogInput_h
+#define AnalogInput_h
 
 #include <inttypes.h>
 #include "DaisyDuino.h"

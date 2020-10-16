@@ -3,7 +3,7 @@
 
 #include "../../../Controller.h"
 #include "Vowelizer.h"
-#include "../../../io/AnalogInput.h"
+#include "../../../io/input/AnalogInput.h"
 
 class VowelizerController : public Controller {
     public:

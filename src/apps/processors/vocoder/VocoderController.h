@@ -3,7 +3,7 @@
 
 #include "Vocoder.h"
 #include "../../../Controller.h"
-#include "../../../io/AnalogInput.h"
+#include "../../../io/input/AnalogInput.h"
 
 class VocoderController : public Controller {
     public:

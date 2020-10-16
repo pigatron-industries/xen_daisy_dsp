@@ -75,6 +75,9 @@ String DualFilterController::getFilterTypeText(FilterWrapper::FilterType type) {
         case FilterWrapper::FilterType::SVF_PEAK:
             return "SVF Peak";
             break;
+        case FilterWrapper::FilterType::BIQUAD:
+            return "Biquad Filter";
+            break;
         case FilterWrapper::FilterType::MOOG_LADDER:
             return "Moog Ladder";
             break;

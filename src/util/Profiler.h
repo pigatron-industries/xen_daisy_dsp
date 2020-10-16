@@ -3,10 +3,22 @@
 
 #include <Arduino.h>
 
+#ifdef PROFILE_PROCESS
+    #define PROFILE_START Profiler::profiler.start();                                                                     
+    #define PROFILE_END Profiler::profiler.end();  
+    #define PROFILE_DUMP if(Profiler::profiler.isFull()) { Profiler::profiler.dumpAverageTime(); }
+#else
+    #define PROFILE_START                                                                   
+    #define PROFILE_END
+    #define PROFILE_DUMP
+#endif
+
 #define PROFILER_SAMPLES 1000
 
 class Profiler {
     public:
+        static Profiler profiler;
+
         Profiler() {}
 
         inline void start() {

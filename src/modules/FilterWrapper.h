@@ -3,6 +3,7 @@
 
 #include "DaisyDuino.h"
 #include "BiquadFilter.h"
+#include "StateVariableFilter.h"
 
 /**
  * Wrapper around various filter types so that they can be easily switched. 
@@ -16,6 +17,7 @@ class FilterWrapper {
             SVF_HIGH_PASS,
             SVF_NOTCH,
             SVF_PEAK,
+            BIQUAD,
             MOOG_LADDER
         };
 
@@ -38,7 +40,8 @@ class FilterWrapper {
         float resonance = 0;
         float gain = 1;
 
-        Svf svfFilter;
+        StateVariableFilter svfFilter;
+        BiquadFilter biquadFilter;
         MoogLadder moogLadderFilter;
 
 };

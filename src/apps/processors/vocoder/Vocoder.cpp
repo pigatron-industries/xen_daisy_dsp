@@ -6,25 +6,43 @@ void Vocoder::init(float sampleRate) {
     }
 }
 
-void Vocoder::initBands(float startFrequency, float pitchDifference, float octaves) {
-    float frequencyRatio = powf(2, pitchDifference);
-    float frequency = startFrequency;
-    float pitch = 0;
-    bandCount = MAX_VOCODER_BANDS;
-    for(int i = 0; i < MAX_VOCODER_BANDS; i++) {
+void Vocoder::initBands(float frequencyBase, float pitchInterval, int bandCount) {
+    this->pitchInterval = pitchInterval;
+    this->frequencyBase = frequencyBase;
+    this->bandCount = bandCount;
+    frequencyRatio = powf(2, pitchInterval);
+
+    float frequency = frequencyBase;
+    for(int i = 0; i < bandCount; i++) {
         bands[i].setFrequency(frequency);
         frequency = frequency * frequencyRatio;
-        pitch = pitch + pitchDifference;
-        if(pitch > octaves) {
-            bandCount = i;
-            break;
-        }
     }
 }
 
 void Vocoder::setResonance(float resonance) {
     for(int i = 0; i < bandCount; i++) {
         bands[i].setResonance(resonance);
+    }
+}
+
+void Vocoder::setFrequencyBase(float frequencyBase) {
+    this->frequencyBase = frequencyBase;
+    float frequency = frequencyBase;
+    float pitch = 0;
+    for(int i = 0; i < bandCount; i++) {
+        bands[i].setFrequency(frequency);
+        frequency = frequency * frequencyRatio;
+    }
+}
+
+void Vocoder::setPitchInterval(float pitchInterval) {
+    this->pitchInterval = pitchInterval;
+    frequencyRatio = powf(2, pitchInterval);
+
+    float frequency = frequencyBase;
+    for(int i = 0; i < bandCount; i++) {
+        bands[i].setFrequency(frequency);
+        frequency = frequency * frequencyRatio;
     }
 }
 

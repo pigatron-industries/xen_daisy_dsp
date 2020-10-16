@@ -2,6 +2,7 @@
 #define VocoderBand_h
 
 #include <DaisyDuino.h>
+#include "../../../modules/StateVariableFilter.h"
 #include "../../../modules/Oscillator.h"
 #include "EnvelopeFollower.h"
 
@@ -18,9 +19,9 @@ class VocoderBand {
         void setUseCarrierOscillator(bool value) { useCarrierOscillator = value; }
 
     private:
-        daisysp::Svf modulatorFilter;
+        StateVariableFilter modulatorFilter;
         EnvelopeFollower envelopeFollower;
-        daisysp::Svf carrierFilter;
+        StateVariableFilter carrierFilter;
         pigatron::Oscillator carrierOscillator;
         bool useCarrierOscillator = false;
 

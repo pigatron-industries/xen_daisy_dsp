@@ -3,8 +3,8 @@
 
 void FilterWrapper::init(float sampleRate) {
     svfFilter.Init(sampleRate);
-    svfFilter.SetDrive(0);
     moogLadderFilter.Init(sampleRate);
+    biquadFilter.init(sampleRate);
 }
 
 float FilterWrapper::process(float in) {
@@ -24,6 +24,8 @@ float FilterWrapper::process(float in) {
         case SVF_PEAK:
             svfFilter.Process(in);
             return svfFilter.Peak();
+        case BIQUAD:
+            return biquadFilter.process(in);
         case MOOG_LADDER:
             return moogLadderFilter.Process(in);
     }
@@ -44,8 +46,13 @@ void FilterWrapper::setFrequency(float frequency) {
         case SVF_NOTCH:
         case SVF_PEAK:
             svfFilter.SetFreq(frequency);
+            break;
+        case BIQUAD:
+            biquadFilter.setFrequency(frequency);
+            break;
         case MOOG_LADDER:
             moogLadderFilter.SetFreq(frequency);
+            break;
     }
 }
 
@@ -58,8 +65,13 @@ void FilterWrapper::setResonance(float resonance) {
         case SVF_NOTCH:
         case SVF_PEAK:
             svfFilter.SetRes(resonance);
+            break;
+        case BIQUAD:
+            biquadFilter.setQ(resonance*2);
+            break;
         case MOOG_LADDER:
             moogLadderFilter.SetRes(resonance);
+            break;
     }
 }
 

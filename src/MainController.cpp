@@ -1,5 +1,5 @@
 #include "MainController.h"
-
+#include "util/Profiler.h"
 
 void MainController::registerController(Controller* controller) {
     controllers[controllerSize] = controller;
@@ -55,11 +55,7 @@ void MainController::update() {
 
     Hardware::hw.display.render();
 
-    #if defined(PROFILE_PROCESS)
-        if(profiler.isFull()) {
-            profiler.dumpAverageTime();
-        }
-    #endif
+    PROFILE_DUMP
 }
 
 UIEvent MainController::updateUIEvent() {
@@ -83,11 +79,7 @@ UIEvent MainController::updateUIEvent() {
 }
 
 void MainController::process(float **in, float **out, size_t size) {
-    #if defined(PROFILE_PROCESS)
-        profiler.start();
-    #endif
+    PROFILE_START
     controllers[activeController]->process(in, out, size);
-    #if defined(PROFILE_PROCESS)
-        profiler.end();
-    #endif
+    PROFILE_END
 }

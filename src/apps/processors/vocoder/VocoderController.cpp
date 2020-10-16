@@ -4,25 +4,33 @@
 #define RIGHT 1
 
 #define FIELD_VOCODER_BANDS 1
+#define FIELD_VOCODER_FREQUENCYBASE 2
+#define FIELD_VOCODER_PITCHINTERVAL 3
 
 void VocoderController::init(float sampleRate) {
     vocoder.init(sampleRate);
-    vocoder.initBands(55.0, 0.3333, 1); // 1/3 octave 400 cents
-    vocoder.setUseCarrierOscillator(true);
+    vocoder.initBands(110.0, 0.3333, bandCount); // 1/3 octave 400 cents
+    vocoder.setUseCarrierOscillator(false);
 
     displayPage.initTitle("Vocoder");
-    displayPage.initField(FIELD_VOCODER_BANDS, String(vocoder.getBandCount()), false);
+    displayPage.initField(FIELD_VOCODER_BANDS, String("Bands: ") + String(vocoder.getBandCount()), false);
+    displayPage.initField(FIELD_VOCODER_FREQUENCYBASE, String("Frequency Base: ") + String(vocoder.getFrequencyBase()), false);
+    displayPage.initField(FIELD_VOCODER_PITCHINTERVAL, String("Pitch Interval: ") + String(vocoder.getPitchInterval()), false);
 }
 
-void VocoderController::update() {
+void VocoderController::update() { 
     resonanceInput.update();
-    frequencyRatio.update();
+    frequencyBaseInput.update();
+    pitchIntervalInput.update();
+    bandsInput.update();
     vocoder.setResonance(resonanceInput.getValue());
+    vocoder.initBands(frequencyBaseInput.getValue(), pitchIntervalInput.getValue(), int(bandsInput.getValue()));
 }
 
 void VocoderController::updateDisplay() { 
-    //vocoder.initBands(55.0, frequencyRatio.getValue(), 6); //TODO only call this when input value has changed significantly OR limit to specific frequencies
-    displayPage.setText(FIELD_VOCODER_BANDS, String(vocoder.getBandCount()));
+    displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(vocoder.getBandCount()));
+    displayPage.setText(FIELD_VOCODER_FREQUENCYBASE, String("Frequency Base: ") + String(vocoder.getFrequencyBase()));
+    displayPage.setText(FIELD_VOCODER_PITCHINTERVAL, String("Pitch Interval: ") + String(vocoder.getPitchInterval(), 4));
 }
 
 void VocoderController::process(float **in, float **out, size_t size) {

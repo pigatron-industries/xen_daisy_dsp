@@ -3,7 +3,6 @@
 
 #include "Controller.h"
 #include "io/Timer.h"
-#include "util/Profiler.h"
 
 #define MAX_CONTROLLERS 20
 
@@ -21,7 +20,6 @@ class MainController {
         Controller* controllers[MAX_CONTROLLERS];
 
         Timer refreshTimer;
-        Profiler profiler;
 
         UIEvent updateUIEvent();
 

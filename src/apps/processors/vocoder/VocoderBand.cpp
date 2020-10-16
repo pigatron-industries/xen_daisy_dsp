@@ -5,7 +5,7 @@ void VocoderBand::init(float sampleRate) {
     carrierFilter.Init(sampleRate);
     envelopeFollower.init(sampleRate);
     carrierOscillator.Init(sampleRate);
-    carrierOscillator.SetWaveform(pigatron::Oscillator::WAVE_SIN);
+    carrierOscillator.SetWaveform(pigatron::Oscillator::WAVE_TRI);
     carrierOscillator.SetAmp(0.5);
 }
 

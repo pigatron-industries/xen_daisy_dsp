@@ -2,7 +2,7 @@
 
 
 void FilterWrapper::init(float sampleRate) {
-    svfFilter.Init(sampleRate);
+    svfFilter.init(sampleRate);
     moogLadderFilter.Init(sampleRate);
     biquadFilter.init(sampleRate);
 }
@@ -10,20 +10,20 @@ void FilterWrapper::init(float sampleRate) {
 float FilterWrapper::process(float in) {
     switch(filterType) {
         case SVF_BAND_PASS:
-            svfFilter.Process(in);
-            return svfFilter.Band() * gain;
+            svfFilter.process(in);
+            return svfFilter.band() * gain;
         case SVF_LOW_PASS:
-            svfFilter.Process(in);
-            return svfFilter.Low() * gain;
+            svfFilter.process(in);
+            return svfFilter.low() * gain;
         case SVF_HIGH_PASS:
-            svfFilter.Process(in);
-            return svfFilter.High() * gain;
+            svfFilter.process(in);
+            return svfFilter.high() * gain;
         case SVF_NOTCH:
-            svfFilter.Process(in);
-            return svfFilter.Notch();
+            svfFilter.process(in);
+            return svfFilter.notch();
         case SVF_PEAK:
-            svfFilter.Process(in);
-            return svfFilter.Peak();
+            svfFilter.process(in);
+            return svfFilter.peak();
         case BIQUAD:
             return biquadFilter.process(in);
         case MOOG_LADDER:
@@ -45,7 +45,7 @@ void FilterWrapper::setFrequency(float frequency) {
         case SVF_HIGH_PASS:
         case SVF_NOTCH:
         case SVF_PEAK:
-            svfFilter.SetFreq(frequency);
+            svfFilter.setFrequency(frequency);
             break;
         case BIQUAD:
             biquadFilter.setFrequency(frequency);
@@ -64,7 +64,7 @@ void FilterWrapper::setResonance(float resonance) {
         case SVF_HIGH_PASS:
         case SVF_NOTCH:
         case SVF_PEAK:
-            svfFilter.SetRes(resonance);
+            svfFilter.setResonance(resonance);
             break;
         case BIQUAD:
             biquadFilter.setQ(resonance*2);

@@ -15,13 +15,3 @@ void EnvelopeFollower::setAttack(float attackMs) {
 void EnvelopeFollower::setRelease(float releaseMs) {
     m_r = pow (0.01, 1.0 / (releaseMs * sampleRate * 0.001));
 }
-
-float EnvelopeFollower::process(float in) {
-    float v = abs(in);
-    if (v > env) {
-        env = m_a * (env - v) + v;
-    } else {
-        env = m_r * (env - v) + v;
-    }
-    return env;
-}

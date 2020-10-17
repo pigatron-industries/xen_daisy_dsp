@@ -47,16 +47,7 @@ void Vocoder::setPitchInterval(float pitchInterval) {
 }
 
 void Vocoder::setUseCarrierOscillator(bool value) {
-    for(int i = 0; i < bandCount; i++) {
+    for(int i = 0; i < MAX_VOCODER_BANDS; i++) {
         bands[i].setUseCarrierOscillator(value);
     }
 }
-
-float Vocoder::process(float modulatorIn, float carrierIn) {
-    float out = 0;
-    for(int i = 0; i < bandCount; i++) {
-        out += bands[i].process(modulatorIn, carrierIn);
-    }
-    return out;
-}
-

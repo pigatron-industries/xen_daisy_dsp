@@ -45,13 +45,3 @@ void BiquadFilter::setQ(float q) {
 	this->q = q;
 	this->updateCoefficients();
 }
-
-float BiquadFilter::process(float xn) {
-	float yn = (this->a0 * xn) + (this->a1 * this->xm1) + (this->a2 * this->xm2) - (this->b1 * this->ym1) - (this->b2 * this->ym2);
-	this->ym2 = this->ym1;
-	this->ym1 = yn;
-	this->xm2 = this->xm1;
-	this->xm1 = xn;
-	return yn;
-}
-

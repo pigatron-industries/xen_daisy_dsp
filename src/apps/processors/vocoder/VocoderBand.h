@@ -4,6 +4,7 @@
 #include <DaisyDuino.h>
 #include "../../../modules/StateVariableFilter.h"
 #include "../../../modules/Oscillator.h"
+#include "../../../modules/BiquadFilter.h"
 #include "EnvelopeFollower.h"
 
 using namespace pigatron;
@@ -26,5 +27,22 @@ class VocoderBand {
         bool useCarrierOscillator = false;
 
 };
+
+
+inline float VocoderBand::process(float modulatorIn, float carrierIn) {
+    modulatorFilter.process(modulatorIn);
+    float mod = modulatorFilter.band();
+    float env = envelopeFollower.process(mod);
+
+    if(useCarrierOscillator) {
+        float osc = carrierOscillator.process();
+        return osc * env;
+    } else {
+        carrierFilter.process(carrierIn);
+        float car = carrierFilter.band();
+        return car * env;
+    }
+}
+
 
 #endif

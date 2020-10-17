@@ -3,7 +3,7 @@
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
-void StateVariableFilter::Init(float sample_rate)
+void StateVariableFilter::init(float sample_rate)
 {
     sr_        = sample_rate;
     fc_        = 200.0f;
@@ -23,32 +23,7 @@ void StateVariableFilter::Init(float sample_rate)
     out_band_  = 0.0f;
 }
 
-void StateVariableFilter::Process(float in)
-{
-    input_ = in;
-    // first pass
-    notch_     = input_ - damp_ * band_;
-    low_       = low_ + freq_ * band_;
-    high_      = notch_ - low_;
-    band_      = freq_ * high_ + band_;
-    out_low_   = low_;
-    out_high_  = high_;
-    out_band_  = band_;
-    out_peak_  = low_ - high_;
-    out_notch_ = notch_;
-    // second pass
-    notch_ = input_ - damp_ * band_;
-    low_   = low_ + freq_ * band_;
-    high_  = notch_ - low_;
-    band_  = freq_ * high_ + band_;
-    out_low_ += low_;
-    out_high_ += high_;
-    out_band_ += band_;
-    out_peak_ += low_ - high_;
-    out_notch_ += notch_;
-}
-
-void StateVariableFilter::SetFreq(float f)
+void StateVariableFilter::setFrequency(float f)
 {
     if(f < 0.000001f)
     {
@@ -73,7 +48,7 @@ void StateVariableFilter::SetFreq(float f)
                 MIN(2.0f, 2.0f / freq_ - freq_ * 0.5f));
 }
 
-void StateVariableFilter::SetRes(float r)
+void StateVariableFilter::setResonance(float r)
 {
     if(r < 0.0f)
     {

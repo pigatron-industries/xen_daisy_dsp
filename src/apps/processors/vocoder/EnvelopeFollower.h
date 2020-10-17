@@ -1,6 +1,7 @@
 #ifndef EnvelopeFollower_h
 #define EnvelopeFollower_h
 
+#include <math.h>
 
 class EnvelopeFollower {
     public:
@@ -17,5 +18,17 @@ class EnvelopeFollower {
         float env;
 
 };
+
+
+inline float EnvelopeFollower::process(float in) {
+    float v = fabsf(in);
+    if (v > env) {
+        env = m_a * (env - v) + v;
+    } else {
+        env = m_r * (env - v) + v;
+    }
+    return env;
+}
+
 
 #endif

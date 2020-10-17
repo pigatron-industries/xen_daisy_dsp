@@ -3,7 +3,7 @@
 
 #include "VocoderBand.h"
 
-#define MAX_VOCODER_BANDS 18
+#define MAX_VOCODER_BANDS 20
 
 class Vocoder {
     public:
@@ -31,5 +31,14 @@ class Vocoder {
         float sampleRate;
 
 };
+
+
+inline float Vocoder::process(float modulatorIn, float carrierIn) {
+    float out = 0;
+    for(int i = 0; i < bandCount; i++) {
+        out += bands[i].process(modulatorIn, carrierIn);
+    }
+    return out;
+}
 
 #endif

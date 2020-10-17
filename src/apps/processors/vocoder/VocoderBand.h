@@ -20,7 +20,7 @@ class VocoderBand {
         void setUseCarrierOscillator(bool value) { useCarrierOscillator = value; }
 
     private:
-        StateVariableFilter modulatorFilter;
+        BiquadFilter modulatorFilter;
         EnvelopeFollower envelopeFollower;
         StateVariableFilter carrierFilter;
         pigatron::Oscillator carrierOscillator;
@@ -30,8 +30,9 @@ class VocoderBand {
 
 
 inline float VocoderBand::process(float modulatorIn, float carrierIn) {
-    modulatorFilter.process(modulatorIn);
-    float mod = modulatorFilter.band();
+    // modulatorFilter.process(modulatorIn);
+    // float mod = modulatorFilter.band();
+    float mod = modulatorFilter.process(modulatorIn);
     float env = envelopeFollower.process(mod);
 
     if(useCarrierOscillator) {

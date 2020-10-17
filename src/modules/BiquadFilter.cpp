@@ -1,47 +1,166 @@
-#include "BiquadFilter.h"
+//
+//  Biquad.cpp
+//
+//  Created by Nigel Redmon on 11/24/12
+//  EarLevel Engineering: earlevel.com
+//  Copyright 2012 Nigel Redmon
+//
+//  For a complete explanation of the Biquad code:
+//  http://www.earlevel.com/main/2012/11/26/biquad-c-source-code/
+//
+//  License:
+//
+//  This source code is provided as is, without warranty.
+//  You may copy and distribute verbatim copies of this document.
+//  You may modify and use this source code to create binary code
+//  for your own purposes, free or commercial.
+//
+
 #include <math.h>
+#include "BiquadFilter.h"
 
-
-void BiquadFilter::init(float _sampleRate) {
-    frequency = 500;
-    q = 0.5;
-    gain = 1;
-    xm1 = 0.0;
-    xm2 = 0.0;
-    ym1 = 0.0;
-    ym2 = 0.0;
-    sampleRate = _sampleRate;
-    twopiOverSampleRate = M_PI * 2.0 / this->sampleRate;
-    updateCoefficients();
+BiquadFilter::BiquadFilter() {
+    type = LOWPASS;
+    a0 = 1.0;
+    a1 = a2 = b1 = b2 = 0.0;
+    fc = 0.50;
+    q = 0.707;
+    peakGain = 0.0;
+    z1 = z2 = 0.0;
 }
 
-void BiquadFilter::updateCoefficients() {
-	float omega = this->frequency * this->twopiOverSampleRate;
-	float sn = sin(omega);
-	float cs = cos(omega);
-	float one_over_Q = 1./this->q;
-	float alpha = sn * 0.5 * one_over_Q;
-	
-	// Bandpass only, for now
-	float b0 = 1./(1. + alpha);
-	this->a0 = alpha * b0;
-	this->a1 = 0.;
-	this->a2 = -alpha * b0;
-	this->b1 = -2. * cs * b0;
-	this->b2 = (1. - alpha) * b0;
+void BiquadFilter::init(float sampleRate) {
+    this->sampleRate = sampleRate;
 }
 
-void BiquadFilter::setFrequency(float f) {
-	this->frequency = f;
-	this->updateCoefficients();
-}
-
-void BiquadFilter::setGain(float g) {
-	this->gain = g;
-	this->updateCoefficients();
+void BiquadFilter::setType(FilterType type) {
+    this->type = type;
+    calcBiquad();
 }
 
 void BiquadFilter::setQ(float q) {
-	this->q = q;
-	this->updateCoefficients();
+    this->q = q;
+    calcBiquad();
+}
+
+void BiquadFilter::setFrequency(float frequency) {
+    if(frequency > sampleRate*0.5) {
+        frequency = sampleRate*0.5;
+    }
+    this->frequency = frequency;
+    this->fc = frequency / sampleRate;
+    calcBiquad();
+}
+
+void BiquadFilter::setPeakGain(float peakGainDB) {
+    this->peakGain = peakGainDB;
+    calcBiquad();
+}
+
+void BiquadFilter::setBiquad(FilterType type, float frequency, float q, float peakGainDB) {
+    this->type = type;
+    this->q = q;
+    this->frequency = frequency;
+    this->fc = frequency / sampleRate;
+    setPeakGain(peakGainDB);
+}
+
+void BiquadFilter::calcBiquad() {
+    float norm;
+    float v = pow(10, fabs(peakGain) / 20.0);
+    float k = tan(M_PI * fc);
+    switch (this->type) {
+        case LOWPASS:
+            norm = 1 / (1 + k / q + k * k);
+            a0 = k * k * norm;
+            a1 = 2 * a0;
+            a2 = a0;
+            b1 = 2 * (k * k - 1) * norm;
+            b2 = (1 - k / q + k * k) * norm;
+            break;
+            
+        case HIGHPASS:
+            norm = 1 / (1 + k / q + k * q);
+            a0 = 1 * norm;
+            a1 = -2 * a0;
+            a2 = a0;
+            b1 = 2 * (k * k - 1) * norm;
+            b2 = (1 - k / q + k * k) * norm;
+            break;
+            
+        case BANDPASS:
+            norm = 1 / (1 + k / q + k * k);
+            a0 = k / q * norm;
+            a1 = 0;
+            a2 = -a0;
+            b1 = 2 * (k * k - 1) * norm;
+            b2 = (1 - k / q + k * k) * norm;
+            break;
+            
+        case NOTCH:
+            norm = 1 / (1 + k / q + k * k);
+            a0 = (1 + k * k) * norm;
+            a1 = 2 * (k * k - 1) * norm;
+            a2 = a0;
+            b1 = a1;
+            b2 = (1 - k / q + k * k) * norm;
+            break;
+            
+        case PEAK:
+            if (peakGain >= 0) {    // boost
+                norm = 1 / (1 + 1/q * k + k * k);
+                a0 = (1 + v/q * k + k * k) * norm;
+                a1 = 2 * (k * k - 1) * norm;
+                a2 = (1 - v/q * k + k * k) * norm;
+                b1 = a1;
+                b2 = (1 - 1/q * k + k * k) * norm;
+            }
+            else {    // cut
+                norm = 1 / (1 + v/q * k + k * k);
+                a0 = (1 + 1/q * k + k * k) * norm;
+                a1 = 2 * (k * k - 1) * norm;
+                a2 = (1 - 1/q * k + k * k) * norm;
+                b1 = a1;
+                b2 = (1 - v/q * k + k * k) * norm;
+            }
+            break;
+        case LOWSHELF:
+            if (peakGain >= 0) {    // boost
+                norm = 1 / (1 + sqrt(2) * k + k * k);
+                a0 = (1 + sqrt(2*v) * k + v * k * k) * norm;
+                a1 = 2 * (v * k * k - 1) * norm;
+                a2 = (1 - sqrt(2*v) * k + v * k * k) * norm;
+                b1 = 2 * (k * k - 1) * norm;
+                b2 = (1 - sqrt(2) * k + k * k) * norm;
+            }
+            else {    // cut
+                norm = 1 / (1 + sqrt(2*v) * k + v * k * k);
+                a0 = (1 + sqrt(2) * k + k * k) * norm;
+                a1 = 2 * (k * k - 1) * norm;
+                a2 = (1 - sqrt(2) * k + k * k) * norm;
+                b1 = 2 * (v * k * k - 1) * norm;
+                b2 = (1 - sqrt(2*v) * k + v * k * k) * norm;
+            }
+            break;
+        case HIGHSHELF:
+            if (peakGain >= 0) {    // boost
+                norm = 1 / (1 + sqrt(2) * k + k * k);
+                a0 = (v + sqrt(2*v) * k + k * k) * norm;
+                a1 = 2 * (k * k - v) * norm;
+                a2 = (v - sqrt(2*v) * k + k * k) * norm;
+                b1 = 2 * (k * k - 1) * norm;
+                b2 = (1 - sqrt(2) * k + k * k) * norm;
+            }
+            else {    // cut
+                norm = 1 / (v + sqrt(2*v) * k + k * k);
+                a0 = (1 + sqrt(2) * k + k * k) * norm;
+                a1 = 2 * (k * k - 1) * norm;
+                a2 = (1 - sqrt(2) * k + k * k) * norm;
+                b1 = 2 * (k * k - v) * norm;
+                b2 = (v - sqrt(2*v) * k + k * k) * norm;
+            }
+            break;
+    }
+    
+    return;
 }

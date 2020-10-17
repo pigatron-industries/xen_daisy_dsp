@@ -10,7 +10,7 @@
 void VocoderController::init(float sampleRate) {
     vocoder.init(sampleRate);
     vocoder.initBands(110.0, 0.3333, 10); // 1/3 octave 400 cents
-    vocoder.setUseCarrierOscillator(true);
+    vocoder.setUseCarrierOscillator(false);
 
     displayPage.initTitle("Vocoder");
     displayPage.initField(FIELD_VOCODER_BANDS, false);

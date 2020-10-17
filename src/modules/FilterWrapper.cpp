@@ -5,6 +5,7 @@ void FilterWrapper::init(float sampleRate) {
     svfFilter.init(sampleRate);
     moogLadderFilter.Init(sampleRate);
     biquadFilter.init(sampleRate);
+    biquadFilter.setType(BiquadFilter::BANDPASS);
 }
 
 float FilterWrapper::process(float in) {
@@ -67,7 +68,7 @@ void FilterWrapper::setResonance(float resonance) {
             svfFilter.setResonance(resonance);
             break;
         case BIQUAD:
-            biquadFilter.setQ(resonance*2);
+            biquadFilter.setQ(resonance);
             break;
         case MOOG_LADDER:
             moogLadderFilter.SetRes(resonance);

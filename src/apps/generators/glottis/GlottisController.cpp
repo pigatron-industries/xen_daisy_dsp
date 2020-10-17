@@ -7,7 +7,7 @@
 void GlottisController::init(float sampleRate) {
     whiteNoise.Init();
     aspirateFilter.init(sampleRate);
-    aspirateFilter.setGain(1.0);
+    //aspirateFilter.setGain(1.0);
     aspirateFilter.setQ(0.5);
     aspirateFilter.setFrequency(500);
     glottis.init(sampleRate);

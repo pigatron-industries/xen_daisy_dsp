@@ -2,6 +2,8 @@
 
 void VocoderBand::init(float sampleRate) {
     modulatorFilter.init(sampleRate);
+    modulatorFilter.setType(BiquadFilter::FilterType::BANDPASS);
+    modulatorFilter.setQ(1);
     carrierFilter.init(sampleRate);
     envelopeFollower.init(sampleRate);
     carrierOscillator.init(sampleRate);

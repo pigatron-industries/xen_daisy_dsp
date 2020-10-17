@@ -5,6 +5,16 @@
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
 
+/**
+ * Vocoder
+ * 
+ * TODO:
+ * * Auto reduce number of bands when frequency of higher bands goes too high
+ * * Option to modulate pitch interval around centre frequency instead of start frequency
+ * * Option to use discrete pitch intervals
+ * *  
+ */
+
 class VocoderController : public Controller {
     public:
         VocoderController() {}

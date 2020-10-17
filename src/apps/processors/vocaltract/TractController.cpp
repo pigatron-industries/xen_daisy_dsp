@@ -35,6 +35,7 @@ void TractController::process(float **in, float **out, size_t size) {
         
         //Output
         out[LEFT][i] = vocalOutput;
+        out[RIGHT][i] = vocalOutput;
     }
 
     //Update Parameters

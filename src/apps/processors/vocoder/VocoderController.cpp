@@ -22,29 +22,18 @@ void VocoderController::update() {
     if(resonanceInput.update()) {
         vocoder.setResonance(resonanceInput.getValue());
     }
-    if(frequencyBaseInput.update()) {
-
+    frequencyBaseInput.update();
+    pitchIntervalInput.update();
+    bandsInput.update();
+    if(frequencyBaseInput.isChanged() || pitchIntervalInput.isChanged() || bandsInput.isChanged()) {
+        vocoder.initBands(frequencyBaseInput.getValue(), pitchIntervalInput.getValue(), int(bandsInput.getValue()));
     }
-    if(pitchIntervalInput.update()) {
-
-    }
-    if(bandsInput.update()) {
-        bandsInput.update();
-    }
-    vocoder.initBands(frequencyBaseInput.getValue(), pitchIntervalInput.getValue(), int(bandsInput.getValue())); //TODO only call if there has been a change
 }
 
 void VocoderController::updateDisplay() { 
-    if(bandsInput.isChanged()) {
-        Serial.println(bandsInput.getValue());
-        displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(vocoder.getBandCount()));
-    }
-    if(frequencyBaseInput.isChanged()) {
-        displayPage.setText(FIELD_VOCODER_FREQUENCYBASE, String("Frequency Base: ") + String(vocoder.getFrequencyBase(), 0));
-    }
-    if(pitchIntervalInput.isChanged()) {
-        displayPage.setText(FIELD_VOCODER_PITCHINTERVAL, String("Pitch Interval: ") + String(vocoder.getPitchInterval(), 3));
-    }
+    displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(vocoder.getBandCount()));
+    displayPage.setText(FIELD_VOCODER_FREQUENCYBASE, String("Frequency Base: ") + String(vocoder.getFrequencyBase(), 0));
+    displayPage.setText(FIELD_VOCODER_PITCHINTERVAL, String("Pitch Interval: ") + String(vocoder.getPitchInterval(), 3));
 }
 
 void VocoderController::process(float **in, float **out, size_t size) {

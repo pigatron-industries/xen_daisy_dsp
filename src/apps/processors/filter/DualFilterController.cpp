@@ -35,12 +35,8 @@ void DualFilterController::update() {
 }
 
 void DualFilterController::updateDisplay() {
-    if(frequencyInput1.isChanged()) {
-        displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2));
-    }
-    if(frequencyInput2.isChanged()) {
-        displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2));
-    }
+    displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2));
+    displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2));
 }
 
 void DualFilterController::event(UIEvent event, int itemIndex) {

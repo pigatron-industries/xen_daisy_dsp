@@ -12,7 +12,7 @@
  * * Auto reduce number of bands when frequency of higher bands goes too high
  * * Option to modulate pitch interval around centre frequency instead of start frequency
  * * Option to use discrete pitch intervals
- * *  
+ * * Seperate carrier and modulator band pitch intervals with option to invert them.
  */
 
 class VocoderController : public Controller {

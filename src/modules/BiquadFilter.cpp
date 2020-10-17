@@ -92,7 +92,7 @@ void BiquadFilter::calcBiquad() {
             norm = 1 / (1 + k / q + k * k);
             a0 = k / q * norm;
             a1 = 0;
-            a2 = -a0;
+            a2 = 0 - a0;
             b1 = 2 * (k * k - 1) * norm;
             b2 = (1 - k / q + k * k) * norm;
             break;

@@ -1,20 +1,19 @@
 #include "AutocorrelationAnalyser.h"
 
-
 void AutocorrelationAnalyser::init(float sampleRate) {
     this->sampleRate = sampleRate;
     bufferPosition = 0;
 }
 
 void AutocorrelationAnalyser::process(float in) {
-    if(bufferPosition < AUTOCORRELATION_BUFFER_SIZE) {
+    if(!bufferFull()) {
         buffer[bufferPosition] = in;
         bufferPosition++;
     }
 }
 
 bool AutocorrelationAnalyser::calculate() {
-    if(bufferPosition < AUTOCORRELATION_BUFFER_SIZE) {
+    if(!bufferFull()) {
         return false;
     } else {
         compute();
@@ -30,7 +29,7 @@ void AutocorrelationAnalyser::compute() {
     float sum = 0;
     float sumOld = 0;
 
-    for(int i = 0; i < AUTOCORRELATION_BUFFER_SIZE; i++) {
+    for(int i = 3; i < AUTOCORRELATION_BUFFER_SIZE; i++) {
 
         // autocorrelation
         sumOld = sum;
@@ -43,6 +42,7 @@ void AutocorrelationAnalyser::compute() {
         if(peakDetectState == 2 && (sum-sumOld) <= 0) {
             period = i;
             peakDetectState = 3;
+            break;
         }
         if(peakDetectState == 1 && sum > threshold && (sum-sumOld) > 0) {
             peakDetectState = 2;

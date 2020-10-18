@@ -54,7 +54,6 @@ void MainController::update() {
     }
 
     Hardware::hw.display.render();
-
     
     PROFILE_DUMP
 }
@@ -80,7 +79,7 @@ UIEvent MainController::updateUIEvent() {
 }
 
 void MainController::process(float **in, float **out, size_t size) {
-    PROFILE_START
+    //PROFILE_START
     controllers[activeController]->process(in, out, size);
-    PROFILE_END
+    //PROFILE_END
 }

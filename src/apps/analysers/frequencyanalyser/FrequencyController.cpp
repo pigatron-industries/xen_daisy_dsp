@@ -1,4 +1,5 @@
 #include "FrequencyController.h"
+#include "../../../util/Profiler.h"
 
 #define LEFT 0
 #define RIGHT 1
@@ -13,18 +14,24 @@ void FrequencyController::init(float sampleRate) {
 
     displayPage.initTitle("Frequency Analyser");
     displayPage.initField(FIELD_TYPE, getTypeText(), true);
-    displayPage.initField(FIELD_FREQ, "0", false);
+    displayPage.initField(FIELD_FREQ, false);
 }
 
 void FrequencyController::update() {
     switch(type) {
         case AnalyserType::FFT:
-            if(fftAnalyser.calculate()) {
+            if(fftAnalyser.bufferFull()) {
+                //PROFILE_START
+                fftAnalyser.calculate();
+                //PROFILE_END
                 pitchOutput.setFrequency(fftAnalyser.getFrequency());
             }
             break;
         case AnalyserType::AUTOCORRELATION:
-            if(autocorrelationAnalyser.calculate()) {
+            if(autocorrelationAnalyser.bufferFull()) {
+                //PROFILE_START
+                autocorrelationAnalyser.calculate();
+                //PROFILE_END
                 pitchOutput.setFrequency(autocorrelationAnalyser.getFrequency());
             }
             break;

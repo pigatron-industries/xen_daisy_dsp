@@ -8,14 +8,14 @@ void FFTAnalyser::init(float sampleRate) {
 }
 
 void FFTAnalyser::process(float in) {
-    if(bufferPosition < FFT_SAMPLES) {
+    if(!bufferFull()) {
         real[bufferPosition] = in;
         bufferPosition++;
     }
 }
 
 bool FFTAnalyser::calculate() {
-    if(bufferPosition < FFT_SAMPLES) {
+    if(!bufferFull()) {
         return false;
     } else {
         compute();

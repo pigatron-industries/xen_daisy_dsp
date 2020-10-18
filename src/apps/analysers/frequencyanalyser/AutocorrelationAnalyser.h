@@ -1,9 +1,7 @@
 #ifndef AutocorrelationAnalyser_h
 #define AutocorrelationAnalyser_h
 
-#include "arduinoFFT.h"
-
-#define AUTOCORRELATION_BUFFER_SIZE 1024
+#define AUTOCORRELATION_BUFFER_SIZE 1200  //minimum frequency = 40Hz
 
 class AutocorrelationAnalyser {
     public:
@@ -12,6 +10,7 @@ class AutocorrelationAnalyser {
         void process(float in);
     
         bool calculate();
+        bool bufferFull() { return bufferPosition == AUTOCORRELATION_BUFFER_SIZE; }
         float getFrequency() { return frequency; }
 
     private:

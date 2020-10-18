@@ -12,6 +12,7 @@ class FFTAnalyser {
         void process(float in);
 
         bool calculate();
+        bool bufferFull() { return bufferPosition == FFT_SAMPLES; }
         float getFrequency() { return frequency; }
 
     private:

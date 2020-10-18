@@ -13,6 +13,7 @@
  * * Option to modulate pitch interval around centre frequency instead of start frequency
  * * Option to use discrete pitch intervals
  * * Seperate carrier and modulator band pitch intervals with option to invert them.
+ * * Stereo effect by spliiting different bands to different channels
  */
 
 class VocoderController : public Controller {

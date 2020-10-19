@@ -15,6 +15,9 @@ class FilterBank {
 
         int getSize() { return size; }
         FilterWrapper& getFilter(int index) { return filters[index]; }
+        float getAllOutput() { return all; }
+        float getEvenOutput() { return even; }
+        float getOddOutput() { return odd; }
 
         void setSize(int size) { this->size = size; }
         void setFilterResonance(int index, float resonance);
@@ -33,6 +36,7 @@ class FilterBank {
         ProcessOrder processOrder;
         FilterWrapper filters[MAX_FILTER_COUNT];
 
+        float all, even, odd;
 };
 
 #endif

@@ -3,7 +3,7 @@
 
 #include <RotaryEncoder.h>
 #include "../../../Controller.h"
-#include "../../../modules/FilterWrapper.h"
+#include "../../../modules/filters/FilterWrapper.h"
 #include "../../../io/input/AnalogInput.h"
 #include "../../../io/input/PitchInput.h"
 #include "../../../io/Hardware.h"

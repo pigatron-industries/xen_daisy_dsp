@@ -4,7 +4,7 @@
 #include "DaisyDuino.h"
 #include "Glottis.h"
 #include "../../../Controller.h"
-#include "../../../modules/BiquadFilter.h"
+#include "../../../modules/filters/BiquadFilter.h"
 #include "../../../io/input/PitchInput.h"
 #include "../../../io/input/AnalogInput.h"
 

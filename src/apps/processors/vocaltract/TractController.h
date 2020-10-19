@@ -3,7 +3,7 @@
 
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
-#include "../../../modules/BiquadFilter.h"
+#include "../../../modules/filters/BiquadFilter.h"
 #include "Tract.h"
 
 class TractController : public Controller {

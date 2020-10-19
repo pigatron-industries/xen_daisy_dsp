@@ -22,6 +22,10 @@ class Vocoder {
         float getPitchInterval() { return pitchInterval; }
         float getFrequencyBase() { return frequencyBase; }
 
+        float getOddOutput() { return odd; }
+        float getEvenOutput() { return even; }
+        float getAllOutput() { return all; }
+
     private:
         VocoderBand bands[MAX_VOCODER_BANDS];
         int bandCount;
@@ -30,15 +34,24 @@ class Vocoder {
 
         float sampleRate;
 
+        float odd, even, all;
 };
 
 
 inline float Vocoder::process(float modulatorIn, float carrierIn) {
-    float out = 0;
+    all = 0;
+    odd = 0;
+    even = 0;
     for(int i = 0; i < bandCount; i++) {
-        out += bands[i].process(modulatorIn, carrierIn);
+        float out = bands[i].process(modulatorIn, carrierIn);
+        all += out;
+        if(i%2 == 0) {
+            even += out;
+        } else {
+            odd += out;
+        }
     }
-    return out;
+    return all;
 }
 
 #endif

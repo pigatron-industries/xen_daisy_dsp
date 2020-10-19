@@ -38,7 +38,8 @@ void VocoderController::updateDisplay() {
 
 void VocoderController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
-        out[LEFT][i] = vocoder.process(in[LEFT][i], in[RIGHT][i]);
-        out[RIGHT][i] = out[LEFT][i];
+        vocoder.process(in[LEFT][i], in[RIGHT][i]);
+        out[LEFT][i] = vocoder.getOddOutput();
+        out[RIGHT][i] = vocoder.getEvenOutput();
     }
 }

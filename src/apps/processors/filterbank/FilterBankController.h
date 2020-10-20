@@ -4,6 +4,7 @@
 #include "FilterBank.h"
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
+#include "../../../modules/StereoPan.h"
 
 class FilterBankController : public Controller {
     public:
@@ -24,7 +25,11 @@ class FilterBankController : public Controller {
         AnalogInput gainInput9 = AnalogInput(A8, -5, 5, 0, 1);
         AnalogInput gainInput10 = AnalogInput(A9, -5, 5, 0, 1);
 
+        float stereoMix = 0.2; // 0-0.5 TODO make this physical input
+
         FilterBank filterBank;
+        StereoPan oddPan;
+        StereoPan evenPan;
 
 };
 

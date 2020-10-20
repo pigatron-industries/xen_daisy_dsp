@@ -7,6 +7,8 @@ void FilterBankController::init(float sampleRate) {
     filterBank.init(sampleRate);
     filterBank.setSize(8);
     filterBank.setBankBandPass(32.0, 243.0/128.0);
+    oddPan.setPan(stereoMix);
+    evenPan.setPan(1-stereoMix);
 
     displayPage.initTitle("Filter Bank");
 }
@@ -49,7 +51,9 @@ void FilterBankController::update() {
 void FilterBankController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
         filterBank.process(in[LEFT][i]);
-        out[LEFT][i] = filterBank.getEvenOutput();
-        out[RIGHT][i] = filterBank.getOddOutput();
+        oddPan.process(filterBank.getEvenOutput());
+        evenPan.process(filterBank.getOddOutput());
+        out[LEFT][i] = oddPan.getLeftOut() + evenPan.getLeftOut();
+        out[RIGHT][i] = oddPan.getRightOut() + evenPan.getRightOut();
     }
 }

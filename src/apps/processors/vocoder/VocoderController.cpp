@@ -11,8 +11,6 @@ void VocoderController::init(float sampleRate) {
     vocoder.init(sampleRate);
     vocoder.initBands(110.0, 0.3333, 10); // 1/3 octave 400 cents
     vocoder.setUseCarrierOscillator(false);
-    oddPan.setPan(stereoMix);
-    evenPan.setPan(1-stereoMix);
 
     displayPage.initTitle("Vocoder");
     displayPage.initField(FIELD_VOCODER_BANDS, false);
@@ -23,6 +21,10 @@ void VocoderController::init(float sampleRate) {
 void VocoderController::update() { 
     if(resonanceInput.update()) {
         vocoder.setResonance(resonanceInput.getValue());
+    }
+    if(stereoMixInput.update()) {
+        oddPan.setPan(stereoMixInput.getValue());
+        evenPan.setPan(1 - stereoMixInput.getValue());
     }
     frequencyBaseInput.update();
     pitchIntervalInput.update();

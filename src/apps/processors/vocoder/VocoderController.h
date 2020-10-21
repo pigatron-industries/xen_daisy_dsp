@@ -30,8 +30,7 @@ class VocoderController : public Controller {
         AnalogInput frequencyBaseInput = AnalogInput(A1, -5, 5, 55.0, 220.0);
         AnalogInput pitchIntervalInput = AnalogInput(A2, -5, 5, 0.25, 1.0);
         AnalogInput bandsInput = AnalogInput(A3, -5, 5, 1, 20.5); 
-
-        float stereoMix = 0.2; // 0-0.5 TODO make this physical input
+        AnalogInput stereoMixInput = AnalogInput(A4, -5, 5, 0, 1);
 
         Vocoder vocoder;
         StereoPan oddPan;

@@ -30,8 +30,6 @@ class VocoderBand {
 
 
 inline float VocoderBand::process(float modulatorIn, float carrierIn) {
-    // modulatorFilter.process(modulatorIn);
-    // float mod = modulatorFilter.band();
     float mod = modulatorFilter.process(modulatorIn);
     float env = envelopeFollower.process(mod);
 

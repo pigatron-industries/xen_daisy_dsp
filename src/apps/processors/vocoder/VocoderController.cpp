@@ -11,6 +11,8 @@ void VocoderController::init(float sampleRate) {
     vocoder.init(sampleRate);
     vocoder.initBands(110.0, 0.3333, 10); // 1/3 octave 400 cents
     vocoder.setUseCarrierOscillator(false);
+    oddPan.setPan(stereoMix);
+    evenPan.setPan(1-stereoMix);
 
     displayPage.initTitle("Vocoder");
     displayPage.initField(FIELD_VOCODER_BANDS, false);
@@ -39,7 +41,9 @@ void VocoderController::updateDisplay() {
 void VocoderController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
         vocoder.process(in[LEFT][i], in[RIGHT][i]);
-        out[LEFT][i] = vocoder.getOddOutput();
-        out[RIGHT][i] = vocoder.getEvenOutput();
+        oddPan.process(vocoder.getEvenOutput());
+        evenPan.process(vocoder.getOddOutput());
+        out[LEFT][i] = oddPan.getLeftOut() + evenPan.getLeftOut();
+        out[RIGHT][i] = oddPan.getRightOut() + evenPan.getRightOut();
     }
 }

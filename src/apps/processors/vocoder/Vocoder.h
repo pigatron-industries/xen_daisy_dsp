@@ -39,18 +39,17 @@ class Vocoder {
 
 
 inline float Vocoder::process(float modulatorIn, float carrierIn) {
-    all = 0;
     odd = 0;
     even = 0;
     for(int i = 0; i < bandCount; i++) {
         float out = bands[i].process(modulatorIn, carrierIn);
-        all += out;
         if(i%2 == 0) {
             even += out;
         } else {
             odd += out;
         }
     }
+    all = odd + even;
     return all;
 }
 

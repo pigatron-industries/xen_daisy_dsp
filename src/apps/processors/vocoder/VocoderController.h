@@ -4,6 +4,7 @@
 #include "Vocoder.h"
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
+#include "../../../modules/StereoPan.h"
 
 /**
  * Vocoder
@@ -30,8 +31,11 @@ class VocoderController : public Controller {
         AnalogInput pitchIntervalInput = AnalogInput(A2, -5, 5, 0.25, 1.0);
         AnalogInput bandsInput = AnalogInput(A3, -5, 5, 1, 20.5); 
 
-        Vocoder vocoder;
+        float stereoMix = 0.2; // 0-0.5 TODO make this physical input
 
+        Vocoder vocoder;
+        StereoPan oddPan;
+        StereoPan evenPan;
 };
 
 #endif

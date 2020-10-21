@@ -24,18 +24,17 @@ float FilterBank::processSerial(float in) {
 }
 
 float FilterBank::processParallel(float in) {
-    all = 0;
     odd = 0;
     even = 0;
     for(int i = 0; i < size; i++) {
         float out = filters[i].process(in);
-        all += out;
         if(i%2 == 0) {
             even += out;
         } else {
             odd += out;
         }
     }
+    all = odd + even;
     return all;
 }
 

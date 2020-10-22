@@ -2,6 +2,7 @@
 
 void Delay::init(float sampleRate) {
     this->sampleRate = sampleRate;
+    delayLine.Init();
 }
 
 float Delay::process(float in) {

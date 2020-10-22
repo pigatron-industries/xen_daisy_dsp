@@ -1,7 +1,6 @@
 #ifndef LookupTable_h
 #define LookupTable_h
 
-#include "util.h"
 
 template <int size>
 class LookupTable {

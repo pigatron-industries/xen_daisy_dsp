@@ -34,6 +34,10 @@ size_t numChannels;
     #include "apps/processors/flanger/FlangerController.h"
     FlangerController flangerController;
 #endif
+#if defined(XEN_SPATIALIZER)
+    #include "apps/processors/spatializer/SpatializerController.h"
+    SpatializerController spatializerController;
+#endif
 #if defined(XEN_GLOTTIS)
     #include "apps/generators/glottis/GlottisController.h"
     GlottisController glottisController;
@@ -73,6 +77,9 @@ void setup() {
     #endif
     #if defined(XEN_FLANGER)
         mainController.registerController(&flangerController);
+    #endif
+    #if defined(XEN_SPATIALIZER)
+        mainController.registerController(&spatializerController);
     #endif
     #if defined(XEN_GLOTTIS)
         mainController.registerController(&glottisController);

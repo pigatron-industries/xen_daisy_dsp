@@ -30,7 +30,7 @@ class PitchInput : public AbstractInput {
         }
 
     private:
-        float zeroFrequency = 880;
+        float zeroFrequency = 523.25; //C5
         float frequency;
 };
 

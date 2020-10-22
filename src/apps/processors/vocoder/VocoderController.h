@@ -23,14 +23,16 @@ class VocoderController : public Controller {
         virtual void init(float sampleRate);
         virtual void update();
         virtual void updateDisplay();
+        virtual void event(UIEvent event, int itemIndex);
         virtual void process(float **in, float **out, size_t size);
 
     private:
         AnalogInput resonanceInput = AnalogInput(A0, -5, 5, 0, 1);
         AnalogInput frequencyBaseInput = AnalogInput(A1, -5, 5, 55.0, 220.0);
         AnalogInput pitchIntervalInput = AnalogInput(A2, -5, 5, 0.25, 1.0);
-        AnalogInput bandsInput = AnalogInput(A3, -5, 5, 1, 20.5); 
-        AnalogInput stereoMixInput = AnalogInput(A4, -5, 5, 0, 1);
+        AnalogInput stereoMixInput = AnalogInput(A3, -5, 5, 0, 1);
+
+        int bands = 10;
 
         Vocoder vocoder;
         StereoPan oddPan;

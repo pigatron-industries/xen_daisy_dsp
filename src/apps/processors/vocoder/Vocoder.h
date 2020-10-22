@@ -4,6 +4,7 @@
 #include "VocoderBand.h"
 
 #define MAX_VOCODER_BANDS 20
+#define MIN_VOCODER_BANDS 1
 
 class Vocoder {
     public:
@@ -11,16 +12,15 @@ class Vocoder {
         void init(float sampleRate);
         float process(float modulatorIn, float carrierIn);
 
-        void initBands(float startFrequency, float pitchInterval, int bandCount);
+        void initBandsByBaseFrequency(float baseFrequency, float pitchInterval, int bandCount);
+        void initBandsByCentreFrequency(float centreFrequency, float pitchInterval, int bandCount);
 
         void setResonance(float resonance);
-        void setFrequencyBase(float frequencyBase);
-        void setPitchInterval(float pitchInterval);
         void setUseCarrierOscillator(bool value);
 
         int getBandCount() { return bandCount; }
         float getPitchInterval() { return pitchInterval; }
-        float getFrequencyBase() { return frequencyBase; }
+        float getBaseFrequency() { return baseFrequency; }
 
         float getOddOutput() { return odd; }
         float getEvenOutput() { return even; }
@@ -29,8 +29,12 @@ class Vocoder {
     private:
         VocoderBand bands[MAX_VOCODER_BANDS];
         int bandCount;
-        float pitchInterval, frequencyRatio;
-        float frequencyBase;
+        float pitchInterval;
+        float frequencyRatio;
+        float baseFrequency;
+
+        float minFrequency = 27.5;
+        float maxFrequency = 13289.75;
 
         float sampleRate;
 

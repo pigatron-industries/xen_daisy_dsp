@@ -9,11 +9,11 @@
 
 void VocoderController::init(float sampleRate) {
     vocoder.init(sampleRate);
-    vocoder.initBands(110.0, 0.3333, 10); // 1/3 octave 400 cents
+    vocoder.initBandsByBaseFrequency(110.0, 0.3333, bands); // 1/3 octave 400 cents
     vocoder.setUseCarrierOscillator(false);
 
     displayPage.initTitle("Vocoder");
-    displayPage.initField(FIELD_VOCODER_BANDS, false);
+    displayPage.initField(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands), true);
     displayPage.initField(FIELD_VOCODER_FREQUENCYBASE, false);
     displayPage.initField(FIELD_VOCODER_PITCHINTERVAL, false);
 }
@@ -28,16 +28,32 @@ void VocoderController::update() {
     }
     frequencyBaseInput.update();
     pitchIntervalInput.update();
-    bandsInput.update();
-    if(frequencyBaseInput.isChanged() || pitchIntervalInput.isChanged() || bandsInput.isChanged()) {
-        vocoder.initBands(frequencyBaseInput.getValue(), pitchIntervalInput.getValue(), int(bandsInput.getValue()));
+    if(frequencyBaseInput.isChanged() || pitchIntervalInput.isChanged()) {
+        vocoder.initBandsByBaseFrequency(frequencyBaseInput.getValue(), pitchIntervalInput.getValue(), bands);
     }
 }
 
 void VocoderController::updateDisplay() { 
-    displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(vocoder.getBandCount()));
-    displayPage.setText(FIELD_VOCODER_FREQUENCYBASE, String("Frequency Base: ") + String(vocoder.getFrequencyBase(), 0));
+    displayPage.setText(FIELD_VOCODER_FREQUENCYBASE, String("Frequency Base: ") + String(vocoder.getBaseFrequency(), 0));
     displayPage.setText(FIELD_VOCODER_PITCHINTERVAL, String("Pitch Interval: ") + String(vocoder.getPitchInterval(), 3));
+}
+
+void VocoderController::event(UIEvent event, int itemIndex) {
+    if(itemIndex > 0) {
+        if(event == UIEvent::EVENT_CLOCKWISE) {
+            if(bands < MAX_VOCODER_BANDS) {
+                bands++;
+                vocoder.initBandsByBaseFrequency(frequencyBaseInput.getValue(), pitchIntervalInput.getValue(), bands);
+                displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands));
+            }
+        } else if (event == UIEvent::EVENT_COUNTERCLOCKWISE) {
+            if(bands > MIN_VOCODER_BANDS) {
+                bands--;
+                vocoder.initBandsByBaseFrequency(frequencyBaseInput.getValue(), pitchIntervalInput.getValue(), bands);
+                displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands));
+            }
+        }
+    }
 }
 
 void VocoderController::process(float **in, float **out, size_t size) {

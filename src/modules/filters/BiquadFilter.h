@@ -44,6 +44,8 @@ class BiquadFilter
         void setBiquad(FilterType type, float frequency, float q, float peakGainDB);
         float process(float in);
 
+        float getFrequency() { return frequency; }
+
     private:
         void calcBiquad();
 

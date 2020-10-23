@@ -26,6 +26,8 @@ class Vocoder {
         float getEvenOutput() { return even; }
         float getAllOutput() { return all; }
 
+        VocoderBand* getBands() { return bands; }
+
     private:
         VocoderBand bands[MAX_VOCODER_BANDS];
         int bandCount;

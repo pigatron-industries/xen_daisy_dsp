@@ -19,6 +19,8 @@ class VocoderBand {
         void setResonance(float resonance);
         void setUseCarrierOscillator(bool value) { useCarrierOscillator = value; }
 
+        float getFrequency() { return modulatorFilter.getFrequency(); }
+
     private:
         BiquadFilter modulatorFilter;
         EnvelopeFollower envelopeFollower;

@@ -37,12 +37,12 @@ void VocoderController::updateDisplay() {
     displayPage.setText(FIELD_VOCODER_FREQUENCYBASE, String("Centre Frequency: ") + String(centreFrequencyInput.getFrequency(), 0));
     displayPage.setText(FIELD_VOCODER_PITCHINTERVAL, String("Pitch Interval: ") + String(pitchIntervalInput.getValue(), 3));
 
-    VocoderBand* bands = vocoder.getBands();
-    for(int i = 0; i < vocoder.getBandCount(); i++) {
-        Serial.print(i);
-        Serial.print(": ");
-        Serial.println(bands[i].getFrequency());
-    }
+    // VocoderBand* bands = vocoder.getBands();
+    // for(int i = 0; i < vocoder.getBandCount(); i++) {
+    //     Serial.print(i);
+    //     Serial.print(": ");
+    //     Serial.println(bands[i].getFrequency());
+    // }
 }
 
 void VocoderController::event(UIEvent event, int itemIndex) {

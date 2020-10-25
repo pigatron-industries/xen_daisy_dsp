@@ -11,6 +11,7 @@ class DisplayPage {
         void initField(int index, bool selectable);
         void initField(int index, String text, bool selectable);
 
+        void setNumber(int index, uint8_t number);
         void setText(int index, String text);
         void setSelection(int index);
         void nextSelection();

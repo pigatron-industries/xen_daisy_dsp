@@ -20,6 +20,11 @@ void DisplayPage::initField(int index, String text, bool selectable) {
     items[index].selectable = selectable;
 }
 
+void DisplayPage::setNumber(int index, uint8_t number) {
+    items[index].number = number;
+    items[index].dirty = true;
+}
+
 void DisplayPage::setText(int index, String text) {
     items[index].text = text;
     items[index].dirty = true;

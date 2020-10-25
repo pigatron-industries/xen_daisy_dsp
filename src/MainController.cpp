@@ -4,6 +4,7 @@
 void MainController::registerController(Controller* controller) {
     controllers[controllerSize] = controller;
     controllerSize++;
+    controller->getDisplayPage()->setNumber(0, controllerSize);
 }
 
 void MainController::init(float sampleRate) {

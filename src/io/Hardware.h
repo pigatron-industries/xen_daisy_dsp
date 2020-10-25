@@ -11,7 +11,7 @@ public:
     static Hardware hw;
     void init();
 
-    PushButton encoderButton = PushButton(28);
+    PushButton encoderButton = PushButton(0);
     RotaryEncoder encoder = RotaryEncoder(29, 30);
     Display display;
 

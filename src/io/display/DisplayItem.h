@@ -5,6 +5,7 @@
 
 class DisplayItem {
     public:
+        uint8_t number;
         String text;
         bool selectable;
         bool dirty = true;

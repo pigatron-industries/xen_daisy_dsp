@@ -5,7 +5,7 @@
 
 void FilterBankController::init(float sampleRate) {
     filterBank.init(sampleRate);
-    filterBank.setSize(8);
+    filterBank.setSize(10);
     filterBank.setBankBandPass(32.0, 243.0/128.0);
     oddPan.setPan(stereoMix);
     evenPan.setPan(1-stereoMix);
@@ -32,9 +32,9 @@ void FilterBankController::update() {
     filterBank.setFilterGain(4, gainInput5.getValue());
     filterBank.setFilterGain(5, gainInput6.getValue());
     filterBank.setFilterGain(6, gainInput7.getValue());
-    // filterBank.setFilterGain(7, gainInput8.getValue());
-    // filterBank.setFilterGain(8, gainInput9.getValue());
-    filterBank.setFilterGain(7, gainInput10.getValue());
+    filterBank.setFilterGain(7, gainInput8.getValue());
+    filterBank.setFilterGain(8, gainInput9.getValue());
+    filterBank.setFilterGain(9, gainInput10.getValue());
 
     filterBank.setFilterResonance(0, gainInput1.getValue());
     filterBank.setFilterResonance(1, gainInput2.getValue());
@@ -43,9 +43,9 @@ void FilterBankController::update() {
     filterBank.setFilterResonance(4, gainInput5.getValue());
     filterBank.setFilterResonance(5, gainInput6.getValue());
     filterBank.setFilterResonance(6, gainInput7.getValue());
-    // filterBank.setFilterResonance(7, gainInput8.getValue());
-    // filterBank.setFilterResonance(8, gainInput9.getValue());
-    filterBank.setFilterResonance(7, gainInput10.getValue());
+    filterBank.setFilterResonance(7, gainInput8.getValue());
+    filterBank.setFilterResonance(8, gainInput9.getValue());
+    filterBank.setFilterResonance(9, gainInput10.getValue());
 }
 
 void FilterBankController::process(float **in, float **out, size_t size) {

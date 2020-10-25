@@ -24,6 +24,8 @@ class FilterBankController : public Controller {
         AnalogInput gainInput8 = AnalogInput(A7, -5, 5, 0, 1);
         AnalogInput gainInput9 = AnalogInput(A8, -5, 5, 0, 1);
         AnalogInput gainInput10 = AnalogInput(A9, -5, 5, 0, 1);
+        AnalogInput gainInput11 = AnalogInput(A10, -5, 5, 0, 1);
+        AnalogInput gainInput12 = AnalogInput(A11, -5, 5, 0, 1);
 
         float stereoMix = 0.2; // 0-0.5 TODO make this physical input
 

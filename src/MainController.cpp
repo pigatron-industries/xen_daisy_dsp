@@ -1,5 +1,6 @@
 #include "MainController.h"
 #include "util/Profiler.h"
+#include "io/MemPool.h"
 
 void MainController::registerController(Controller* controller) {
     controllers[controllerSize] = controller;
@@ -8,11 +9,10 @@ void MainController::registerController(Controller* controller) {
 }
 
 void MainController::init(float sampleRate) {
+    this->sampleRate = sampleRate;
     Hardware::hw.init();
     refreshTimer.start(100000);
-    for(int i = 0; i < controllerSize; i++) {
-        controllers[i]->init(sampleRate);
-    }
+    controllers[activeController]->init(sampleRate);
     Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
 }
 
@@ -22,13 +22,11 @@ void MainController::update() {
     if(controllers[activeController]->getDisplayPage()->selectedItem == 0) {
         // When title is selected then encoder switches controller
         if(event == UIEvent::EVENT_CLOCKWISE) {
-            activeController = ((activeController + 1) % (controllerSize));
-            controllers[activeController]->getDisplayPage()->setSelection(0);
-            Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
+            int controllerIndex = ((activeController + 1) % (controllerSize));
+            setActiveController(controllerIndex);
         } else if(event == UIEvent::EVENT_COUNTERCLOCKWISE) {
-            activeController = activeController > 0 ? activeController - 1 : controllerSize - 1;
-            controllers[activeController]->getDisplayPage()->setSelection(0);
-            Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
+            int controllerIndex = activeController > 0 ? activeController - 1 : controllerSize - 1;
+            setActiveController(controllerIndex);
         }
         if(event == UIEvent::EVENT_SHORT_PRESS) {
             controllers[activeController]->getDisplayPage()->setSelection(-1);
@@ -57,6 +55,16 @@ void MainController::update() {
     Hardware::hw.display.render();
     
     PROFILE_DUMP
+}
+
+void MainController::setActiveController(int controllerIndex) {
+    activeController = controllerIndex;
+    MemPool::reset();
+    controllers[activeController]->init(sampleRate);
+    controllers[activeController]->getDisplayPage()->setSelection(0);
+    Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
+    Serial.print("Memory Used: ");
+    Serial.println(MemPool::getUsedMem());
 }
 
 UIEvent MainController::updateUIEvent() {

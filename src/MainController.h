@@ -15,6 +15,7 @@ class MainController {
         void process(float **in, float **out, size_t size);
 
     private:
+        float sampleRate;
         int activeController = 0;
         int controllerSize = 0;
         Controller* controllers[MAX_CONTROLLERS];
@@ -22,6 +23,7 @@ class MainController {
         Timer refreshTimer;
 
         UIEvent updateUIEvent();
+        void setActiveController(int controllerIndex);
 
 };
 

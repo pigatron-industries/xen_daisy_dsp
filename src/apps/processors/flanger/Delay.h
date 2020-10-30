@@ -3,7 +3,7 @@
 
 #include "DaisyDuino.h"
 
-#define MAX_DELAY static_cast<size_t>(48000*0.1)  // 100ms
+#define MAX_DELAY static_cast<size_t>(48000*0.01)  // 100ms
 
 class Delay {
     public:
@@ -23,7 +23,7 @@ class Delay {
         float dryLevel = 1.0;
         float wetLevel = 0.0;
 
-        DelayLine<float, MAX_DELAY> delayLine;
+        DelayLine<float, MAX_DELAY>* delayLine;
 
         int sampleRate;
 };

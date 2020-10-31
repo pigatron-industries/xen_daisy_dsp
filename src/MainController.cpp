@@ -2,6 +2,19 @@
 #include "util/Profiler.h"
 #include "io/MemPool.h"
 
+// Temp workaround for linker issue in DaisyDuino lib
+#include "utility/hid_audio.h"
+extern "C" {
+    void audio_stop(uint8_t intext);
+}
+
+MainController MainController::instance;
+
+void MainController::audioCallback(float **in, float **out, size_t size) {
+    MainController::instance.process(in, out, size);
+}
+
+
 void MainController::registerController(Controller* controller) {
     controllers[controllerSize] = controller;
     controllerSize++;
@@ -14,6 +27,7 @@ void MainController::init(float sampleRate) {
     refreshTimer.start(100000);
     controllers[activeController]->init(sampleRate);
     Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
+    DAISY.begin(MainController::audioCallback);
 }
 
 void MainController::update() {
@@ -58,13 +72,16 @@ void MainController::update() {
 }
 
 void MainController::setActiveController(int controllerIndex) {
-    activeController = controllerIndex;
+    //DAISY.end();
+    audio_stop(DSY_AUDIO_INTERNAL);  // Temp workaround for linker issue in DaisyDuino lib
+ 
     MemPool::reset();
-    controllers[activeController]->init(sampleRate);
-    controllers[activeController]->getDisplayPage()->setSelection(0);
-    Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
-    Serial.print("Memory Used: ");
-    Serial.println(MemPool::getUsedMem());
+    controllers[controllerIndex]->init(sampleRate);
+    controllers[controllerIndex]->getDisplayPage()->setSelection(0);
+    Hardware::hw.display.setDisplayedPage(controllers[controllerIndex]->getDisplayPage());
+    activeController = controllerIndex;
+
+    DAISY.begin(MainController::audioCallback);
 }
 
 UIEvent MainController::updateUIEvent() {

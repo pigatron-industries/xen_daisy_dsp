@@ -34,6 +34,10 @@ size_t numChannels;
     #include "apps/processors/flanger/FlangerController.h"
     FlangerController flangerController;
 #endif
+#if defined(XEN_REVERB)
+    #include "apps/processors/reverb/ReverbController.h"
+    ReverbController reverbController;
+#endif
 #if defined(XEN_SPATIALIZER)
     #include "apps/processors/spatializer/SpatializerController.h"
     SpatializerController spatializerController;
@@ -47,45 +51,42 @@ size_t numChannels;
     FrequencyController frequencyController;
 #endif
 
-MainController mainController;
-
-void AudioCallback(float **in, float **out, size_t size) {
-    mainController.process(in, out, size);
-}
-
 void setup() {
     Serial.begin(115200);
     Serial.println("Pigatron Industries");
 
     #if defined(XEN_OSCILLATOR)
-        mainController.registerController(&oscillatorController);
+        MainController::instance.registerController(&oscillatorController);
     #endif
     #if defined(XEN_DUAL_FILTER)
-        mainController.registerController(&dualFilterController);
+        MainController::instance.registerController(&dualFilterController);
     #endif
     #if defined(XEN_FILTER_BANK)
-        mainController.registerController(&filterBankController);
+        MainController::instance.registerController(&filterBankController);
     #endif
     #if defined(XEN_VOWEL_FILTER)
-        mainController.registerController(&vowelizerController);
+        MainController::instance.registerController(&vowelizerController);
     #endif
     #if defined(XEN_VOCODER)
-        mainController.registerController(&vocoderController);
+        MainController::instance.registerController(&vocoderController);
     #endif
     #if defined(XEN_VOCAL_TRACT)
-        mainController.registerController(&tractController);
+        MainController::instance.registerController(&tractController);
+    #endif
+    #if defined(XEN_REVERB)
+        MainController::instance.registerController(&reverbController);
     #endif
     #if defined(XEN_FLANGER)
-        mainController.registerController(&flangerController);
+        MainController::instance.registerController(&flangerController);
     #endif
     #if defined(XEN_SPATIALIZER)
-        mainController.registerController(&spatializerController);
+        MainController::instance.registerController(&spatializerController);
     #endif
     #if defined(XEN_GLOTTIS)
-        mainController.registerController(&glottisController);
+        MainController::instance.registerController(&glottisController);
     #endif
     #if defined(XEN_FREQUENCYANALYSER)
-        mainController.registerController(&frequencyController);
+        MainController::instance.registerController(&frequencyController);
     #endif
 
     float sampleRate;
@@ -94,11 +95,9 @@ void setup() {
     numChannels = hardware.num_channels;
     sampleRate = DAISY.get_samplerate();
 
-    mainController.init(sampleRate);
-
-    DAISY.begin(AudioCallback);
+    MainController::instance.init(sampleRate);
 }
 
 void loop() {
-    mainController.update();
+    MainController::instance.update();
 }

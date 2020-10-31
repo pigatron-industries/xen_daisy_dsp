@@ -30,13 +30,13 @@ size_t numChannels;
     #include "apps/processors/vocaltract/TractController.h"
     TractController tractController;
 #endif
+#if defined(XEN_MULTITAP)
+    #include "apps/processors/multitapdelay/MultitapDelayController.h"
+    MultitapDelayController multitapDelayController;
+#endif
 #if defined(XEN_FLANGER)
     #include "apps/processors/flanger/FlangerController.h"
     FlangerController flangerController;
-#endif
-#if defined(XEN_REVERB)
-    #include "apps/processors/reverb/ReverbController.h"
-    ReverbController reverbController;
 #endif
 #if defined(XEN_SPATIALIZER)
     #include "apps/processors/spatializer/SpatializerController.h"
@@ -73,8 +73,8 @@ void setup() {
     #if defined(XEN_VOCAL_TRACT)
         MainController::instance.registerController(&tractController);
     #endif
-    #if defined(XEN_REVERB)
-        MainController::instance.registerController(&reverbController);
+    #if defined(XEN_MULTITAP)
+        MainController::instance.registerController(&multitapDelayController);
     #endif
     #if defined(XEN_FLANGER)
         MainController::instance.registerController(&flangerController);

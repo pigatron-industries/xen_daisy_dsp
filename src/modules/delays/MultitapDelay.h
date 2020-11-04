@@ -1,7 +1,6 @@
 #ifndef MultitapDelay_h
 #define MultitapDelay_h
 
-#include "DaisyDuino.h"
 #include "TappableDelayLine.h"
 
 #define MAX_DELAY static_cast<size_t>(48000*1)

@@ -4,7 +4,7 @@
 #include "DaisyDuino.h"
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
-#include "MultiTapDelay.h"
+#include "../../../modules/delays/MultiTapDelay.h"
 
 
 class MultitapDelayController : public Controller {

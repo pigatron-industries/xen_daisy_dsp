@@ -1,5 +1,4 @@
 #include "MultitapDelay.h"
-#include "../../../io/MemPool.h"
 
 void MultitapDelay::init(float sampleRate, float maxDelay) {
     this->sampleRate = sampleRate;

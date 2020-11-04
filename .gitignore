@@ -42,3 +42,6 @@
 *.*#*
 *.zip
 *.pro
+
+# Generated includes
+apps.h

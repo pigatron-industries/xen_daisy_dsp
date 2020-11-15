@@ -1,6 +1,7 @@
 #include "MainController.h"
 #include "util/Profiler.h"
 #include "io/MemPool.h"
+#include "io/Config.h"
 
 // Temp workaround for linker issue in DaisyDuino lib
 #include "utility/hid_audio.h"
@@ -25,6 +26,13 @@ void MainController::init(float sampleRate) {
     this->sampleRate = sampleRate;
     Hardware::hw.init();
     refreshTimer.start(100000);
+
+    activeController = Config::getSelectedApp();
+    if(activeController >= controllerSize) {
+        activeController = 0;
+        Config::setSelectedApp(0);
+    }
+
     controllers[activeController]->init(sampleRate);
     Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
     DAISY.begin(MainController::audioCallback);
@@ -79,6 +87,7 @@ void MainController::setActiveController(int controllerIndex) {
     controllers[controllerIndex]->init(sampleRate);
     controllers[controllerIndex]->getDisplayPage()->setSelection(0);
     Hardware::hw.display.setDisplayedPage(controllers[controllerIndex]->getDisplayPage());
+    Config::setSelectedApp(controllerIndex);
     activeController = controllerIndex;
 
     DAISY.begin(MainController::audioCallback);
@@ -105,7 +114,7 @@ UIEvent MainController::updateUIEvent() {
 }
 
 void MainController::process(float **in, float **out, size_t size) {
-    //PROFILE_START
+    PROFILE_START
     controllers[activeController]->process(in, out, size);
-    //PROFILE_END
+    PROFILE_END
 }

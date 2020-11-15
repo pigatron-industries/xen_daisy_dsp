@@ -39,4 +39,23 @@ static inline float gaussian() {
 	return (s - 8.0) / 4.0;
 }
 
+inline void zeroBuffer(float* buffer, int len) {
+    for (int i = 0; i < len; i++)
+        buffer[i] = 0.0;
+}
+
+inline void gain(float* buffer, float gain, int len) {
+    for (int i = 0; i < len; i++) { 
+        buffer[i] *= gain;
+    }
+}
+
+static float db2gain(float input) {
+    return std::pow(10, input / 20.0);
+}
+
+static float randf(float minf, float maxf) {
+  return minf + random(1UL << 31) * (maxf - minf) / (1UL << 31);  // use 1ULL<<63 for max double values)
+}
+
 #endif

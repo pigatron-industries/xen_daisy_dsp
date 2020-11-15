@@ -71,7 +71,7 @@ void BiquadFilter::calcBiquad() {
     float k = tan(M_PI * fc);
     switch (this->type) {
         case LOWPASS:
-            norm = 1 / (1 + k / q + k * k);
+            norm = 1 / (1 + k / q + k * k); //c1
             a0 = k * k * norm;
             a1 = 2 * a0;
             a2 = a0;

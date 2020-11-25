@@ -1,30 +1,47 @@
 #ifndef Spatializer_h
 #define Spatializer_h
 
-#include "DaisyDuino.h"
+#include "../../../modules/delays/MultitapDelay.h"
 
-#define MAX_DELAY 0.001   // 10ms
-#define MAX_DELAY_SAMPLES static_cast<size_t>(48000*MAX_DELAY)
+class Position {
+    public:
+        Position() {}
+        Position(float x, float y, float z) {
+            this->x = x;
+            this->y = y;
+            this->z = z;
+        }
+        float x;
+        float y;
+        float z;
+};
 
 class Spatializer {
     public:
-        Spatializer() {}
-        void init(float sampleRate);
+        Spatializer();
+        void init(float sampleRate, float maxDelay = 0.2);
         void process(float in);
 
-        /* Number from -1 to 1. 0 is centre */
-        void setPan(float pan);
+        float getOutput(int index);
 
-        float getLeftOutput() { return left; }
-        float getRightOutput() { return right; }
+        void setSourcePosition(float x, float y, float z=0);
+        void setDestinationPosition(int index, float x, float y, float z=0);
 
     private:
-        DelayLine<float, MAX_DELAY_SAMPLES> delayLine;
+        MultitapDelay delay;
         float sampleRate;
-        float pan;
 
-        float left;
-        float right;
+        Position sourcePosition;
+        Position destinationPosition[2];
+        int destinationCount = 2;
+
+        float inverseSpeed = 1.0/343.2;
+        float near = 0.1;
+        float far = 10;
+	    float rollOff;
+
+        void calcDelay(int index);
+        void calcRollOff();
 };
 
 #endif

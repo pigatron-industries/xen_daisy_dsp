@@ -10,6 +10,11 @@ void Spatializer::init(float sampleRate, float maxDelay) {
     this->sampleRate = sampleRate;
     delay.init(sampleRate, maxDelay);
     delay.setTapCount(destinationCount);
+    for(int i = 0; i < destinationCount; i++) {
+        lowpass[i].init(sampleRate);
+        lowpass[i].setType(BiquadFilter::LOWPASS);
+        lowpass[i].setFrequency(22000);
+    }
 }
 
 void Spatializer::process(float in) {
@@ -17,7 +22,8 @@ void Spatializer::process(float in) {
 }
 
 float Spatializer::getOutput(int index) {
-    return delay.readTap(index);
+    float sample = delay.readTap(index);
+    return lowpass[index].process(sample);
 }
 
 void Spatializer::setSourcePosition(float x, float y, float z) {
@@ -45,6 +51,9 @@ void Spatializer::calcDelay(int index) {
     }
 	
     delay.setTap(index, delayTime, gain);
+    for(int i = 0; i < destinationCount; i++) {
+        lowpass[i].setFrequency(22000*gain);
+    }
 }
 
 void Spatializer::calcRollOff() {

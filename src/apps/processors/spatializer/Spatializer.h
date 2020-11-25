@@ -2,6 +2,7 @@
 #define Spatializer_h
 
 #include "../../../modules/delays/MultitapDelay.h"
+#include "../../../modules/filters/BiquadFilter.h"
 
 class Position {
     public:
@@ -34,6 +35,8 @@ class Spatializer {
         Position sourcePosition;
         Position destinationPosition[2];
         int destinationCount = 2;
+
+        BiquadFilter lowpass[2];
 
         float inverseSpeed = 1.0/343.2;
         float near = 0.1;

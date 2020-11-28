@@ -13,10 +13,13 @@ class SpatializerController : public Controller {
         virtual void update();
 
     private:
-        AnalogInput xInput = AnalogInput(A0, -5, 5, -10, 10);
-        AnalogInput yInput = AnalogInput(A1, -5, 5, -10, 10);
+        AnalogInput x1Input = AnalogInput(A0, -5, 5, -10, 10);
+        AnalogInput y1Input = AnalogInput(A1, -5, 5, -10, 10);
+        AnalogInput x2Input = AnalogInput(A2, -5, 5, -10, 10);
+        AnalogInput y2Input = AnalogInput(A3, -5, 5, -10, 10);
 
-        Spatializer spatializer;
+        Spatializer spatializer1;
+        Spatializer spatializer2;
 };
 
 #endif

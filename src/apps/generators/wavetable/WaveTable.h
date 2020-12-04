@@ -14,6 +14,7 @@ class WaveTable {
 
         size_t getSize() { return tableSize; }
         float* getTable() { return table; }
+        float read(float position);
 
     private:
         float* table;
@@ -24,8 +25,6 @@ class WaveTable {
         float position;
         float increment;
         float frequency;
-
-        float read(float position);
 };
 
 #endif

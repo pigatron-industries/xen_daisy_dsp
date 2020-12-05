@@ -1,12 +1,14 @@
 #include "WaveTable.h"
 
 #include "../../../io/MemPool.h"
+#include "../../../util/util.h"
 
 void WaveTable::init(float sampleRate, size_t tableSize) {
     this->sampleRate = sampleRate;
     this->sampleRateReciprocal = 1/sampleRate;
     this->tableSize = tableSize;
     table = new (MemPool::allocate(sizeof(float)*tableSize)) float[tableSize];
+    zeroBuffer(table, tableSize);
 }
 
 void WaveTable::init(float sampleRate, size_t tableSize, float* table) {

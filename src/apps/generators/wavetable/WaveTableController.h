@@ -3,7 +3,8 @@
 
 #include "../../../Controller.h"
 #include "../../../io/input/PitchInput.h"
-#include "WaveTable.h"
+#include "../../../io/input/AnalogInput.h"
+#include "WaveTableOscillator.h"
 
 class WaveTableController : public Controller {
     public:
@@ -14,8 +15,11 @@ class WaveTableController : public Controller {
 
     private:
         PitchInput pitchInput = PitchInput(A0);
+        AnalogInput interpolationInput = AnalogInput(A1, -5, 5, 0, 1);
 
-        WaveTable wavetable;
+        WaveTableOscillator oscillator;
+        WaveTable wavetable1;
+        WaveTable wavetable2;
 };
 
 #endif

@@ -21,7 +21,6 @@ class WaveTableController : public Controller {
         WaveTableOscillator oscillator;
         WaveTable wavetable1;
         WaveTable wavetable2;
-        BiquadFilter filter;
 };
 
 #endif

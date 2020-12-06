@@ -15,17 +15,12 @@ void WaveTableController::init(float sampleRate) {
     oscillator.setWaveTable(0, &wavetable1);
     oscillator.setWaveTable(1, &wavetable2);
 
-    filter.init(sampleRate);
-    filter.setType(BiquadFilter::FilterType::LOWPASS);
-    filter.setFrequency(sampleRate*0.5);
-
     displayPage.initTitle("Oscillator");
 }
 
 void WaveTableController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
         float samp = oscillator.process();
-        samp = filter.process(samp);
         out[LEFT][i] = samp;
         out[RIGHT][i] = samp;
     }

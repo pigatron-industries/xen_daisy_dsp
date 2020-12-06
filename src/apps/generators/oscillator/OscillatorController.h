@@ -12,7 +12,7 @@ class OscillatorController : public Controller {
         virtual void update();
 
     private:
-        PitchInput pitchInput = PitchInput(A0, 110);
+        PitchInput pitchInput = PitchInput(A0);
 
         Oscillator oscillator;
 };

@@ -102,7 +102,6 @@ inline float Oscillator::process()
     switch(waveform_)
     {
         case WAVE_SIN: 
-            //out = LookupTables::trigLookup.sin(phase_);
             out = sinf(phase_);
             break;
         case WAVE_TRI:

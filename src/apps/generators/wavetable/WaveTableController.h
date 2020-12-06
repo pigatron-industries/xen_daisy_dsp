@@ -5,6 +5,7 @@
 #include "../../../io/input/PitchInput.h"
 #include "../../../io/input/AnalogInput.h"
 #include "WaveTableOscillator.h"
+#include "../../../modules/filters/BiquadFilter.h"
 
 class WaveTableController : public Controller {
     public:
@@ -20,6 +21,7 @@ class WaveTableController : public Controller {
         WaveTableOscillator oscillator;
         WaveTable wavetable1;
         WaveTable wavetable2;
+        BiquadFilter filter;
 };
 
 #endif

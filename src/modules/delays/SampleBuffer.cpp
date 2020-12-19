@@ -12,7 +12,8 @@ void SampleBuffer::init(size_t bufferSize) {
 void SampleBuffer::reset() {
     writePointer = 0;
     readPointer = 0;
-    filled = false;
+    sampleFull = false;
+    bufferFull = false;
 }
 
 void SampleBuffer::clear() {

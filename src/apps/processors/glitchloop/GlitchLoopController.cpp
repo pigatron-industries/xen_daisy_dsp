@@ -60,9 +60,9 @@ void GlitchLoopController::process(float **in, float **out, size_t size) {
                 break;
 
             case GlitchState::GLITCH_WRITE:
-                full = buffer1.write(in[0][i]);
+                buffer1.write(in[0][i]);
                 buffer2.write(in[1][i]);
-                if(full) {
+                if(buffer1.isSampleFull()) {
                     state = readDelaySamples > 0 ? GlitchState::GLITCH_READ_DELAY : GlitchState::GLITCH_READ;
                     readDelayCounter = 0;
                 }
@@ -71,6 +71,10 @@ void GlitchLoopController::process(float **in, float **out, size_t size) {
                 break;
 
             case GlitchState::GLITCH_READ_DELAY:
+                if(!buffer1.isBufferFull()) {
+                    buffer1.write(in[0][i]);
+                    buffer2.write(in[1][i]);
+                }
                 readDelayCounter++;
                 if(readDelayCounter >= readDelaySamples) {
                     state = GlitchState::GLITCH_READ;
@@ -80,6 +84,10 @@ void GlitchLoopController::process(float **in, float **out, size_t size) {
                 break;
 
             case GlitchState::GLITCH_READ:
+                if(!buffer1.isBufferFull()) {
+                    buffer1.write(in[0][i]);
+                    buffer2.write(in[1][i]);
+                }
                 out[0][i] = buffer1.read() + in[0][i]*dryGain;
                 out[1][i] = buffer2.read() + in[1][i]*dryGain;
                 buffer1.readIncrement();

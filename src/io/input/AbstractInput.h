@@ -9,6 +9,7 @@ class AbstractInput {
     public:
         AbstractInput(uint8_t _pin) : 
             pin(_pin) {
+                smoothingWeight = 1;
         }
 
         inline bool update() { return readVoltage(); }
@@ -17,7 +18,7 @@ class AbstractInput {
         inline float getValue() { return voltage; }
         inline uint32_t getRawValue() { return value; }
 
-    private:
+    protected:
         uint8_t pin;
         float smoothingWeight = 0.02;
 
@@ -27,7 +28,6 @@ class AbstractInput {
 
         bool changed;
 
-    protected:
         inline bool readVoltage() {
             uint32_t value = analogRead(pin);
             float newVoltage = ((value / 4095.0) * -10.0) + 5; //represents actual voltage on input of op-amp -5v to +5v

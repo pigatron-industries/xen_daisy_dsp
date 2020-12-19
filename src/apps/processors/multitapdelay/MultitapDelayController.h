@@ -1,5 +1,5 @@
-#ifndef ReverbController_h
-#define ReverbController_h
+#ifndef MultitapDelayController_h
+#define MultitapDelayController_h
 
 #include "DaisyDuino.h"
 #include "../../../Controller.h"
@@ -32,8 +32,6 @@ class MultitapDelayController : public Controller {
         MultitapDelay delayRight;
 
         int sampleRate;
-
-        void setDelay(float delayTime);
 };
 
 #endif

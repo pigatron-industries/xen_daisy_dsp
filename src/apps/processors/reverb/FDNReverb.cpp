@@ -96,7 +96,7 @@ float FDNReverb::process(float in) {
             highPassFilter[i].process(value);
             value = highPassFilter[i].high();
         }
-        value = allPassFilter[i].process(value);
+        //value = allPassFilter[i].process(value);
         multitapDelay[i].write(value);
     }
 

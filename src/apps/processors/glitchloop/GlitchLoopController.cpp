@@ -16,8 +16,8 @@ void GlitchLoopController::update() {
     float delayTimeRight = 0.0;
 
     if(sampleTimeInput.update()) {
-        buffer1.setSampleSize(sampleRate * sampleTimeInput.getValue());
-        buffer2.setSampleSize(sampleRate * sampleTimeInput.getValue());
+        buffer1.setSampleSize(sampleRate * sampleTimeInput.getFrequency());
+        buffer2.setSampleSize(sampleRate * sampleTimeInput.getFrequency());
     }
 
     if(writeDelayStartInput.update()) {
@@ -26,6 +26,10 @@ void GlitchLoopController::update() {
 
     if(readDelayStartInput.update()) {
         readDelaySamples = readDelayStartInput.getValue() * sampleRate;
+    }
+
+    if(dryGainInput.update()) {
+        dryGain = dryGainInput.getValue();
     }
 
     if(gateInput.update()) {
@@ -76,8 +80,8 @@ void GlitchLoopController::process(float **in, float **out, size_t size) {
                 break;
 
             case GlitchState::GLITCH_READ:
-                out[0][i] = buffer1.read();
-                out[1][i] = buffer2.read();
+                out[0][i] = buffer1.read() + in[0][i]*dryGain;
+                out[1][i] = buffer2.read() + in[1][i]*dryGain;
                 buffer1.readIncrement();
                 buffer2.readIncrement();
                 break;

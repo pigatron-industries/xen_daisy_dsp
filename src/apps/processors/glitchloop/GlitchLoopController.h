@@ -4,7 +4,7 @@
 #include "DaisyDuino.h"
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
-#include "../../../io/input/PitchInput.h"
+#include "../../../io/input/ExpInput.h"
 #include "../../../io/input/GateInput.h"
 #include "../../../modules/delays/SampleBuffer.h"
 
@@ -26,7 +26,7 @@ class GlitchLoopController : public Controller {
         virtual void update();
 
     private:
-        PitchInput sampleTimeInput = PitchInput(A0, 0.05);
+        ExpInput sampleTimeInput = ExpInput(A0, 0.05);
         AnalogInput writeDelayStartInput = AnalogInput(A1, -5, 5, 0, MAX_DELAY);
         AnalogInput readDelayStartInput = AnalogInput(A2, -5, 5, 0, MAX_DELAY);
         AnalogInput dryGainInput = AnalogInput(A3, -5, 5, 0, 1);

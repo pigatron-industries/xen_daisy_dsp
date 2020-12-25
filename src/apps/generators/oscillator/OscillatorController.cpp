@@ -19,5 +19,5 @@ void OscillatorController::process(float **in, float **out, size_t size) {
 
 void OscillatorController::update() {
     pitchInput.update();
-    oscillator.SetFreq(pitchInput.getFrequency());
+    oscillator.SetFreq(pitchInput.getValue());
 }

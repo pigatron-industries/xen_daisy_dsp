@@ -2,7 +2,7 @@
 #define OscillatorController_h
 
 #include "../../../Controller.h"
-#include "../../../io/input/PitchInput.h"
+#include "../../../io/input/ExpInput.h"
 
 class OscillatorController : public Controller {
     public:
@@ -12,7 +12,7 @@ class OscillatorController : public Controller {
         virtual void update();
 
     private:
-        PitchInput pitchInput = PitchInput(A0);
+        ExpInput pitchInput = ExpInput(A0);
 
         Oscillator oscillator;
 };

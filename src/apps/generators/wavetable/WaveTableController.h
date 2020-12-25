@@ -2,7 +2,7 @@
 #define WaveTableController_h
 
 #include "../../../Controller.h"
-#include "../../../io/input/PitchInput.h"
+#include "../../../io/input/ExpInput.h"
 #include "../../../io/input/AnalogInput.h"
 #include "WaveTableOscillator.h"
 #include "../../../modules/filters/BiquadFilter.h"
@@ -15,7 +15,7 @@ class WaveTableController : public Controller {
         virtual void update();
 
     private:
-        PitchInput pitchInput = PitchInput(A0);
+        ExpInput pitchInput = ExpInput(A0);
         AnalogInput interpolationInput = AnalogInput(A1, -5, 5, 0, 1);
 
         WaveTableOscillator oscillator;

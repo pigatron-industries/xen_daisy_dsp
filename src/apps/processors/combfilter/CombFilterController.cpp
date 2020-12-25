@@ -1,30 +1,31 @@
-#include "FlangerController.h"
+#include "CombFilterController.h"
 
 #define LEFT 0
 #define RIGHT 1
 
-void FlangerController::init(float sampleRate) {
+#define MAX_DELAY 0.5
+
+void CombFilterController::init(float sampleRate) {
     this->sampleRate = sampleRate;
-    delayLeft.init(sampleRate);
-    delayRight.init(sampleRate);
-    //delayTimeInput.setRange(0.001, 1);
+    delayLeft.init(sampleRate, MAX_DELAY);
+    delayRight.init(sampleRate, MAX_DELAY);
 
     displayPage.initTitle("Comb Filter (Flanger)");
 }
 
-void FlangerController::process(float **in, float **out, size_t size) {
+void CombFilterController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
         out[LEFT][i] = delayLeft.process(in[LEFT][i]);
         out[RIGHT][i] = delayRight.process(in[RIGHT][i]);
     }
 }
 
-void FlangerController::setDelay(float delayTime) {
+void CombFilterController::setDelay(float delayTime) {
     delayLeft.setDelay(delayTime);
     delayRight.setDelay(delayTime);
 }
 
-void FlangerController::update() {
+void CombFilterController::update() {
     delayTimeInput.update();
     feedbackInput.update();
     dryWetMixInput.update();

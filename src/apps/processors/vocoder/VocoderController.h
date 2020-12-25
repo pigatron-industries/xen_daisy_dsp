@@ -4,7 +4,7 @@
 #include "Vocoder.h"
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
-#include "../../../io/input/PitchInput.h"
+#include "../../../io/input/ExpInput.h"
 #include "../../../modules/StereoPan.h"
 
 /**
@@ -29,7 +29,7 @@ class VocoderController : public Controller {
 
     private:
         AnalogInput resonanceInput = AnalogInput(A0, -5, 5, 0, 1);
-        PitchInput centreFrequencyInput = PitchInput(A1);
+        ExpInput centreFrequencyInput = ExpInput(A1);
         AnalogInput pitchIntervalInput = AnalogInput(A2, -5, 5, 0.25, 1.0);
         AnalogInput stereoMixInput = AnalogInput(A3, -5, 5, 0, 1);
 

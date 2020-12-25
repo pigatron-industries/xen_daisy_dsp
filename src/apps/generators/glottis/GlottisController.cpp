@@ -19,7 +19,7 @@ void GlottisController::update() {
     pitchInput.update();
     tensenessInput.update();
 
-    glottis.setFrequency(pitchInput.getFrequency());
+    glottis.setFrequency(pitchInput.getValue());
     glottis.setTenseness(tensenessInput.getValue());
 }
 

@@ -5,7 +5,7 @@
 #include "Glottis.h"
 #include "../../../Controller.h"
 #include "../../../modules/filters/BiquadFilter.h"
-#include "../../../io/input/PitchInput.h"
+#include "../../../io/input/ExpInput.h"
 #include "../../../io/input/AnalogInput.h"
 
 class GlottisController : public Controller {
@@ -16,7 +16,7 @@ class GlottisController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
-        PitchInput pitchInput = PitchInput(A0, 110);
+        ExpInput pitchInput = ExpInput(A0, 110);
         AnalogInput tensenessInput = AnalogInput(A1, -5, 5, 0, 1);
 
         WhiteNoise whiteNoise;

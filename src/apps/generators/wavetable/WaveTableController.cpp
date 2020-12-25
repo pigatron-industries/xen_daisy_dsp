@@ -29,7 +29,7 @@ void WaveTableController::process(float **in, float **out, size_t size) {
 void WaveTableController::update() {
     pitchInput.update();
     interpolationInput.update();
-    wavetable1.setFrequency(pitchInput.getFrequency());
-    oscillator.setFrequency(pitchInput.getFrequency());
+    wavetable1.setFrequency(pitchInput.getValue());
+    oscillator.setFrequency(pitchInput.getValue());
     oscillator.setInterpolation(interpolationInput.getValue());
 }

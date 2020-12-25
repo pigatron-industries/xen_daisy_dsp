@@ -21,13 +21,13 @@ void DualFilterController::init(float sampleRate) {
 
 void DualFilterController::update() {
     if(frequencyInput1.update()) {
-        filter1.setFrequency(frequencyInput1.getFrequency());
+        filter1.setFrequency(frequencyInput1.getValue());
     }
     if(resonanceInput1.update()) {
         filter1.setResonance(resonanceInput1.getValue());
     }
     if(frequencyInput2.update()) {
-        filter2.setFrequency(frequencyInput2.getFrequency());
+        filter2.setFrequency(frequencyInput2.getValue());
     }
     if(resonanceInput2.update()) {
         filter2.setResonance(resonanceInput2.getValue());
@@ -35,8 +35,8 @@ void DualFilterController::update() {
 }
 
 void DualFilterController::updateDisplay() {
-    displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getFrequency(), 2));
-    displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getFrequency(), 2));
+    displayPage.setText(FIELD_FILTER1_FREQ, String(frequencyInput1.getValue(), 2));
+    displayPage.setText(FIELD_FILTER2_FREQ, String(frequencyInput2.getValue(), 2));
 }
 
 void DualFilterController::event(UIEvent event, int itemIndex) {

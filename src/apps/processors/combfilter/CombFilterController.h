@@ -1,21 +1,22 @@
-#ifndef FlangerController_h
-#define FlangerController_h
+#ifndef CombFilterController_h
+#define CombFilterController_h
 
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
+#include "../../../io/input/ExpInput.h"
 #include "../../../io/input/CrossfadeInput.h"
 #include "Delay.h"
 
-class FlangerController : public Controller {
+class CombFilterController : public Controller {
     public:
-        FlangerController() {}
+        CombFilterController() {}
         virtual void init(float sampleRate);
         virtual void process(float **in, float **out, size_t size);
         virtual void update();
 
     private:
-        AnalogInput delayTimeInput = AnalogInput(A0, -5, 5, 0.0001, 0.01);
-        AnalogInput feedbackInput = AnalogInput(A1, -5, 5, 0, 1);
+        ExpInput delayTimeInput = ExpInput(A0, 0.005);
+        AnalogInput feedbackInput = AnalogInput(A1, -5, 5, -1, 1);
         CrossfadeInput dryWetMixInput = CrossfadeInput(A2, -5, 5);
         bool invertedFeedback = false;
 

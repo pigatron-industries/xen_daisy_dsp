@@ -16,8 +16,8 @@ void GlitchLoopController::update() {
     float delayTimeRight = 0.0;
 
     if(sampleTimeInput.update()) {
-        buffer1.setSampleSize(sampleRate * sampleTimeInput.getFrequency());
-        buffer2.setSampleSize(sampleRate * sampleTimeInput.getFrequency());
+        buffer1.setSampleSize(sampleRate * sampleTimeInput.getValue());
+        buffer2.setSampleSize(sampleRate * sampleTimeInput.getValue());
     }
 
     if(writeDelayStartInput.update()) {

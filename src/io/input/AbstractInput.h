@@ -5,36 +5,51 @@
 #include "DaisyDuino.h"
 #include "Arduino.h"
 
+#define SMOOTHING_FAST 0.001
+#define SMOOTHING_SLOW 0.05
+
 class AbstractInput {
     public:
         AbstractInput(uint8_t _pin) : 
             pin(_pin) {
-                smoothingWeight = 1;
+                smoothingWeight = SMOOTHING_SLOW;
+        }
+
+        AbstractInput(uint8_t _pin, float smoothingWeight) : 
+            pin(_pin) {
+                this->smoothingWeight = smoothingWeight;
+        }
+
+        inline void setSmoothingWeight(float smoothingWeight) {
+            this->smoothingWeight = smoothingWeight;
         }
 
         inline bool update() { return readVoltage(); }
         inline bool isChanged() { return changed; }
-        inline float getVoltage() { return voltage; }
-        inline float getValue() { return voltage; }
+        inline float getVoltage() { return targetVoltage; }
         inline uint32_t getRawValue() { return value; }
+
+        inline float getSmoothedVoltage() { 
+            smoothedVoltage = smoothingWeight*targetVoltage + (1-smoothingWeight)*smoothedVoltage;
+            return smoothedVoltage;
+        }
 
     protected:
         uint8_t pin;
-        float smoothingWeight = 0.02;
+        float smoothingWeight;
 
         uint32_t value;
-        float voltage;
-        float prevVoltage;
+        float targetVoltage;
+        float smoothedVoltage;
 
         bool changed;
 
         inline bool readVoltage() {
             uint32_t value = analogRead(pin);
-            float newVoltage = ((value / 4095.0) * -10.0) + 5; //represents actual voltage on input of op-amp -5v to +5v
-            voltage = smoothingWeight*newVoltage + (1-smoothingWeight)*voltage;
-            float diff = fabsf(prevVoltage-voltage);
-            if(diff > 0.01) {
-                prevVoltage = voltage;
+            float prevVoltage = smoothedVoltage;
+            targetVoltage = ((value / 4095.0) * -10.0) + 5; //represents actual voltage on input of op-amp -5v to +5v
+            float diff = fabsf(targetVoltage-prevVoltage);
+            if(diff > 0.02) {
                 changed = true;
             } else {
                 changed = false;

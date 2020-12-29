@@ -2,7 +2,7 @@
 #define Delay_h
 
 #include "DaisyDuino.h"
-#include "../../../modules/delays/TappableDelayLine.h"
+#include "TappableDelayLine.h"
 
 class Delay {
     public:

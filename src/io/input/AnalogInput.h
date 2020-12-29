@@ -24,15 +24,8 @@ class AnalogInput : public AbstractInput {
             virtualRange = virtualMax - virtualMin;
         }
 
-        inline bool update() {
-            if(readVoltage()) {
-                virtualValue = (((getVoltage() - realMin) * virtualRange) / realRange) + virtualMin;
-            }
-            return isChanged();
-        }
-
         inline float getValue() {
-            return virtualValue;
+            return (((getSmoothedVoltage() - realMin) * virtualRange) / realRange) + virtualMin;
         }
 
     private:

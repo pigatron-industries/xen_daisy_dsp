@@ -14,14 +14,10 @@ class ExpInput : public AbstractInput {
             this->midValue = midValue;
         }
 
-        bool update() {
-            if(readVoltage()) {
-                expValue = midValue*powf(2, getVoltage());
-            }
-            return isChanged();
+        float getValue() { 
+            expValue = midValue*powf(2, getSmoothedVoltage());
+            return expValue;
         }
-
-        float getValue() { return expValue; }
         
         void setMidValue(float midValue) { this->midValue = midValue; }
 

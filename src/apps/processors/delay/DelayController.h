@@ -1,5 +1,5 @@
-#ifndef CombFilterController_h
-#define CombFilterController_h
+#ifndef DelayController_h
+#define DelayController_h
 
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
@@ -7,15 +7,15 @@
 #include "../../../io/input/CrossfadeInput.h"
 #include "../../../modules/delays/Delay.h"
 
-class CombFilterController : public Controller {
+class DelayController : public Controller {
     public:
-        CombFilterController() {}
+        DelayController() {}
         virtual void init(float sampleRate);
         virtual void process(float **in, float **out, size_t size);
         virtual void update();
 
     private:
-        ExpInput delayTimeInput = ExpInput(A0, 0.005);
+        AnalogInput delayTimeInput = AnalogInput(A0, -5, 5, 0.001, 0.2);
         AnalogInput feedbackInput = AnalogInput(A1, -5, 5, -1, 1);
         CrossfadeInput dryWetMixInput = CrossfadeInput(A2, -5, 5);
 

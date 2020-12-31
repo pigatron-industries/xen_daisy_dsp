@@ -90,8 +90,6 @@ void GlitchLoopController::process(float **in, float **out, size_t size) {
                 }
                 out[0][i] = buffer1.read() + in[0][i]*dryGain;
                 out[1][i] = buffer2.read() + in[1][i]*dryGain;
-                buffer1.readIncrement();
-                buffer2.readIncrement();
                 break;
 
             case GlitchState::GLITCH_OFF:

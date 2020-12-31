@@ -11,9 +11,12 @@ class WaveTable {
         float process();
 
         void setFrequency(float frequency);
+        void setFrequencyTable(float frequency);
 
         size_t getSize() { return tableSize; }
         float* getTable() { return table; }
+        void setTableSample(int index, float sample);
+        void addTableSample(int index, float sample);
         float read(float position);
 
     private:

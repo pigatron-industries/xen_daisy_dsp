@@ -1,5 +1,5 @@
 #include "WaveTableController.h"
-#include "WaveTableGenerator.h"
+#include "../../../modules/wavetable/WaveTableGenerator.h"
 
 #define LEFT 0
 #define RIGHT 1

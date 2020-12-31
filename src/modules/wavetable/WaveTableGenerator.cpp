@@ -1,7 +1,7 @@
 #include "WaveTableGenerator.h"
 
 #include <math.h>
-#include "../../../util/util.h"
+#include "../../util/util.h"
 
 void WaveTableGenerator::sine(WaveTable& wavetable, float amplitude, int mult) {
     float* table = wavetable.getTable();

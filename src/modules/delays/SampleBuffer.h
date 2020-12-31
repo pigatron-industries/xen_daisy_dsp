@@ -15,11 +15,12 @@ class SampleBuffer
         void setSampleSize(size_t sampleSize);
 
         bool write(const float sample);
-        inline const float read();
-        inline const bool readIncrement();
+        const float read();
+        const float read(float increment);
 
         bool isSampleFull() { return sampleFull; }
         bool isBufferFull() { return bufferFull; }
+        bool isReadFull() { return readFull; }
 
     private:
         size_t bufferSize;
@@ -28,9 +29,13 @@ class SampleBuffer
         
         bool sampleFull;
         bool bufferFull;
+        bool readFull;
 
         size_t writePointer;
         size_t readPointer;
+        float readFraction;
+
+        void readIncrement();
 };
 
 
@@ -48,16 +53,24 @@ inline bool SampleBuffer::write(const float sample) {
 }
 
 inline const float SampleBuffer::read() {
-    return buffer[readPointer];
+    float sample = buffer[readPointer];
+    readIncrement();
+    return sample;
 }
 
-inline const bool SampleBuffer::readIncrement() {
+inline const float SampleBuffer::read(float increment) {
+    float sample = buffer[readPointer];
+    readIncrement();
+    return sample;
+}
+
+inline void SampleBuffer::readIncrement() {
     readPointer++;
     if(readPointer > sampleSize) {
         readPointer = 0;
-        return true;
+        readFull = true;
     } else {
-        return false;
+        readFull = false;
     }
 }
 

@@ -1,7 +1,7 @@
 #include "WaveTable.h"
 
-#include "../../../io/MemPool.h"
-#include "../../../util/util.h"
+#include "../../io/MemPool.h"
+#include "../../util/util.h"
 
 void WaveTable::init(float sampleRate, size_t tableSize) {
     this->sampleRate = sampleRate;
@@ -18,9 +18,25 @@ void WaveTable::init(float sampleRate, size_t tableSize, float* table) {
     this->table = table;
 }
 
+void WaveTable::setTableSample(int index, float sample) {
+    if(index < tableSize) {
+        table[index] = sample;
+    }
+}
+
+void WaveTable::addTableSample(int index, float sample) {
+    if(index < tableSize) {
+        table[index] += sample;
+    }
+}
+
 void WaveTable::setFrequency(float frequency) { 
-    this->frequency = frequency;
     increment = (tableSize * frequency) * sampleRateReciprocal;
+    setFrequencyTable(frequency);
+}
+
+void WaveTable::setFrequencyTable(float frequency) {
+    this->frequency = frequency;
 }
 
 float WaveTable::process() {

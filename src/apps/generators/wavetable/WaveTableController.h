@@ -5,7 +5,6 @@
 #include "../../../io/input/ExpInput.h"
 #include "../../../io/input/AnalogInput.h"
 #include "../../../modules/wavetable/WaveTableOscillator.h"
-#include "../../../modules/filters/BiquadFilter.h"
 
 class WaveTableController : public Controller {
     public:

@@ -14,7 +14,8 @@ class GlitchAliasController : public Controller {
 
     private:
         AnalogInput pitchInput = AnalogInput(A0, -5, 5, 2000, 46000);
-        AnalogInput mixInput = AnalogInput(A1, -5, 5, 0, 1);
+        AnalogInput fineInput = AnalogInput(A1, -5, 5, -500, 500);
+        AnalogInput mixInput = AnalogInput(A2, -5, 5, 0, 1);
 
         Oscillator square;
         Oscillator saw;

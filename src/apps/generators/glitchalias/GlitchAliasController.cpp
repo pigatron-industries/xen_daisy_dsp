@@ -22,8 +22,9 @@ void GlitchAliasController::process(float **in, float **out, size_t size) {
 
 void GlitchAliasController::update() {
     pitchInput.update();
+    fineInput.update();
     mixInput.update();
-    square.SetFreq(pitchInput.getValue());
-    saw.SetFreq(pitchInput.getValue());
+    square.SetFreq(pitchInput.getValue() + fineInput.getValue());
+    saw.SetFreq(pitchInput.getValue() + fineInput.getValue());
     mix = mixInput.getValue();
 }

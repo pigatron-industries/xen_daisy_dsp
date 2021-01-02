@@ -16,15 +16,17 @@ bool WaveTableGenerator::blSine(WaveTable& wavetable, float amplitude, int mult)
     size_t size = wavetable.getSize();
     float* tempBuffer = wavetable.getTempBuffer();
     bool added = false;
+    float phaseIncrement = (1 / float(size)) * M_PI*2 * mult;
 
     for(int tableIndex = 0; tableIndex < wavetable.getTableCount(); tableIndex++) {
         float maxFrequency = wavetable.getTableFrequency(tableIndex) * mult;
         if(maxFrequency < nyquist) {
             added = true;
             if(tableIndex == 0) {
+                float phase = 0;
                 for(int i = 0; i < size; i++) {
-                    float phase = (float(i) / float(size)) * M_PI*2 * mult;
                     tempBuffer[i] = sinf(phase) * amplitude;
+                    phase += phaseIncrement;
                 }
             } 
             wavetable.addTempBufferToTable(tableIndex);

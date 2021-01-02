@@ -8,10 +8,10 @@
 class WaveTableOscillator {
     public:
         WaveTableOscillator() {}
-        void init(float sampleRate, int tableSize, int tableCount);
+        void init(float sampleRate, int tableSize);
         float process();
 
-        void setWaveTable(int index, WaveTable* wavetable) { wavetables[index] = wavetable; }
+        void setWaveTable(int index, WaveTable* wavetable);
         void setFrequency(float frequency);
         void setInterpolation(float interpolation) { this->interpolation = interpolation; }
 

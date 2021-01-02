@@ -28,16 +28,32 @@ bool WaveTableGenerator::addSine(WaveTable& wavetable, float amplitude, int mult
     return added;
 }
 
-void WaveTableGenerator::addSquare(WaveTable& wavetable, float amplitude, int mult) {
+void WaveTableGenerator::addHarmonics(WaveTable& wavetable, RollOffFunction* rolloff, float amplitude, int mult) {
     int harmonic = 1;
     bool added = true;
-
     while(added) {
-        float harmonicAmplitude = amplitude/float(harmonic);
-        int harmonicMult = harmonic * mult;
-        added = addSine(wavetable, harmonicAmplitude, harmonicMult);
-        harmonic += 2;
+        float harmonicAmplitude = rolloff->rolloff(harmonic) * amplitude;
+        if(harmonicAmplitude > 0) {
+            int harmonicMult = harmonic * mult;
+            added = addSine(wavetable, harmonicAmplitude, harmonicMult);
+        }
+        harmonic++;
     }
+}
+
+void WaveTableGenerator::addSquare(WaveTable& wavetable, float amplitude, int mult) {
+    SquareRollOffFunction rolloff = SquareRollOffFunction();
+    addHarmonics(wavetable, &rolloff, amplitude, mult);
+}
+
+void WaveTableGenerator::addTriangle(WaveTable& wavetable, float amplitude, int mult) {
+    TriangleRollOffFunction rolloff = TriangleRollOffFunction();
+    addHarmonics(wavetable, &rolloff, amplitude, mult);
+}
+
+void WaveTableGenerator::addRamp(WaveTable& wavetable, float amplitude, int mult) {
+    RampRollOffFunction rolloff = RampRollOffFunction();
+    addHarmonics(wavetable, &rolloff, amplitude, mult);
 }
 
 void WaveTableGenerator::pulse(WaveTable& wavetable, float pulseWidth, float amplitude, int mult) {

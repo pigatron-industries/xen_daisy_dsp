@@ -15,11 +15,13 @@ class WaveTableController : public Controller {
 
     private:
         ExpInput pitchInput = ExpInput(A0);
-        AnalogInput interpolationInput = AnalogInput(A1, -5, 5, 0, 1);
+        AnalogInput interpolationInput = AnalogInput(A1, -5, 5, 0, 3);
 
         WaveTableOscillator oscillator;
         WaveTable wavetable1;
         WaveTable wavetable2;
+        WaveTable wavetable3;
+        WaveTable wavetable4;
 };
 
 #endif

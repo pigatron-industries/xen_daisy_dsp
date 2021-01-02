@@ -1,10 +1,17 @@
 #include "WaveTableOscillator.h"
 
-void WaveTableOscillator::init(float sampleRate, int tableSize, int tableCount) {
+void WaveTableOscillator::init(float sampleRate, int tableSize) {
     this->sampleRate = sampleRate;
     this->tableSize = tableSize;
-    this->tableCount = tableCount;
+    this->tableCount = 0;
     this->sampleRateReciprocal = 1/sampleRate;
+}
+
+void WaveTableOscillator::setWaveTable(int index, WaveTable* wavetable) {
+    wavetables[index] = wavetable;
+    if(tableCount <= index) {
+        tableCount = index+1;
+    }
 }
 
 void WaveTableOscillator::setFrequency(float frequency) { 

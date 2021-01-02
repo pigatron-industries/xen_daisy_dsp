@@ -9,7 +9,6 @@
 void WaveTableController::init(float sampleRate) {
     wavetable1.init(sampleRate, TABLE_SIZE, 10);
     WaveTableGenerator::blSquare(wavetable1, 0.5);
-    //WaveTableGenerator::blSine(wavetable1, 0.5);
 
     wavetable2.init(sampleRate, TABLE_SIZE, 10);
     WaveTableGenerator::blSine(wavetable2, 0.5);

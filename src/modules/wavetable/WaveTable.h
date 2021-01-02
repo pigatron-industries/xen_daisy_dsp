@@ -28,6 +28,9 @@ class WaveTable {
         void setTableSample(int tableIndex, int sampleIndex, float sample);
         void addTableSample(int tableIndex, int sampleIndex, float sample);
 
+        float* getTempBuffer() { return tempBuffer; }
+        void addTempBufferToTable(int tableIndex);
+
     private:
         float* table[MAX_TABLES];
         float tableFrequency[MAX_TABLES];
@@ -41,6 +44,8 @@ class WaveTable {
         float position;
         float increment;
         float frequency;
+
+        float* tempBuffer;
 
         int getTableForFrequency(float frequency);
         void calcTableFrequencies();

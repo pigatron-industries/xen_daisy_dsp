@@ -14,17 +14,20 @@ void WaveTableGenerator::sine(WaveTable& wavetable, float amplitude, int mult) {
 bool WaveTableGenerator::blSine(WaveTable& wavetable, float amplitude, int mult) {
     float nyquist = wavetable.getSampleRate() * 0.5;
     size_t size = wavetable.getSize();
+    float* tempBuffer = wavetable.getTempBuffer();
     bool added = false;
 
     for(int tableIndex = 0; tableIndex < wavetable.getTableCount(); tableIndex++) {
         float maxFrequency = wavetable.getTableFrequency(tableIndex) * mult;
         if(maxFrequency < nyquist) {
             added = true;
-            for(int i = 0; i < size; i++) {
-                float phase = (float(i) / float(size)) * M_PI*2 * mult;
-                float sample = sinf(phase) * amplitude;
-                wavetable.addTableSample(tableIndex, i, sample);
-            }
+            if(tableIndex == 0) {
+                for(int i = 0; i < size; i++) {
+                    float phase = (float(i) / float(size)) * M_PI*2 * mult;
+                    tempBuffer[i] = sinf(phase) * amplitude;
+                }
+            } 
+            wavetable.addTempBufferToTable(tableIndex);
         }
     }
 

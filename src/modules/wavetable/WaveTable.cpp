@@ -9,6 +9,7 @@ void WaveTable::init(float sampleRate, size_t tableSize, size_t tableCount) {
     this->sampleRateReciprocal = 1/sampleRate;
     this->tableSize = tableSize;
     this->tableCount = tableCount <= MAX_TABLES ? tableCount : MAX_TABLES;
+    tempBuffer = new (MemPool::allocate(sizeof(float)*tableSize)) float[tableSize];
     for(int i = 0; i < tableCount; i++) {
         table[i] = new (MemPool::allocate(sizeof(float)*tableSize)) float[tableSize];
         zeroBuffer(table[i], tableSize);
@@ -96,5 +97,11 @@ void WaveTable::calcTableFrequencies() {
     for(int i = 0; i < tableCount; i++) {
         tableFrequency[i] = baseFrequency * powf(2, octave);
         octave += octaveInc;
+    }
+}
+
+void WaveTable::addTempBufferToTable(int tableIndex) {
+    for(int i = 0; i < tableSize; i++) {
+        table[tableIndex][i] += tempBuffer[i];
     }
 }

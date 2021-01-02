@@ -83,7 +83,7 @@ void MainController::setActiveController(int controllerIndex) {
     //DAISY.end();
     audio_stop(DSY_AUDIO_INTERNAL);  // Temp workaround for linker issue in DaisyDuino lib
  
-    MemPool::reset();
+    MemPool::resetPool();
     controllers[controllerIndex]->init(sampleRate);
     controllers[controllerIndex]->getDisplayPage()->setSelection(0);
     Hardware::hw.display.setDisplayedPage(controllers[controllerIndex]->getDisplayPage());

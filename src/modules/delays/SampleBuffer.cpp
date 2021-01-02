@@ -4,7 +4,7 @@
 void SampleBuffer::init(size_t bufferSize) { 
     this->bufferSize = bufferSize;
     this->sampleSize = bufferSize;
-    buffer = new (MemPool::allocate(sizeof(float)*bufferSize)) float[bufferSize];
+    buffer = new (MemPool::allocatePool(sizeof(float)*bufferSize)) float[bufferSize];
     reset();
     clear();
 }

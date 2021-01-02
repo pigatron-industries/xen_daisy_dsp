@@ -56,6 +56,11 @@ void WaveTableGenerator::addRamp(WaveTable& wavetable, float amplitude, int mult
     addHarmonics(wavetable, &rolloff, amplitude, mult);
 }
 
+void WaveTableGenerator::addPulse(WaveTable& wavetable, float amplitude, int mult) {
+    PulseRollOffFunction rolloff = PulseRollOffFunction();
+    addHarmonics(wavetable, &rolloff, amplitude, mult);
+}
+
 void WaveTableGenerator::pulse(WaveTable& wavetable, float pulseWidth, float amplitude, int mult) {
     size_t size = wavetable.getSize();
     for(int i = 0; i < size; i++) {

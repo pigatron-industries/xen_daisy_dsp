@@ -22,7 +22,8 @@ class Controller {
         char* getName() { return name; }
         DisplayPage* getDisplayPage() { return &displayPage; }
 
-        virtual void init(float sampleRate) = 0;
+        virtual void firstInit(float sampleRate) { firstInitCalled = true; };
+        virtual void init(float sampleRate) { if(!firstInitCalled) { this->firstInit(sampleRate); } };
         virtual void update() {}
         virtual void updateDisplay() {}
         virtual void event(UIEvent event, int itemIndex) {}
@@ -31,6 +32,7 @@ class Controller {
     protected:
         char* name;
         DisplayPage displayPage;
+        bool firstInitCalled = false;
 };
 
 #endif

@@ -1,19 +1,18 @@
 #include "WaveTable.h"
 
-#include "../../io/MemPool.h"
 #include "../../util/util.h"
 #include "../filters/BiquadFilter.h"
 
 #define RANGE_OCTAVES 10.0
 
-void WaveTable::init(float sampleRate, size_t tableSize, size_t tableCount) {
+void WaveTable::init(float sampleRate, size_t tableSize, size_t tableCount, void* (*allocate)(size_t)) {
     this->sampleRate = sampleRate;
     this->sampleRateReciprocal = 1/sampleRate;
     this->tableSize = tableSize;
     this->tableCount = tableCount <= MAX_TABLES ? tableCount : MAX_TABLES;
-    tempBuffer = new (MemPool::allocate(sizeof(float)*tableSize)) float[tableSize];
+    tempBuffer = new (allocate(sizeof(float)*tableSize)) float[tableSize];
     for(int i = 0; i < tableCount; i++) {
-        table[i] = new (MemPool::allocate(sizeof(float)*tableSize)) float[tableSize];
+        table[i] = new (allocate(sizeof(float)*tableSize)) float[tableSize];
         zeroBuffer(table[i], tableSize);
     }
     calcTableFrequencies();

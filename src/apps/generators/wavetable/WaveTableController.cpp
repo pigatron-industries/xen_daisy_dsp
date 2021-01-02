@@ -6,17 +6,19 @@
 
 #define TABLE_SIZE 1024
 
-void WaveTableController::init(float sampleRate) {
-    wavetable1.init(sampleRate, TABLE_SIZE, 10);
+void WaveTableController::firstInit(float sampleRate) {
+    Controller::firstInit(sampleRate);
+
+    wavetable1.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
     WaveTableGenerator::addSine(wavetable1, 0.5);
 
-    wavetable2.init(sampleRate, TABLE_SIZE, 10);
+    wavetable2.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
     WaveTableGenerator::addTriangle(wavetable2, 0.5);
 
-    wavetable3.init(sampleRate, TABLE_SIZE, 10);
+    wavetable3.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
     WaveTableGenerator::addSquare(wavetable3, 0.5);
 
-    wavetable4.init(sampleRate, TABLE_SIZE, 10);
+    wavetable4.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
     WaveTableGenerator::addRamp(wavetable4, 0.5);
 
     oscillator.init(sampleRate, TABLE_SIZE);
@@ -26,6 +28,10 @@ void WaveTableController::init(float sampleRate) {
     oscillator.setWaveTable(3, &wavetable4);
 
     displayPage.initTitle("Wave Table");
+}
+
+void WaveTableController::init(float sampleRate) {
+    Controller::init(sampleRate);
 }
 
 void WaveTableController::process(float **in, float **out, size_t size) {

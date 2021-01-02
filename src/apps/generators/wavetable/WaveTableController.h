@@ -9,6 +9,7 @@
 class WaveTableController : public Controller {
     public:
         WaveTableController() {}
+        virtual void firstInit(float sampleRate);
         virtual void init(float sampleRate);
         virtual void process(float **in, float **out, size_t size);
         virtual void update();

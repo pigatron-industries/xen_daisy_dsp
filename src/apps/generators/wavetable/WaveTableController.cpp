@@ -8,10 +8,10 @@
 
 void WaveTableController::init(float sampleRate) {
     wavetable1.init(sampleRate, TABLE_SIZE, 10);
-    WaveTableGenerator::blSquare(wavetable1, 0.5);
+    WaveTableGenerator::addSquare(wavetable1, 0.5);
 
     wavetable2.init(sampleRate, TABLE_SIZE, 10);
-    WaveTableGenerator::blSine(wavetable2, 0.5);
+    WaveTableGenerator::addSine(wavetable2, 0.5);
 
     oscillator.init(sampleRate, TABLE_SIZE, 2);
     oscillator.setWaveTable(0, &wavetable1);
@@ -30,8 +30,6 @@ void WaveTableController::process(float **in, float **out, size_t size) {
 
 void WaveTableController::update() {
     if(pitchInput.update()) {
-        wavetable1.setFrequency(pitchInput.getValue());
-        wavetable2.setFrequency(pitchInput.getValue());
         oscillator.setFrequency(pitchInput.getValue());
     }
 

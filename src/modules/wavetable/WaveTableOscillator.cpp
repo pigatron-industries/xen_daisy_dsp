@@ -10,6 +10,9 @@ void WaveTableOscillator::init(float sampleRate, int tableSize, int tableCount) 
 void WaveTableOscillator::setFrequency(float frequency) { 
     this->frequency = frequency;
     increment = (tableSize * frequency) * sampleRateReciprocal;
+    for(int i = 0; i < tableCount; i++) {
+        wavetables[i]->setFrequencyTable(frequency);
+    }
 }
 
 float WaveTableOscillator::process() {

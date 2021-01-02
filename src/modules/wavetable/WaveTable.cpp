@@ -4,6 +4,8 @@
 #include "../../util/util.h"
 #include "../filters/BiquadFilter.h"
 
+#define RANGE_OCTAVES 10.0
+
 void WaveTable::init(float sampleRate, size_t tableSize, size_t tableCount) {
     this->sampleRate = sampleRate;
     this->sampleRateReciprocal = 1/sampleRate;
@@ -90,15 +92,18 @@ int WaveTable::getTableForFrequency(float frequency) {
 }
 
 void WaveTable::calcTableFrequencies() {
-    float baseFrequency = 50;
-    float octaveInc = 10.0 / float(tableCount);
+    float baseFrequency = 46.875;
+    float octaveInc = RANGE_OCTAVES / float(tableCount);
     float octave = 0;
 
     for(int i = 0; i < tableCount; i++) {
         tableFrequency[i] = baseFrequency * powf(2, octave);
+        if(tableFrequency[i] > sampleRate*0.5) {
+            tableFrequency[i] = sampleRate*0.5;
+        }
         octave += octaveInc;
     }
-}
+} 
 
 void WaveTable::addTempBufferToTable(int tableIndex) {
     for(int i = 0; i < tableSize; i++) {

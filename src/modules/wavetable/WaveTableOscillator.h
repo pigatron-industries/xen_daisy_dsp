@@ -3,7 +3,7 @@
 
 #include "WaveTable.h"
 
-#define MAX_WAVETABLE_COUNT 2
+#define MAX_WAVETABLE_COUNT 10
 
 class WaveTableOscillator {
     public:

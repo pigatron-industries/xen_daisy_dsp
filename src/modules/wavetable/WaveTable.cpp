@@ -4,37 +4,51 @@
 #include "../../util/util.h"
 #include "../filters/BiquadFilter.h"
 
-void WaveTable::init(float sampleRate, size_t tableSize) {
+void WaveTable::init(float sampleRate, size_t tableSize, size_t tableCount) {
     this->sampleRate = sampleRate;
     this->sampleRateReciprocal = 1/sampleRate;
     this->tableSize = tableSize;
-    this->antialiased = false;
-    for(int i = 0; i < TABLE_COUNT; i++) {
+    this->tableCount = tableCount <= MAX_TABLES ? tableCount : MAX_TABLES;
+    for(int i = 0; i < tableCount; i++) {
         table[i] = new (MemPool::allocate(sizeof(float)*tableSize)) float[tableSize];
         zeroBuffer(table[i], tableSize);
     }
+    calcTableFrequencies();
 }
 
-void WaveTable::init(float sampleRate, size_t tableSize, WaveTable& waveTable) {
+void WaveTable::init(float sampleRate, WaveTable& waveTable) {
     this->sampleRate = sampleRate;
     this->sampleRateReciprocal = 1/sampleRate;
-    this->tableSize = tableSize;
-    this->antialiased = waveTable.antialiased;
-    for(int i = 0; i < TABLE_COUNT; i++) {
+    this->tableSize = waveTable.tableSize;
+    this->tableCount = waveTable.tableCount;
+    for(int i = 0; i < tableCount; i++) {
         this->table[i] = waveTable.getTables()[i];
     }
+    calcTableFrequencies();
 }
 
 void WaveTable::setTableSample(int index, float sample) {
     if(index < tableSize) {
-        table[0][index] = sample;
+        for(int i = 0; i < tableCount; i++) {
+            table[i][index] = sample;
+        }
     }
 }
 
 void WaveTable::addTableSample(int index, float sample) {
     if(index < tableSize) {
-        table[0][index] += sample;
+        for(int i = 0; i < tableCount; i++) {
+            table[i][index] += sample;
+        }
     }
+}
+
+void WaveTable::setTableSample(int tableIndex, int sampleIndex, float sample) {
+    table[tableIndex][sampleIndex] = sample;
+}
+
+void WaveTable::addTableSample(int tableIndex, int sampleIndex, float sample) {
+    table[tableIndex][sampleIndex] += sample;
 }
 
 void WaveTable::setFrequency(float frequency) { 
@@ -65,44 +79,22 @@ float WaveTable::read(float position) {
 }
 
 int WaveTable::getTableForFrequency(float frequency) {
-    if(!antialiased) {
-        return 0;
-    }
-    float frequencyBucket = 50;
-    int index = 0;
-    while(frequency > frequencyBucket && index < TABLE_COUNT) {
-        index++;
-        frequencyBucket *= 2;
-    }
-    return index;
-}
-
-void WaveTable::antialias() {
-    float frequency = 50;
-    
-    antialiased = true;
-    for(int i = 1; i < TABLE_COUNT; i++) {
-        frequency *= 2;
-        calcAntialiased(getTableForFrequency(frequency), frequency);
-    }
-}
-
-void WaveTable::calcAntialiased(int tableIndex, float frequency) {
-    float oversampleRate = frequency * tableSize;
-
-    Serial.println(frequency);
-    Serial.println(tableIndex);
-    Serial.println(oversampleRate);
-
-    BiquadFilter filter;
-    filter.setType(BiquadFilter::FilterType::LOWPASS);
-    filter.init(oversampleRate);
-
-    for(int j = 0; j < 2; j++) {
-        for(int i = 0; i < tableSize; i++) {
-            filter.setFrequency(15000);
-            table[tableIndex][i] = filter.process(table[0][i]);
-            //table[tableIndex][i] = table[0][i];
+    int newtableIndex = 0;
+    for(int i = 0; i < tableCount; i++) {
+        if(frequency < tableFrequency[i]) {
+            return i;
         }
+    }
+    return tableCount-1;
+}
+
+void WaveTable::calcTableFrequencies() {
+    float baseFrequency = 50;
+    float octaveInc = 10.0 / float(tableCount);
+    float octave = 0;
+
+    for(int i = 0; i < tableCount; i++) {
+        tableFrequency[i] = baseFrequency * powf(2, octave);
+        octave += octaveInc;
     }
 }

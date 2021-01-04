@@ -4,22 +4,22 @@
 #define LEFT 0
 #define RIGHT 1
 
-#define TABLE_SIZE 1024
+#define TABLE_SIZE 256
 
 void WaveTableController::firstInit(float sampleRate) {
     Controller::firstInit(sampleRate);
 
     wavetable1.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
-    WaveTableGenerator::addSine(wavetable1, 0.5);
+    WaveTableGenerator::addSquare(wavetable1, 0.5);
 
     wavetable2.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
-    WaveTableGenerator::addTriangle(wavetable2, 0.5);
+    WaveTableGenerator::addSine(wavetable2, 0.5);
 
     wavetable3.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
-    WaveTableGenerator::addSquare(wavetable3, 0.5);
+    WaveTableGenerator::addRamp(wavetable3, 0.5);
 
     wavetable4.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
-    WaveTableGenerator::addRamp(wavetable4, 0.5);
+    WaveTableGenerator::addViolin(wavetable4, 0.5);
 
     oscillator.init(sampleRate, TABLE_SIZE);
     oscillator.setWaveTable(0, &wavetable1);

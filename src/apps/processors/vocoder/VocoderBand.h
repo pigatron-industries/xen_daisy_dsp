@@ -4,7 +4,7 @@
 #include <DaisyDuino.h>
 #include "../../../modules/filters/StateVariableFilter.h"
 #include "../../../modules/filters/BiquadFilter.h"
-#include "../../../modules/Oscillator.h"
+#include "../../../modules/oscillators/Oscillator.h"
 #include "EnvelopeFollower.h"
 
 using namespace pigatron;

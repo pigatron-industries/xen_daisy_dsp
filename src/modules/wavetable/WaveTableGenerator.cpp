@@ -3,7 +3,7 @@
 #include <math.h>
 #include "../../util/util.h"
 
-bool WaveTableGenerator::addSine(WaveTable& wavetable, float amplitude, int mult) {
+bool WaveTableGenerator::addSine(WaveTable& wavetable, float amplitude, int mult, float phaseShift) {
     float nyquist = wavetable.getSampleRate() * 0.5;
     size_t size = wavetable.getSize();
     float* tempBuffer = wavetable.getTempBuffer();
@@ -15,7 +15,7 @@ bool WaveTableGenerator::addSine(WaveTable& wavetable, float amplitude, int mult
         if(maxFrequency <= nyquist) {
             added = true;
             if(tableIndex == 0) {
-                float phase = 0;
+                float phase = phaseShift;
                 for(int i = 0; i < size; i++) {
                     tempBuffer[i] = sinf(phase) * amplitude;
                     phase += phaseIncrement;
@@ -59,6 +59,32 @@ void WaveTableGenerator::addRamp(WaveTable& wavetable, float amplitude, int mult
 void WaveTableGenerator::addPulse(WaveTable& wavetable, float amplitude, int mult) {
     PulseRollOffFunction rolloff = PulseRollOffFunction();
     addHarmonics(wavetable, &rolloff, amplitude, mult);
+}
+
+void WaveTableGenerator::addImpulse(WaveTable& wavetable, float amplitude, int mult) {
+    float amp = amplitude * -0.18;
+    addSine(wavetable, amp *  1.0, mult * 1,  0);
+    addSine(wavetable, amp * -0.9, mult * 2,  M_PI*0.5);
+    addSine(wavetable, amp * -0.8, mult * 3,  0);
+    addSine(wavetable, amp *  0.7, mult * 4,  M_PI*0.5);
+    addSine(wavetable, amp *  0.6, mult * 5,  0);
+    addSine(wavetable, amp * -0.5, mult * 6,  M_PI*0.5);
+    addSine(wavetable, amp * -0.4, mult * 7,  0);
+    addSine(wavetable, amp *  0.3, mult * 8,  M_PI*0.5);
+    addSine(wavetable, amp *  0.2, mult * 9,  0);
+    addSine(wavetable, amp * -0.1, mult * 10, M_PI*0.5);
+}
+
+void WaveTableGenerator::addViolin(WaveTable& wavetable, float amplitude, int mult) {
+    float amp = amplitude * 0.490;
+    addSine(wavetable, amp * 0.995, mult * 1,  0);
+    addSine(wavetable, amp * 0.940, mult * 2,  M_PI*0.5);
+    addSine(wavetable, amp * 0.425, mult * 3,  0);
+    addSine(wavetable, amp * 0.480, mult * 4,  M_PI*0.5);
+    addSine(wavetable, amp * 0.365, mult * 6,  M_PI*0.5);
+    addSine(wavetable, amp * 0.040, mult * 7,  0);
+    addSine(wavetable, amp * 0.085, mult * 8,  M_PI*0.5);
+    addSine(wavetable, amp * 0.090, mult * 10, M_PI*0.5);
 }
 
 void WaveTableGenerator::pulse(WaveTable& wavetable, float pulseWidth, float amplitude, int mult) {

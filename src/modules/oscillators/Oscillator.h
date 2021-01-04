@@ -1,7 +1,7 @@
 #ifndef Oscillator_h
 #define Oscillator_h
 #include <stdint.h>
-#include "../util/util.h"
+#include "../../util/util.h"
 
 constexpr float TWO_PI_F     = (float)M_PI*2;
 constexpr float TWO_PI_RECIP = 1.0f / float(M_PI*2);
@@ -66,7 +66,7 @@ class Oscillator
     void phaseAdd(float _phase) { phase_ += (_phase * float(M_PI*2)); }
     /** Resets the phase to the input argument. If no argument is present, it will reset phase to 0.0;
     */
-    void reset(float _phase = 0.0f) { phase_ = _phase; }
+    void setPhase(float _phase = 0.0f) { phase_ = _phase; }
 
   private:
     float   calcPhaseInc(float f);
@@ -98,6 +98,9 @@ static inline float polyblep(float phase_inc, float t)
 
 inline float Oscillator::process()
 {
+    if(amp_ == 0 || freq_ >= sr_ * 0.5) {
+        return 0;
+    }
     float out, t;
     switch(waveform_)
     {

@@ -1,6 +1,5 @@
 #include <math.h>
 #include "Oscillator.h"
-#include "../util/LookupTable.h"
 
 using namespace pigatron;
 

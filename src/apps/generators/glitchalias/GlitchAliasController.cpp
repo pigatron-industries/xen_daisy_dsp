@@ -9,7 +9,7 @@ void GlitchAliasController::init(float sampleRate) {
     saw.Init(sampleRate);
     saw.SetWaveform(Oscillator::WAVE_SAW);
     
-    displayPage.initTitle("Aliasing Oscillator");
+    displayPage.initTitle("Aliasing Oscillator", "ALIA");
 }
 
 void GlitchAliasController::process(float **in, float **out, size_t size) {

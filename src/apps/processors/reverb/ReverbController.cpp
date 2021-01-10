@@ -10,7 +10,7 @@ void ReverbController::init(float sampleRate) {
     this->sampleRate = sampleRate;
     reverbLeft.init(sampleRate);
     reverbRight.init(sampleRate);
-    displayPage.initTitle("Reverb");
+    displayPage.initTitle("Reverb", "VERB");
 }
 
 void ReverbController::update() {

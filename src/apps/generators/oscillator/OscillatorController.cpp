@@ -7,7 +7,7 @@ void OscillatorController::init(float sampleRate) {
     oscillator.Init(sampleRate);
     oscillator.SetWaveform(Oscillator::WAVE_POLYBLEP_SQUARE);
 
-    displayPage.initTitle("Oscillator");
+    displayPage.initTitle("Oscillator", "OSC ");
 }
 
 void OscillatorController::process(float **in, float **out, size_t size) {

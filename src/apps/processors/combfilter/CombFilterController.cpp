@@ -11,7 +11,7 @@ void CombFilterController::init(float sampleRate) {
     delayLeft.init(sampleRate, MAX_DELAY);
     delayRight.init(sampleRate, MAX_DELAY);
 
-    displayPage.initTitle("Comb Filter (Flanger)");
+    displayPage.initTitle("Comb Filter (Flanger)", "COMB");
 }
 
 void CombFilterController::process(float **in, float **out, size_t size) {

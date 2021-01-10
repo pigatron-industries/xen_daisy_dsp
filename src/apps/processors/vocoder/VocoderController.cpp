@@ -12,7 +12,7 @@ void VocoderController::init(float sampleRate) {
     vocoder.initBandsByCentreFrequency(centreFrequencyInput.getValue(), 0.3333, bands); // 1/3 octave 400 cents
     vocoder.setUseCarrierOscillator(false);
 
-    displayPage.initTitle("Vocoder");
+    displayPage.initTitle("Vocoder", "VOCO");
     displayPage.initField(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands), true);
     displayPage.initField(FIELD_VOCODER_FREQUENCYBASE, false);
     displayPage.initField(FIELD_VOCODER_PITCHINTERVAL, false);

@@ -21,7 +21,10 @@ void Display::init() {
         tft.setTextSize(1);
         tft.setTextWrap(false);
     #endif
-
+    #if defined(XEN_ALPHA)
+        alpha4.begin(0x70);
+        alpha4.setBrightness(10);
+    #endif
     #if defined(XEN_7SEG)
         Serial1.begin(9600);
         Serial1.write(SEG_BAUD_CONTROL);
@@ -81,6 +84,22 @@ void Display::render(bool all) {
             }
 
             item.dirty = false;
+        }
+    }
+#endif
+
+#if defined(XEN_ALPHA)
+    void Display::renderItem(int index, bool all) {
+        DisplayItem &item = displayedPage->items[index];
+        if(all || item.dirty) {
+            bool selected = index == displayedPage->selectedItem;
+            if(index == 0) {
+                alpha4.writeDigitAscii(0, item.shortName[0]);
+                alpha4.writeDigitAscii(1, item.shortName[1]);
+                alpha4.writeDigitAscii(2, item.shortName[2]);
+                alpha4.writeDigitAscii(3, item.shortName[3]);
+                alpha4.writeDisplay();
+            }
         }
     }
 #endif

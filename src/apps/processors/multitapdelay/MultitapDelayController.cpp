@@ -14,7 +14,7 @@ void MultitapDelayController::init(float sampleRate) {
     delayRight.init(sampleRate, 10);
     delayRight.setTapCount(5);
 
-    displayPage.initTitle("Multitap Delay");
+    displayPage.initTitle("Multitap Delay", "MDLY");
 }
 
 void MultitapDelayController::update() {

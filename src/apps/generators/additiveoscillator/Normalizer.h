@@ -4,7 +4,7 @@
 class Normalizer {
     public:
         Normalizer() {}
-        void init(int sampleSize, float targetAmplitude, float maxGain);
+        void init(int sampleSize, float targetAmplitude = 0.9, float maxGain = 1.0);
         float process(float in);
 
         float getGain() { return gain; }

@@ -12,7 +12,7 @@ void GlottisController::init(float sampleRate) {
     aspirateFilter.setFrequency(500);
     glottis.init(sampleRate);
 
-    displayPage.initTitle("Glottis");
+    displayPage.initTitle("Glottis", "GLOT");
 }
 
 void GlottisController::update() {

@@ -11,7 +11,7 @@ void DelayController::init(float sampleRate) {
     delayLeft.init(sampleRate, MAX_DELAY);
     delayRight.init(sampleRate, MAX_DELAY);
 
-    displayPage.initTitle("Delay");
+    displayPage.initTitle("Delay", "DLAY");
 }
 
 void DelayController::process(float **in, float **out, size_t size) {

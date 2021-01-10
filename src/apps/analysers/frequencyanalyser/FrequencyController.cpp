@@ -12,7 +12,7 @@ void FrequencyController::init(float sampleRate) {
     autocorrelationAnalyser.init(sampleRate);
     fftAnalyser.init(sampleRate);
 
-    displayPage.initTitle("Frequency Analyser");
+    displayPage.initTitle("Frequency Analyser", "FREQ");
     displayPage.initField(FIELD_TYPE, getTypeText(), true);
     displayPage.initField(FIELD_FREQ, false);
 }

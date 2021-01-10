@@ -4,13 +4,13 @@
 #define RIGHT 1
 
 void AdditiveOscillatorController::init(float sampleRate) {
-    normalizer.init(4096, 0.9, 1.0);
+    normalizer.init(4096);
     oscillator.init(sampleRate, OSCILLATOR_COUNT);
     for(int i = 0; i < OSCILLATOR_COUNT; i++) {
         oscillator.setOscillator(i, i+1, 0);
     }
 
-    displayPage.initTitle("Additive Oscillator");
+    displayPage.initTitle("Additive Oscillator", "ADDO");
 }
 
 void AdditiveOscillatorController::process(float **in, float **out, size_t size) {

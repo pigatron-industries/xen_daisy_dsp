@@ -27,7 +27,7 @@ void WaveTableController::firstInit(float sampleRate) {
     oscillator.setWaveTable(2, &wavetable3);
     oscillator.setWaveTable(3, &wavetable4);
 
-    displayPage.initTitle("Wave Table");
+    displayPage.initTitle("Wave Table", "TABL");
 }
 
 void WaveTableController::init(float sampleRate) {

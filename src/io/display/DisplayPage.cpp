@@ -3,9 +3,13 @@
 
 #define NO_SELECTION -1
 
-void DisplayPage::initTitle(String text) {
+void DisplayPage::initTitle(String text, char* shortName) {
     items[0].text = text;
     items[0].selectable = false;
+    items[0].shortName[0] = shortName[0];
+    items[0].shortName[1] = shortName[1];
+    items[0].shortName[2] = shortName[2];
+    items[0].shortName[3] = shortName[3];
 }
 
 void DisplayPage::initField(int index, bool selectable) {

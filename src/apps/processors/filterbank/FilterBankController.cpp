@@ -10,7 +10,7 @@ void FilterBankController::init(float sampleRate) {
     oddPan.setPan(stereoMix);
     evenPan.setPan(1-stereoMix);
 
-    displayPage.initTitle("Filter Bank");
+    displayPage.initTitle("Filter Bank", "FBNK");
 }
 
 void FilterBankController::update() {

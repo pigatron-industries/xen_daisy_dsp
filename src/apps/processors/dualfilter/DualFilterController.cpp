@@ -12,7 +12,7 @@ void DualFilterController::init(float sampleRate) {
     filter1.init(sampleRate);
     filter2.init(sampleRate);
 
-    displayPage.initTitle("Dual Filter");
+    displayPage.initTitle("Dual Filter", "FILT");
     displayPage.initField(FIELD_FILTER1_TYPE, getFilterTypeText(filter1.getType()), true);
     displayPage.initField(FIELD_FILTER1_FREQ, false);
     displayPage.initField(FIELD_FILTER2_TYPE, getFilterTypeText(filter1.getType()), true);

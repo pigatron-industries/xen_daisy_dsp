@@ -7,7 +7,7 @@
 
 class DisplayPage {
     public:
-        void initTitle(String text);
+        void initTitle(String text, char* shortName);
         void initField(int index, bool selectable);
         void initField(int index, String text, bool selectable);
 

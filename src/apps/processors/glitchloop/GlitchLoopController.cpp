@@ -7,7 +7,7 @@ void GlitchLoopController::init(float sampleRate) {
     buffer1.init(sampleRate * MAX_DELAY);
     buffer2.init(sampleRate * MAX_DELAY);
     state = GlitchState::GLITCH_OFF;
-    displayPage.initTitle("Glitch Loop");
+    displayPage.initTitle("Glitch Loop", "LOOP");
 }
 
 void GlitchLoopController::update() {

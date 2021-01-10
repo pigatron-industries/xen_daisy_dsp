@@ -9,7 +9,7 @@ void PhaserController::init(float sampleRate) {
     filterRight.init(sampleRate, 1.0);
     //delayTimeInput.setRange(0.001, 1);
 
-    displayPage.initTitle("Phaser");
+    displayPage.initTitle("Phaser", "PHSE");
 }
 
 void PhaserController::process(float **in, float **out, size_t size) {

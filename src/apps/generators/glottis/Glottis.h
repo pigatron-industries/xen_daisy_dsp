@@ -20,8 +20,10 @@ class Glottis {
         float getNoiseModulator();
 	
         float sampleRate;
+        float timeStep;
         float timeInWaveform;
         float frequency, oldFrequency, newFrequency, smoothFrequency, targetFrequency;
+        //float frequency, targetFrequency;
         float oldTenseness, newTenseness, targetTenseness;
         float waveformLength;
 

@@ -3,9 +3,11 @@
 #include "../../../util/util.h"
 #include <math.h>
 
-void Glottis::init(float _sampleRate) {
-    sampleRate = _sampleRate;
+void Glottis::init(float sampleRate) {
+    this->sampleRate = sampleRate;
+	timeStep = 1.0 / this->sampleRate;
     timeInWaveform = 0;
+	// frequency = 140;
     oldFrequency = 140;
     newFrequency = 140;
     smoothFrequency = 140;
@@ -25,7 +27,6 @@ void Glottis::init(float _sampleRate) {
 }
 
 float Glottis::process(float lambda, float noiseSource) {
-	double timeStep = 1.0 / this->sampleRate;
 	this->timeInWaveform += timeStep;
 	this->totalTime += timeStep;
 	if (this->timeInWaveform > this->waveformLength)
@@ -33,15 +34,15 @@ float Glottis::process(float lambda, float noiseSource) {
 		this->timeInWaveform -= this->waveformLength;
 		this->setupWaveform(lambda);
 	}
-	double out = this->normalizedLFWaveform(this->timeInWaveform / this->waveformLength);
-	double aspiration = this->intensity * (1 - sqrt(this->targetTenseness)) * this->getNoiseModulator() * noiseSource;
+	float out = this->normalizedLFWaveform(this->timeInWaveform / this->waveformLength);
+	float aspiration = this->intensity * (1 - sqrt(this->targetTenseness)) * this->getNoiseModulator() * noiseSource;
 	aspiration *= 0.2 + 0.02 * SimplexNoise::simplex1(this->totalTime * 1.99);
 	out += aspiration;
 	return out;
 }
 
 void Glottis::finishBlock() {
-	double vibrato = 0;
+	float vibrato = 0;
 	vibrato += this->vibratoAmount * sin(2 * M_PI * this->totalTime * this->vibratoFrequency);
 	vibrato += 0.02 * SimplexNoise::simplex1(this->totalTime * 4.07);
 	vibrato += 0.04 * SimplexNoise::simplex1(this->totalTime * 2.15);
@@ -57,6 +58,8 @@ void Glottis::finishBlock() {
 	this->oldFrequency = this->newFrequency;
 	this->newFrequency = this->smoothFrequency * (1 + vibrato);
 	this->oldTenseness = this->newTenseness;
+	// this->frequency = this->targetFrequency * (1 + vibrato);
+
 	this->newTenseness = this->targetTenseness +
 		0.1 * SimplexNoise::simplex1(this->totalTime * 0.46) + 0.05 * SimplexNoise::simplex1(this->totalTime * 0.36);
 	if (!this->isTouched && alwaysVoice) this->newTenseness += (3-this->targetTenseness)*(1-this->intensity);

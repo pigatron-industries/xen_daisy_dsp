@@ -11,16 +11,24 @@ void GlottisController::init(float sampleRate) {
     aspirateFilter.setQ(0.5);
     aspirateFilter.setFrequency(500);
     glottis.init(sampleRate);
+    vibrato.init(sampleRate);
 
     displayPage.initTitle("Glottis", "GLOT");
 }
 
 void GlottisController::update() {
-    pitchInput.update();
-    tensenessInput.update();
-
-    glottis.setFrequency(pitchInput.getValue());
-    glottis.setTenseness(tensenessInput.getValue());
+    if(pitchInput.update()) {
+        vibrato.setTargetValue(pitchInput.getValue());
+    }
+    if(tensenessInput.update()) {
+        glottis.setTenseness(tensenessInput.getValue());
+    }
+    if(vibratoAmountInput.update()) {
+        vibrato.setVibratoAmount(vibratoAmountInput.getValue());
+    }
+    if(noiseAmountInput.update()) {
+        vibrato.setNoiseAmount(noiseAmountInput.getValue());
+    }
 }
 
 void GlottisController::process(float **in, float **out, size_t size) {
@@ -32,6 +40,7 @@ void GlottisController::process(float **in, float **out, size_t size) {
 
         //Glottis
         float lambda1 = (float)i / (float)size;
+        glottis.setFrequency(vibrato.process(lambda1));
         float glot = glottis.process(lambda1, aspirate);
         
         out[LEFT][i] = glot;
@@ -39,4 +48,5 @@ void GlottisController::process(float **in, float **out, size_t size) {
     }
 
     glottis.finishBlock();
+    vibrato.update();
 }

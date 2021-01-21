@@ -18,8 +18,8 @@ void Glottis::init(float sampleRate) {
 	totalTime = 0.0;
 	intensity = 0;
 	loudness = 1;
-	vibratoAmount = 0.005;
-	vibratoFrequency = 6;
+	// vibratoAmount = 0.005;
+	// vibratoFrequency = 6;
 	autoWobble = false;
 	isTouched = false;
 	alwaysVoice = true;
@@ -42,24 +42,14 @@ float Glottis::process(float lambda, float noiseSource) {
 }
 
 void Glottis::finishBlock() {
-	float vibrato = 0;
-	vibrato += this->vibratoAmount * sin(2 * M_PI * this->totalTime * this->vibratoFrequency);
-	vibrato += 0.02 * SimplexNoise::simplex1(this->totalTime * 4.07);
-	vibrato += 0.04 * SimplexNoise::simplex1(this->totalTime * 2.15);
-	if (this->autoWobble)
-	{
-		vibrato += 0.2 * SimplexNoise::simplex1(this->totalTime * 0.98);
-		vibrato += 0.4 * SimplexNoise::simplex1(this->totalTime * 0.5);
-	}
 	if (this->targetFrequency > this->smoothFrequency)
 		this->smoothFrequency = fmin(this->smoothFrequency * 1.1, this->targetFrequency);
 	if (this->targetFrequency < this->smoothFrequency)
 		this->smoothFrequency = fmax(this->smoothFrequency / 1.1, this->targetFrequency);
 	this->oldFrequency = this->newFrequency;
-	this->newFrequency = this->smoothFrequency * (1 + vibrato);
-	this->oldTenseness = this->newTenseness;
-	// this->frequency = this->targetFrequency * (1 + vibrato);
+	this->newFrequency = this->smoothFrequency;
 
+	this->oldTenseness = this->newTenseness;
 	this->newTenseness = this->targetTenseness +
 		0.1 * SimplexNoise::simplex1(this->totalTime * 0.46) + 0.05 * SimplexNoise::simplex1(this->totalTime * 0.36);
 	if (!this->isTouched && alwaysVoice) this->newTenseness += (3-this->targetTenseness)*(1-this->intensity);

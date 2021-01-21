@@ -15,24 +15,24 @@ void Vibrato::init(float sampleRate) {
 }
 
 float Vibrato::process() {
-	this->totalTime += timeStep;
+	totalTime += timeStep;
 	lambda += lambdaStep;
 	if(lambda >= 1) {
 		update();
 	}
 	
-	value = this->oldValue * (1 - lambda) + this->newValue * lambda;
+	value = oldValue * (1 - lambda) + newValue * lambda;
     return value;
 }
 
 void Vibrato::update() {
     float vibrato = 0;
-	vibrato += 0.01 * sinf(2 * M_PI * this->totalTime * this->vibratoFrequency);
-	vibrato += 0.02 * SimplexNoise::simplex1(this->totalTime * 4.07) * this->noiseAmount;
-	vibrato += 0.04 * SimplexNoise::simplex1(this->totalTime * 2.15) * this->noiseAmount;
-	vibrato *= this->vibratoAmount;
-	this->oldValue = this->newValue;
-	this->newValue = this->targetValue * (1 + vibrato);
+	vibrato += 0.01 * sinf(2 * M_PI * totalTime * vibratoFrequency);
+	vibrato += 0.02 * SimplexNoise::simplex1(totalTime * 4.07) * noiseAmount;
+	vibrato += 0.04 * SimplexNoise::simplex1(totalTime * 2.15) * noiseAmount;
+	vibrato *= vibratoAmount;
+	oldValue = newValue;
+	newValue = targetValue * (1 + vibrato);
 	if(totalTime >= M_PI*20) {
 		totalTime -= M_PI*20;
 	}

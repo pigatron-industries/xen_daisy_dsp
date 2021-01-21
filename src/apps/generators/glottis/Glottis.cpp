@@ -7,9 +7,7 @@ void Glottis::init(float sampleRate) {
     this->sampleRate = sampleRate;
 	timeStep = 1.0 / this->sampleRate;
     timeInWaveform = 0;
-	// frequency = 140;
-    oldFrequency = 140;
-    newFrequency = 140;
+	frequency = 140;
     smoothFrequency = 140;
     targetFrequency = 140;
     oldTenseness = 0.6;
@@ -18,8 +16,6 @@ void Glottis::init(float sampleRate) {
 	totalTime = 0.0;
 	intensity = 0;
 	loudness = 1;
-	// vibratoAmount = 0.005;
-	// vibratoFrequency = 6;
 	autoWobble = false;
 	isTouched = false;
 	alwaysVoice = true;
@@ -46,8 +42,7 @@ void Glottis::finishBlock() {
 		this->smoothFrequency = fmin(this->smoothFrequency * 1.1, this->targetFrequency);
 	if (this->targetFrequency < this->smoothFrequency)
 		this->smoothFrequency = fmax(this->smoothFrequency / 1.1, this->targetFrequency);
-	this->oldFrequency = this->newFrequency;
-	this->newFrequency = this->smoothFrequency;
+	this->frequency = this->smoothFrequency;
 
 	this->oldTenseness = this->newTenseness;
 	this->newTenseness = this->targetTenseness +
@@ -63,7 +58,6 @@ void Glottis::finishBlock() {
 void Glottis::setupWaveform() {
 	finishBlock();
 
-	this->frequency = this->newFrequency;
 	float tenseness = this->newTenseness;
 	this->rd = 3 * (1 - tenseness);
 	this->waveformLength = 1.0 / this->frequency;

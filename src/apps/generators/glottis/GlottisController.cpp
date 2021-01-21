@@ -45,6 +45,4 @@ void GlottisController::process(float **in, float **out, size_t size) {
         out[LEFT][i] = glot;
         out[RIGHT][i] = glot;
     }
-
-    //vibrato.update();
 }

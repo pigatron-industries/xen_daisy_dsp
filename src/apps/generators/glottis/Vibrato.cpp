@@ -5,16 +5,23 @@
 #include <math.h>
 
 void Vibrato::init(float sampleRate) {
-    this->sampleRate = sampleRate;
-    this->timeStep = 1.0 / this->sampleRate;
+    sampleRate = sampleRate;
+    timeStep = 1.0 / sampleRate;
     vibratoAmount = 0.005;
 	vibratoFrequency = 6;
 	noiseAmount = 1;
+	updatePeriod = 0.001;
+	lambdaStep = timeStep/updatePeriod;
 }
 
-float Vibrato::process(float lambda) {
+float Vibrato::process() {
 	this->totalTime += timeStep;
-    value = this->oldValue * (1 - lambda) + this->newValue * lambda;
+	lambda += lambdaStep;
+	if(lambda >= 1) {
+		update();
+	}
+	
+	value = this->oldValue * (1 - lambda) + this->newValue * lambda;
     return value;
 }
 
@@ -29,4 +36,5 @@ void Vibrato::update() {
 	if(totalTime >= M_PI*20) {
 		totalTime -= M_PI*20;
 	}
+	lambda = 0;
 }

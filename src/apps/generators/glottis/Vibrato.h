@@ -7,7 +7,7 @@
 class Vibrato {
     public:
         void init(float sampleRate);
-        float process(float lambda);
+        float process();
         void update();
         void setTargetValue(float targetValue) { this->targetValue = targetValue; }
         void setNoiseAmount(float noiseAmount) { this->noiseAmount = noiseAmount; }
@@ -16,6 +16,8 @@ class Vibrato {
 
     private:
         float value, oldValue, newValue, smoothValue, targetValue;
+        float updatePeriod;
+        float lambdaStep, lambda;
         float totalTime;
         float noiseAmount;
         float vibratoAmount;

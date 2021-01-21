@@ -7,7 +7,7 @@
 class Glottis {
     public:
         void init(float sampleRate);
-        float process(float lambda, float noiseSource);
+        float process(float noiseSource);
         void finishBlock();
 
         void setAutoWobble(bool _autoWobble) { autoWobble = _autoWobble; }
@@ -15,7 +15,7 @@ class Glottis {
         void setTenseness(float _targetTenseness) { targetTenseness = _targetTenseness; }
 
     private:
-	    void setupWaveform(float lambda);
+	    void setupWaveform();
         float normalizedLFWaveform(float t);
         float getNoiseModulator();
 	

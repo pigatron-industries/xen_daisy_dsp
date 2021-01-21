@@ -23,16 +23,16 @@ void Glottis::init(float sampleRate) {
 	autoWobble = false;
 	isTouched = false;
 	alwaysVoice = true;
-    setupWaveform(0);
+    setupWaveform();
 }
 
-float Glottis::process(float lambda, float noiseSource) {
+float Glottis::process(float noiseSource) {
 	this->timeInWaveform += timeStep;
 	this->totalTime += timeStep;
 	if (this->timeInWaveform > this->waveformLength)
 	{
 		this->timeInWaveform -= this->waveformLength;
-		this->setupWaveform(lambda);
+		this->setupWaveform();
 	}
 	float out = this->normalizedLFWaveform(this->timeInWaveform / this->waveformLength);
 	float aspiration = this->intensity * (1 - sqrt(this->targetTenseness)) * this->getNoiseModulator() * noiseSource;
@@ -60,9 +60,11 @@ void Glottis::finishBlock() {
 }
 
 
-void Glottis::setupWaveform(float lambda) {
-	this->frequency = this->oldFrequency * (1 - lambda) + this->newFrequency * lambda;
-	float tenseness = this->oldTenseness * (1 - lambda) + this->newTenseness * lambda;
+void Glottis::setupWaveform() {
+	finishBlock();
+
+	this->frequency = this->newFrequency;
+	float tenseness = this->newTenseness;
 	this->rd = 3 * (1 - tenseness);
 	this->waveformLength = 1.0 / this->frequency;
 	

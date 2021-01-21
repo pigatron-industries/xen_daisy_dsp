@@ -39,14 +39,12 @@ void GlottisController::process(float **in, float **out, size_t size) {
         float aspirate = aspirateFilter.process(noise);
 
         //Glottis
-        float lambda1 = (float)i / (float)size;
-        glottis.setFrequency(vibrato.process(lambda1));
-        float glot = glottis.process(lambda1, aspirate);
+        glottis.setFrequency(vibrato.process());
+        float glot = glottis.process(aspirate);
         
         out[LEFT][i] = glot;
         out[RIGHT][i] = glot;
     }
 
-    glottis.finishBlock();
-    vibrato.update();
+    //vibrato.update();
 }

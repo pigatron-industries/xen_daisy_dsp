@@ -25,7 +25,13 @@ class AnalogInput : public AbstractInput {
         }
 
         inline float getValue() {
-            return (((getSmoothedVoltage() - realMin) * virtualRange) / realRange) + virtualMin;
+            float voltage = getSmoothedVoltage();
+            if(voltage < realMin) {
+                voltage = realMin;
+            } else if(voltage > realMax) {
+                voltage = realMax;
+            }
+            return (((voltage - realMin) * virtualRange) / realRange) + virtualMin;
         }
 
     private:

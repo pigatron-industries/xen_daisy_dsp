@@ -1,11 +1,13 @@
 #include "FDNReverb.h"
 #include "math.h"
 
-#define ONE_OVER_ROOT_2 0.7071067
-
 void FDNReverb::init(float sampleRate) {
     this->sampleRate = sampleRate;
-    float modUpdateTime = float(modUpdateSamples) / sampleRate;
+    this->modUpdateTime = float(modUpdateSamples) / sampleRate;
+    this->modPhase[0] = 0;
+    this->modPhase[1] = 0.25;
+    this->modPhase[2] = 0.5;
+    this->modPhase[3] = 0.75;
 
     for(int i = 0; i < DELAY_LINES; i++) {
         multitapDelay[i].init(sampleRate, 1.0);
@@ -22,7 +24,7 @@ void FDNReverb::init(float sampleRate) {
 void FDNReverb::setDelay(float delay) {
     delayTime = delay;
     for(int i = 0; i < DELAY_LINES; i++) {
-        multitapDelay[i].setDelayTime(delayTimes[i]*delayTime + mod[i]*delayTime);
+        multitapDelay[i].setDelayTime((delayTimes[i] + mod[i]) * delayTime);
         allPassFilter->setDelayTime(delay);
     }
 }
@@ -40,42 +42,39 @@ void FDNReverb::setHighPassFilterFrequency(float frequency) {
 }
 
 void FDNReverb::modulate() {
-    modPhase += modUpdateTime * modRate;
-    if(modPhase > 1) {
-        modPhase -= 1;
-    }
-
     for(int i = 0; i < DELAY_LINES; i++) {
-        mod[i] = sinf(modPhase * M_PI * 2) * modDepth;
-        multitapDelay[0].setDelayTime(delayTimes[i]*delayTime + mod[i]*delayTime);
+        modPhase[i] += modUpdateTime * modRate;
+        if(modPhase[i] > 1) {
+            modPhase[i] -= 1;
+        }
+        mod[i] = sinf(modPhase[i] * M_PI * 2) * modDepth;
+        multitapDelay[0].setDelayTime((delayTimes[i] + mod[i]) * delayTime);
     }
 }
 
-float FDNReverb::process(float in) {
-    float normIn = in * ONE_OVER_ROOT_2;
-    float normFeedbackGain = feedbackGain * ONE_OVER_ROOT_2;
+void FDNReverb::process(float in) {
+    input = in;
+    float normIn = in * ONE_OVER_ROOT_TWO;
+    float normFeedbackGain = feedbackGain * ONE_OVER_ROOT_TWO;
 
     modUpdateCounter++;
-    if(modUpdateCounter == modUpdateTime) {
+    if(modUpdateCounter == modUpdateSamples) {
         modulate();
         modUpdateCounter = 0;
     }
 
-    float delayOut[DELAY_LINES];
     float feedback[DELAY_LINES];
-    float output = 0.0;
 
     // read delay outputs
     for(int i = 0; i < DELAY_LINES; i++) {
-        delayOut[i] = multitapDelay[i].read();
-        output += delayOut[i];
+        output[i] = multitapDelay[i].read();
     }
 
     //apply feedback matrix
     for(int i = 0; i < DELAY_LINES; i++) {
         feedback[i] = 0.0;
         for(int j = 0; j < DELAY_LINES; j++) {
-            feedback[i] += delayOut[j] * feedbackMatrix[i][j];
+            feedback[i] += output[j] * feedbackMatrix[i][j] * feedbackMultiplier;
         }
     }
     // faster to hard code matrix if it won't change:
@@ -99,6 +98,8 @@ float FDNReverb::process(float in) {
         //value = allPassFilter[i].process(value);
         multitapDelay[i].write(value);
     }
+}
 
-    return output * dryOut + in * wetOut;
+float FDNReverb::getOutput(int channel) {
+    return output[channel] * wetLevel + input * dryLevel;
 }

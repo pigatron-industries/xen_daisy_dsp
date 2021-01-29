@@ -8,45 +8,41 @@
 
 void ReverbController::init(float sampleRate) {
     this->sampleRate = sampleRate;
-    reverbLeft.init(sampleRate);
-    reverbRight.init(sampleRate);
+    delayInput.setSmoothingWeight(SMOOTHING_FAST);
+    reverb.init(sampleRate);
     displayPage.initTitle("Reverb", "VERB");
 }
 
 void ReverbController::update() {
+    delayInput.update();
     if(dryWetMix.update()) {
-        reverbLeft.setDryLevel(dryWetMix.getDryLevel());
-        reverbLeft.setWetLevel(dryWetMix.getWetLevel());
+        reverb.setDryLevel(dryWetMix.getDryLevel());
+        reverb.setWetLevel(dryWetMix.getWetLevel());
     }
     if(feedbackInput.update()) {
-        reverbLeft.setFeedback(feedbackInput.getValue());
+        reverb.setFeedback(feedbackInput.getValue());
     }
     if(filterInput.update()) {
         if(filterInput.getLowPass()) {
-            // Serial.println("LowPass");
-            // Serial.println(filterInput.getFrequency());
-            reverbLeft.setLowPassFilterFrequency(filterInput.getFrequency());
-            reverbLeft.setLowPassFilter(true);
-            reverbLeft.setHighPassFilter(false);
+            reverb.setLowPassFilterFrequency(filterInput.getFrequency());
+            reverb.setLowPassFilter(true);
+            reverb.setHighPassFilter(false);
         } else if (filterInput.getHighPass()) {
-            // Serial.println("HighPass");
-            // Serial.println(filterInput.getFrequency());
-            reverbLeft.setHighPassFilterFrequency(filterInput.getFrequency());
-            reverbLeft.setHighPassFilter(true);
-            reverbLeft.setLowPassFilter(false);
+            reverb.setHighPassFilterFrequency(filterInput.getFrequency());
+            reverb.setHighPassFilter(true);
+            reverb.setLowPassFilter(false);
         } else {
-            reverbLeft.setHighPassFilter(false);
-            reverbLeft.setLowPassFilter(false);
+            reverb.setHighPassFilter(false);
+            reverb.setLowPassFilter(false);
         }
-    }
-    if(delayInput.update()) {
-        reverbLeft.setDelay(delayInput.getValue());
     }
 }
 
 void ReverbController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
-        out[LEFT][i] = reverbLeft.process(in[LEFT][i]);
-        out[RIGHT][i] = out[LEFT][i];
-    } 
+        reverb.setDelay(delayInput.getValue());
+        reverb.process(in[LEFT][i] + in[RIGHT][i]);
+        out[LEFT][i] = reverb.getOutput(1);
+        out[RIGHT][i] = reverb.getOutput(2);
+    }
 }

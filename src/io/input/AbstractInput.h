@@ -6,7 +6,7 @@
 #include "Arduino.h"
 
 #define SMOOTHING_FAST 0.001
-#define SMOOTHING_SLOW 0.05
+#define SMOOTHING_SLOW 0.1
 
 class AbstractInput {
     public:

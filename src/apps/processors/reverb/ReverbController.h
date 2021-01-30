@@ -19,7 +19,6 @@ class ReverbController : public Controller {
 
     private:
         ExpInput delayInput = ExpInput(A0, 0.01);
-        //AnalogInput feedbackInput = AnalogInput(A1, -5, 4.8, 0.0001, 1);
         PowInput feedbackInput = PowInput(A1, 0.333, -5, 4.8);
         FilterInput filterInput = FilterInput(A2);
         CrossfadeInput dryWetMix = CrossfadeInput(A4, -4.8, 4.8);

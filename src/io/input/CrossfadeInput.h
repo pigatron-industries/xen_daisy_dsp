@@ -13,8 +13,8 @@ class CrossfadeInput : public AnalogInput {
 
         inline bool update() {
             if(AnalogInput::update()) {
-                dryLevel = sqrtf(getValue());
-                wetLevel = sqrtf(1-getValue());
+                dryLevel = (sinf(getValue()*M_PI - M_PI*0.5) + 1)*0.5;
+                wetLevel = (sinf((1-getValue())*M_PI - M_PI*0.5) + 1)*0.5;
             }
             return isChanged();
         }

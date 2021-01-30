@@ -1,7 +1,7 @@
 #ifndef FDNReverb_h
 #define FDNReverb_h
 
-#include "../../../modules/delays/AllPassFilter.h"
+#include "../../../modules/filters/AllPass.h"
 #include "../../../modules/delays/MultiTapDelay.h"
 #include "../../../modules/filters/StateVariableFilter.h"
 #include "../../../util/util.h"
@@ -10,6 +10,7 @@
 class FDNReverb {
     public:
         static const int DELAY_LINES = 4;
+        static const int ALL_PASS_FILTERS = 6;
         FDNReverb() {}
         void init(float sampleRate);
         void process(float in);
@@ -28,15 +29,15 @@ class FDNReverb {
 
     public:
 
-        float input;
+        float input[DELAY_LINES];
         float output[DELAY_LINES];
 
         StateVariableFilter lowPassFilter[DELAY_LINES];
         StateVariableFilter highPassFilter[DELAY_LINES];
-        AllPassFilter allPassFilter[DELAY_LINES];
+        AllPass allPassFilter[DELAY_LINES][ALL_PASS_FILTERS];
         MultitapDelay multitapDelay[DELAY_LINES];
 
-        float delayTimes[DELAY_LINES] = { 0.53, 0.67, 0.79, 0.97 };
+        float delayTimes[DELAY_LINES] = { 0.53, 0.97, 0.79, 0.67 };
 
 
         // static constexpr float feedbackMultiplier = 1;
@@ -64,15 +65,12 @@ class FDNReverb {
         // };
 
         int sampleRate;
+        float sampleTime;
 
         float modRate = 5; //Hz
         float modDepth = 0.001; //Multiplier of delay time
         float mod[DELAY_LINES];
         float modPhase[DELAY_LINES];
-
-        int modUpdateSamples = 48;
-        int modUpdateCounter = 0;
-        float modUpdateTime;
 
         float delayTime = 0.1;
         float feedbackGain = 0.5;

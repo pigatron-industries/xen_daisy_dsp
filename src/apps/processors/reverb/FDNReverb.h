@@ -25,9 +25,7 @@ class FDNReverb {
         void setLowPassFilter(bool lowPass) { this->lowPass = lowPass; }
         void setHighPassFilter(bool highPass) { this->highPass = highPass; }
 
-        void modulate();
-
-    public:
+    private:
 
         float input[DELAY_LINES];
         float output[DELAY_LINES];
@@ -37,32 +35,15 @@ class FDNReverb {
         AllPass allPassFilter[DELAY_LINES][ALL_PASS_FILTERS];
         MultitapDelay multitapDelay[DELAY_LINES];
 
-        float delayTimes[DELAY_LINES] = { 0.53, 0.97, 0.79, 0.67 };
-
-
-        // static constexpr float feedbackMultiplier = 1;
-        // int feedbackMatrix[4][4] = {
-        //     { 0,  1,  1,  0}, 
-        //     {-1,  0,  0, -1},
-        //     { 1,  0,  0, -1},
-        //     { 0,  1, -1,  0}
-        // };
+        float delayTimes[DELAY_LINES] = { 0.541, 0.971, 0.797, 0.673 };
 
         static constexpr float feedbackMultiplier = ONE_OVER_ROOT_TWO;
         int feedbackMatrix[4][4] = {
-            { 1,  1,  1,  1}, 
-            {-1,  1,  -1, 1},
-            {-1,  -1,  1, 1},
-            { 1,  -1, -1, 1}
+            { 1, 1,  1,  1}, 
+            {-1, 1,  -1, 1},
+            {-1, -1,  1, 1},
+            { 1, -1, -1, 1}
         };
-
-        // static constexpr float feedbackMultiplier = ONE_OVER_ROOT_TWO;
-        // int feedbackMatrix[4][4] = {
-        //     { 1, -1, -1, -1}, 
-        //     {-1,  1, -1, -1},
-        //     {-1, -1,  1, -1},
-        //     {-1, -1, -1,  1}
-        // };
 
         int sampleRate;
         float sampleTime;
@@ -78,6 +59,8 @@ class FDNReverb {
         float wetLevel = 0.5;
         bool lowPass = false;
         bool highPass = false;
+
+        void modulate();
 };
 
 #endif

@@ -15,6 +15,7 @@ class Oscillator
   public:
     Oscillator() {}
     ~Oscillator() {}
+
     /** Choices for output waveforms, POLYBLEP are appropriately labeled. Others are naive forms.
     */
     enum
@@ -41,8 +42,7 @@ class Oscillator
 
     /** Changes the frequency of the Oscillator, and recalculates phase increment.
     */
-    inline void setFrequency(const float f)
-    {
+    inline void setFrequency(const float f){
         freq_      = f;
         phase_inc_ = calcPhaseInc(f);
     }
@@ -50,10 +50,10 @@ class Oscillator
     /** Sets the amplitude of the waveform.
     */
     inline void setAmp(const float a) { amp_ = a; }
+
     /** Sets the waveform to be synthesized by the Process() function.
     */
-    inline void setWaveform(const uint8_t wf)
-    {
+    inline void setWaveform(const uint8_t wf) {
         waveform_ = wf < WAVE_LAST ? wf : WAVE_SIN;
     }
 
@@ -63,7 +63,8 @@ class Oscillator
 
     /** Adds a value 0.0-1.0 (mapped to 0.0-TWO_PI) to the current phase. Useful for PM and "FM" synthesis.
     */
-    void phaseAdd(float _phase) { phase_ += (_phase * float(M_PI*2)); }
+    void phaseAdd(float _phase) { phase_ += _phase; }
+
     /** Resets the phase to the input argument. If no argument is present, it will reset phase to 0.0;
     */
     void setPhase(float _phase = 0.0f) { phase_ = _phase; }
@@ -79,7 +80,7 @@ class Oscillator
 
 static inline float polyblep(float phase_inc, float t)
 {
-    float dt = phase_inc * TWO_PI_RECIP;
+    float dt = phase_inc;
     if(t < dt)
     {
         t /= dt;
@@ -96,29 +97,27 @@ static inline float polyblep(float phase_inc, float t)
     }
 }
 
-inline float Oscillator::process()
-{
+inline float Oscillator::process() {
     if(amp_ == 0 || freq_ >= sr_ * 0.5) {
         return 0;
     }
     float out, t;
-    switch(waveform_)
-    {
+    switch(waveform_) {
         case WAVE_SIN: 
-            out = sinf(phase_);
+            out = sinf(phase_ * M_PI * 2.0f);
             break;
         case WAVE_TRI:
-            t   = -1.0f + (2.0f * phase_ * TWO_PI_RECIP);
+            t   = -1.0f + (2.0f * phase_);
             out = 2.0f * (fabsf(t) - 0.5f);
             break;
         case WAVE_SAW:
-            out = -1.0f * (((phase_ * TWO_PI_RECIP * 2.0f)) - 1.0f);
+            out = -1.0f * (((phase_ * 2.0f)) - 1.0f);
             break;
-        case WAVE_RAMP: out = ((phase_ * TWO_PI_RECIP * 2.0f)) - 1.0f; break;
-        case WAVE_SQUARE: out = phase_ < (float)M_PI ? (1.0f) : -1.0f; break;
+        case WAVE_RAMP: out = ((phase_ * 2.0f)) - 1.0f; break;
+        case WAVE_SQUARE: out = phase_ < 0.5f ? (1.0f) : -1.0f; break;
         case WAVE_POLYBLEP_TRI:
-            t   = phase_ * TWO_PI_RECIP;
-            out = phase_ < (float)M_PI ? 1.0f : -1.0f;
+            t   = phase_;
+            out = phase_ < 0.5f ? 1.0f : -1.0f;
             out += polyblep(phase_inc_, t);
             out -= polyblep(phase_inc_, fmodf(t + 0.5f, 1.0f));
             // Leaky Integrator:
@@ -126,14 +125,14 @@ inline float Oscillator::process()
             out = phase_inc_ * out + (1.0f - phase_inc_) * last_out_;
             break;
         case WAVE_POLYBLEP_SAW:
-            t   = phase_ * TWO_PI_RECIP;
+            t   = phase_;
             out = (2.0f * t) - 1.0f;
             out -= polyblep(phase_inc_, t);
             out *= -1.0f;
             break;
         case WAVE_POLYBLEP_SQUARE:
-            t   = phase_ * TWO_PI_RECIP;
-            out = phase_ < (float)M_PI ? 1.0f : -1.0f;
+            t   = phase_;
+            out = phase_ < 0.5f ? 1.0f : -1.0f;
             out += polyblep(phase_inc_, t);
             out -= polyblep(phase_inc_, fmodf(t + 0.5f, 1.0f));
             out *= 0.707f; // ?
@@ -141,16 +140,14 @@ inline float Oscillator::process()
         default: out = 0.0f; break;
     }
     phase_ += phase_inc_;
-    if(phase_ > TWO_PI_F)
-    {
-        phase_ -= TWO_PI_F;
+    if(phase_ > 1.0f) {
+        phase_ -= 1.0f;
     }
     return out * amp_;
 }
 
-inline float Oscillator::calcPhaseInc(float f)
-{
-    return (TWO_PI_F * f) * sr_recip_;
+inline float Oscillator::calcPhaseInc(float f) {
+    return f * sr_recip_;
 }
 
 

@@ -3,6 +3,7 @@
 
 #include "TransferFunction.h"
 #include "../oscillators/Oscillator.h"
+#include "../Envelope.h"
 
 class PhaseDistortion
 {
@@ -16,6 +17,7 @@ class PhaseDistortion
     private:
         pigatron::Oscillator oscillator;
         TransferFunction* transferFunction;
+        Envelope envelope;
 
         float sampleRate;
         float frequency;

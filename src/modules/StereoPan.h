@@ -2,8 +2,6 @@
 #define StereoPan_h
 
 
-/** Synthesis of several waveforms, including polyBLEP bandlimited waveforms.
-*/
 class StereoPan
 {
   public:

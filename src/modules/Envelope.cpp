@@ -1,9 +1,11 @@
 #include "Envelope.h"
 
-void Envelope::init(int pointCount, float length, bool repeat) {
+void Envelope::init(float sampleRate, int pointCount, float length, bool repeat) {
+    this->sampleRate = sampleRate;
     this->pointCount = pointCount;
     this->length = length;
     this->repeat = repeat;
+    this->increment = 1.0f/sampleRate;
 
     // start with evenly distributed points
     float segmentLength = length / float(pointCount);
@@ -59,6 +61,14 @@ void Envelope::setPoint(int index, Point point) {
     }
 
     //TODO recalculate gradient for segment before and after point
+}
+
+void Envelope::setSegmentLength(int index, float segmentLength) {
+    float diff = (points[index].x + segmentLength) - points[index+1].x;
+    for(int i = index+1; i < pointCount; i++) {
+        points[i].x += diff;
+    }
+    length = points[pointCount-1].x;
 }
 
 int Envelope::getSegmentForPosition(float position) {

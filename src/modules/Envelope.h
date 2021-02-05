@@ -16,7 +16,7 @@ class Envelope
         static const int MAX_POINTS = 5;
         Envelope() {}
         void init(float sampleRate, int pointCount = 3, float length = 1, bool repeat = false);
-        void reset();
+        void trigger();
         float process();
 
         void setIncrement(float increment) { this->increment = increment; }
@@ -31,7 +31,7 @@ class Envelope
         float increment;
         float position;
         bool repeat;
-        bool end;
+        bool stopped;
 
         int segment;
         float length;

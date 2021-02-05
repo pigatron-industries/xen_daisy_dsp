@@ -8,7 +8,7 @@
 
 class GateInput : public AnalogInput {
     public:
-        GateInput(uint8_t _pin, float triggerVoltage) : 
+        GateInput(uint8_t _pin, float triggerVoltage = 3) : 
             AnalogInput(_pin, -5, 5, -5, 5)  {
                 this->triggerVoltage = triggerVoltage;
                 smoothingWeight = 1;

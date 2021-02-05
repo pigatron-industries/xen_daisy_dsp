@@ -1,11 +1,14 @@
 #include "Envelope.h"
 
+#include <Arduino.h>
+
 void Envelope::init(float sampleRate, int pointCount, float length, bool repeat) {
     this->sampleRate = sampleRate;
     this->pointCount = pointCount;
     this->length = length;
     this->repeat = repeat;
     this->increment = 1.0f/sampleRate;
+    stopped = true;
 
     // start with evenly distributed points
     float segmentLength = length / float(pointCount);
@@ -14,16 +17,13 @@ void Envelope::init(float sampleRate, int pointCount, float length, bool repeat)
     }
 }
 
-void Envelope::reset() {
-    end = false;
+void Envelope::trigger() {
+    stopped = false;
     position = 0;
+    segment = 0;
 }
 
 float Envelope::process() {
-    if(end) {
-        return points[pointCount-1].y;
-    }
-
     Point point1 = points[segment];
     Point point2 = points[segment+1];
     float gradient = (point2.y-point1.y) / (point2.x-point1.x); //TODO precalculate gradients
@@ -31,20 +31,28 @@ float Envelope::process() {
     float segmentY = segmentX * gradient;
     float value = point1.y + segmentY;
 
-    incrementPosition();
+    if(!stopped) {
+        incrementPosition();
+    }
+
     return value;
 }
 
 void Envelope::incrementPosition() {
     position += increment;
+
     if(position > points[segment+1].x) {
         segment++;
     }
-    if(repeat && position > length) {
-        position -= length;
-        segment = getSegmentForPosition(position);
-    } else {
-        end = true;
+    if(position > length) {
+        if(repeat) {
+            position -= length;
+            segment = getSegmentForPosition(position);
+        } else {
+            stopped = true;
+            segment = 0;
+            position = 0;
+        }
     }
 }
 

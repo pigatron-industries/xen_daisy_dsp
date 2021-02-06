@@ -1,10 +1,10 @@
 #include "PhaseDistortionOscillator.h"
 
-void PhaseDistortionOscillator::init(float sampleRate) { 
+void PhaseDistortionOscillator::init(float sampleRate, int tableSize) { 
     this->sampleRate = sampleRate;
     phaseOffset = 0;
-    oscillator.init(sampleRate);
-    oscillator.setWaveform(pigatron::Oscillator::WAVE_SIN);
+    oscillator.init(sampleRate, tableSize);
+
     envelope.init(sampleRate, 3, 1, true);
     envelope.setPoint(0, Point(0, 0));
     envelope.setPoint(1, Point(0.5, 0.5));

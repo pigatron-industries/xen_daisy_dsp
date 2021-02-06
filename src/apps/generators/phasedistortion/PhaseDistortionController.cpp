@@ -1,10 +1,17 @@
 #include "PhaseDistortionController.h"
+#include "../../../modules/wavetable/WaveTableGenerator.h"
 
 #define LEFT 0
 #define RIGHT 1
 
+#define TABLE_SIZE 256
+
 void PhaseDistortionController::init(float sampleRate) {
-    oscillator.init(sampleRate);
+    wavetable1.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    WaveTableGenerator::addSine(wavetable1, 0.5);
+
+    oscillator.init(sampleRate, TABLE_SIZE);
+    oscillator.getOscillator().setWaveTable(0, &wavetable1);
 
     displayPage.initTitle("Phase Distortion", "PHSD");
 }

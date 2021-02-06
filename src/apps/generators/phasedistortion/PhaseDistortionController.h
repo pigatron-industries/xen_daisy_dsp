@@ -20,6 +20,7 @@ class PhaseDistortionController : public Controller {
         AnalogInput phaseOffsetInput = AnalogInput(A3, -5, 5, 0, 1);
 
         PhaseDistortionOscillator oscillator;
+        WaveTable wavetable1;
 };
 
 #endif

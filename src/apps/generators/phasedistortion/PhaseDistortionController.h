@@ -18,9 +18,14 @@ class PhaseDistortionController : public Controller {
         AnalogInput xInput = AnalogInput(A1, -5, 5, 0, 1);
         AnalogInput yInput = AnalogInput(A2, -5, 5, 0, 1);
         AnalogInput phaseOffsetInput = AnalogInput(A3, -5, 5, 0, 1);
+        AnalogInput harmonicsInput = AnalogInput(A4, -5, 5, 0, 4);
 
         PhaseDistortionOscillator oscillator;
         WaveTable wavetable1;
+        WaveTable wavetable2;
+        WaveTable wavetable3;
+        WaveTable wavetable4;
+        WaveTable wavetable5;
 };
 
 #endif

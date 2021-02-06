@@ -4,8 +4,7 @@
 #include "../../../Controller.h"
 #include "../../../io/input/AnalogInput.h"
 #include "../../../io/input/ExpInput.h"
-#include "../../../modules/distortion/PhaseDistortion.h"
-#include "../../../modules/distortion/PowerFunction.h"
+#include "../../../modules/oscillators/PhaseDistortionOscillator.h"
 
 class PhaseDistortionController : public Controller {
     public:
@@ -16,12 +15,11 @@ class PhaseDistortionController : public Controller {
 
     private:
         ExpInput pitchInput = ExpInput(A0);
-        ExpInput powerInput = ExpInput(A1, 1);
-        AnalogInput phaseOffsetInput = AnalogInput(A2, -5, 5, 0, 1);
+        AnalogInput xInput = AnalogInput(A1, -5, 5, 0, 1);
+        AnalogInput yInput = AnalogInput(A2, -5, 5, 0, 1);
+        AnalogInput phaseOffsetInput = AnalogInput(A3, -5, 5, 0, 1);
 
-        PhaseDistortion phaseDistortion;
-
-        PowerFunction powerFunction;
+        PhaseDistortionOscillator oscillator;
 };
 
 #endif

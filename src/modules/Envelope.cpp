@@ -4,11 +4,14 @@
 
 void Envelope::init(float sampleRate, int pointCount, float length, bool repeat) {
     this->sampleRate = sampleRate;
+    this->sampleRateRecip = 1/sampleRate;
     this->pointCount = pointCount;
     this->length = length;
     this->repeat = repeat;
     this->increment = 1.0f/sampleRate;
-    stopped = true;
+    position = 0;
+    segment = 0;
+    stopped = !repeat;
 
     // start with evenly distributed points
     float segmentLength = length / float(pointCount);
@@ -86,4 +89,8 @@ int Envelope::getSegmentForPosition(float position) {
         }
     }
     return pointCount-1;
+}
+
+void Envelope::setFrequency(float frequency) {
+    increment = frequency * sampleRateRecip;
 }

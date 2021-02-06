@@ -1,31 +1,25 @@
-#ifndef PhaseDistortion_h
-#define PhaseDistortion_h
+#ifndef PhaseDistortionOscillator_h
+#define PhaseDistortionOscillator_h
 
-#include "TransferFunction.h"
 #include "../oscillators/Oscillator.h"
 #include "../Envelope.h"
 
-class PhaseDistortion
+class PhaseDistortionOscillator
 {
     public:
-        void init(float sampleRate, TransferFunction* transferFunction);
+        void init(float sampleRate);
         float process();
 
         void setFrequency(float frequency);
         void setPhaseOffset(float phaseOffset) { this->phaseOffset = phaseOffset; }
+        Envelope& getEnvelope() { return envelope; }
 
     private:
         pigatron::Oscillator oscillator;
-        TransferFunction* transferFunction;
         Envelope envelope;
 
         float sampleRate;
-        float frequency;
-        float phase;
         float phaseOffset;
-        float phaseIncrement;
-
-        void calcPhaseIncrement();
 };
 
 #endif

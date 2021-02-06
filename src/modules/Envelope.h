@@ -22,12 +22,14 @@ class Envelope
         void setIncrement(float increment) { this->increment = increment; }
         void setPoint(int index, Point point);
         void setSegmentLength(int index, float segmentLength);
+        void setFrequency(float frequency);
         
     private:
         Point points[MAX_POINTS];
         int pointCount;
  
         float sampleRate;
+        float sampleRateRecip;
         float increment;
         float position;
         bool repeat;

@@ -1,10 +1,10 @@
 #ifndef EnvelopeController_h
 #define EnvelopeController_h
 
-#include "../../../Controller.h"
-#include "../../../modules/Envelope.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../io/input/GateInput.h"
+#include "Controller.h"
+#include "modules/Envelope.h"
+#include "io/input/AnalogInput.h"
+#include "io/input/GateInput.h"
 
 class EnvelopeController : public Controller {
     public:

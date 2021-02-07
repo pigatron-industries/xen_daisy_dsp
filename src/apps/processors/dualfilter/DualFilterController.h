@@ -2,11 +2,11 @@
 #define FilterController_h
 
 #include <RotaryEncoder.h>
-#include "../../../Controller.h"
-#include "../../../modules/filters/FilterWrapper.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../io/input/ExpInput.h"
-#include "../../../io/Hardware.h"
+#include "Controller.h"
+#include "modules/filters/FilterWrapper.h"
+#include "io/input/AnalogInput.h"
+#include "io/input/ExpInput.h"
+#include "io/Hardware.h"
 
 class DualFilterController : public Controller {
     public:

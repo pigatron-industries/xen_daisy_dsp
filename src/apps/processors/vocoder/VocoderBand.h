@@ -1,10 +1,9 @@
 #ifndef VocoderBand_h
 #define VocoderBand_h
 
-#include <DaisyDuino.h>
-#include "../../../modules/filters/StateVariableFilter.h"
-#include "../../../modules/filters/BiquadFilter.h"
-#include "../../../modules/oscillators/Oscillator.h"
+#include "modules/filters/StateVariableFilter.h"
+#include "modules/filters/BiquadFilter.h"
+#include "modules/oscillators/Oscillator.h"
 #include "EnvelopeFollower.h"
 
 using namespace pigatron;

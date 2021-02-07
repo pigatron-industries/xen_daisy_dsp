@@ -1,10 +1,10 @@
 #ifndef WaveTableController_h
 #define WaveTableController_h
 
-#include "../../../Controller.h"
-#include "../../../io/input/ExpInput.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../modules/wavetable/WaveTableOscillator.h"
+#include "Controller.h"
+#include "io/input/ExpInput.h"
+#include "io/input/AnalogInput.h"
+#include "modules/wavetable/WaveTableOscillator.h"
 
 class WaveTableController : public Controller {
     public:

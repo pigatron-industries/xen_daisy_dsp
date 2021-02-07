@@ -1,7 +1,7 @@
 #ifndef AdditiveOscillator_h
 #define AdditiveOscillator_h
 
-#include "../../../modules/oscillators/Oscillator.h"
+#include "modules/oscillators/Oscillator.h"
 
 #define MAX_OSCILLATORS 20
 

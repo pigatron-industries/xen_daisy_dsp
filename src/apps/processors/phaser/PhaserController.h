@@ -1,10 +1,10 @@
 #ifndef PhaserController_h
 #define PhaserController_h
 
-#include "../../../Controller.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../io/input/CrossfadeInput.h"
-#include "../../../modules/delays/AllPassFilter.h"
+#include "Controller.h"
+#include "io/input/AnalogInput.h"
+#include "io/input/CrossfadeInput.h"
+#include "modules/delays/AllPassFilter.h"
 
 class PhaserController : public Controller {
     public:

@@ -1,10 +1,10 @@
 #ifndef FDNReverb_h
 #define FDNReverb_h
 
-#include "../../../modules/filters/AllPass.h"
-#include "../../../modules/delays/MultiTapDelay.h"
-#include "../../../modules/filters/StateVariableFilter.h"
-#include "../../../util/util.h"
+#include "modules/filters/AllPass.h"
+#include "modules/delays/MultiTapDelay.h"
+#include "modules/filters/StateVariableFilter.h"
+#include "util/util.h"
 
 
 class FDNReverb {

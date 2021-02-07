@@ -2,9 +2,9 @@
 #define FilterBankController_h
 
 #include "FilterBank.h"
-#include "../../../Controller.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../modules/StereoPan.h"
+#include "Controller.h"
+#include "io/input/AnalogInput.h"
+#include "modules/StereoPan.h"
 
 class FilterBankController : public Controller {
     public:

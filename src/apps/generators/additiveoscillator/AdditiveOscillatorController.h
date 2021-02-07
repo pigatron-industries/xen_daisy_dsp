@@ -1,9 +1,9 @@
 #ifndef AdditiveOscillatorController_h
 #define AdditiveOscillatorController_h
 
-#include "../../../Controller.h"
-#include "../../../io/input/ExpInput.h"
-#include "../../../io/input/AnalogInput.h"
+#include "Controller.h"
+#include "io/input/ExpInput.h"
+#include "io/input/AnalogInput.h"
 #include "AdditiveOscillator.h"
 #include "Normalizer.h"
 

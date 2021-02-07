@@ -2,7 +2,7 @@
 #define Formants_h
 
 #include <inttypes.h>
-#include "../../../modules/filters/Formant.h"
+#include "modules/filters/Formant.h"
 
 #define VOCAL_FORMANT_SIZE 5
 

@@ -1,11 +1,11 @@
 #ifndef CombFilterController_h
 #define CombFilterController_h
 
-#include "../../../Controller.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../io/input/ExpInput.h"
-#include "../../../io/input/CrossfadeInput.h"
-#include "../../../modules/delays/Delay.h"
+#include "Controller.h"
+#include "io/input/AnalogInput.h"
+#include "io/input/ExpInput.h"
+#include "io/input/CrossfadeInput.h"
+#include "modules/delays/Delay.h"
 
 class CombFilterController : public Controller {
     public:

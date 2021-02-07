@@ -1,7 +1,7 @@
 #include "Vibrato.h"
 
-#include "../../../modules/SimplexNoise.h"
-#include "../../../util/util.h"
+#include "modules/SimplexNoise.h"
+#include "util/util.h"
 #include <math.h>
 
 void Vibrato::init(float sampleRate) {

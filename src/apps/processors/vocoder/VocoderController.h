@@ -2,10 +2,10 @@
 #define VocoderController_h
 
 #include "Vocoder.h"
-#include "../../../Controller.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../io/input/ExpInput.h"
-#include "../../../modules/StereoPan.h"
+#include "Controller.h"
+#include "io/input/AnalogInput.h"
+#include "io/input/ExpInput.h"
+#include "modules/StereoPan.h"
 
 /**
  * Vocoder

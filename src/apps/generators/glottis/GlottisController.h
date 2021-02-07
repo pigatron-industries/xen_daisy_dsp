@@ -4,10 +4,10 @@
 #include "DaisyDuino.h"
 #include "Glottis.h"
 #include "Vibrato.h"
-#include "../../../Controller.h"
-#include "../../../modules/filters/BiquadFilter.h"
-#include "../../../io/input/ExpInput.h"
-#include "../../../io/input/AnalogInput.h"
+#include "Controller.h"
+#include "modules/filters/BiquadFilter.h"
+#include "io/input/ExpInput.h"
+#include "io/input/AnalogInput.h"
 
 class GlottisController : public Controller {
     public:

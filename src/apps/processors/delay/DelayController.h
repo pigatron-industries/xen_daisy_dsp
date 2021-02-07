@@ -1,11 +1,11 @@
 #ifndef DelayController_h
 #define DelayController_h
 
-#include "../../../Controller.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../io/input/ExpInput.h"
-#include "../../../io/input/CrossfadeInput.h"
-#include "../../../modules/delays/Delay.h"
+#include "Controller.h"
+#include "io/input/AnalogInput.h"
+#include "io/input/ExpInput.h"
+#include "io/input/CrossfadeInput.h"
+#include "modules/delays/Delay.h"
 
 class DelayController : public Controller {
     public:

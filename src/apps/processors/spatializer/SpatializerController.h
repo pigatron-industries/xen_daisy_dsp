@@ -2,8 +2,8 @@
 #define SpatializerController_h
 
 #include "Spatializer.h"
-#include "../../../Controller.h"
-#include "../../../io/input/AnalogInput.h"
+#include "Controller.h"
+#include "io/input/AnalogInput.h"
 
 class SpatializerController : public Controller {
     public:

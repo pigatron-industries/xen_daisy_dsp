@@ -1,8 +1,8 @@
 #ifndef Spatializer_h
 #define Spatializer_h
 
-#include "../../../modules/delays/MultitapDelay.h"
-#include "../../../modules/filters/BiquadFilter.h"
+#include "modules/delays/MultitapDelay.h"
+#include "modules/filters/BiquadFilter.h"
 
 class Position {
     public:

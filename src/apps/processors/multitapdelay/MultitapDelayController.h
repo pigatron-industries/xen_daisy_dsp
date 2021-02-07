@@ -2,9 +2,9 @@
 #define MultitapDelayController_h
 
 #include "DaisyDuino.h"
-#include "../../../Controller.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../modules/delays/MultiTapDelay.h"
+#include "Controller.h"
+#include "io/input/AnalogInput.h"
+#include "modules/delays/MultiTapDelay.h"
 
 
 class MultitapDelayController : public Controller {

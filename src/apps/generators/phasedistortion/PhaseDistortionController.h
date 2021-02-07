@@ -1,10 +1,10 @@
 #ifndef PhaseDistortionController_h
 #define PhaseDistortionController_h
 
-#include "../../../Controller.h"
-#include "../../../io/input/AnalogInput.h"
-#include "../../../io/input/ExpInput.h"
-#include "../../../modules/oscillators/PhaseDistortionOscillator.h"
+#include "Controller.h"
+#include "io/input/AnalogInput.h"
+#include "io/input/ExpInput.h"
+#include "modules/oscillators/PhaseDistortionOscillator.h"
 
 class PhaseDistortionController : public Controller {
     public:

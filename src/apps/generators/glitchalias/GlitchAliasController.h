@@ -1,9 +1,9 @@
 #ifndef GlitchAliasController_h
 #define GlitchAliasController_h
 
-#include "../../../Controller.h"
-#include "../../../io/input/ExpInput.h"
-#include "../../../io/input/AnalogInput.h"
+#include "Controller.h"
+#include "io/input/ExpInput.h"
+#include "io/input/AnalogInput.h"
 
 class GlitchAliasController : public Controller {
     public:

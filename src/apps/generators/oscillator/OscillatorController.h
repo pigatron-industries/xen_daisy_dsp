@@ -1,8 +1,8 @@
 #ifndef OscillatorController_h
 #define OscillatorController_h
 
-#include "../../../Controller.h"
-#include "../../../io/input/ExpInput.h"
+#include "Controller.h"
+#include "io/input/ExpInput.h"
 
 class OscillatorController : public Controller {
     public:

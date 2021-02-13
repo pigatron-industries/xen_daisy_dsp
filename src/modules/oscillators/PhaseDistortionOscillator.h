@@ -7,7 +7,7 @@
 class PhaseDistortionOscillator
 {
     public:
-        void init(float sampleRate, int tableSize = 256);
+        void init(float sampleRate, int tableSize = 256, int pointCount = 1);
         float process();
 
         Envelope& getEnvelope() { return envelope; }

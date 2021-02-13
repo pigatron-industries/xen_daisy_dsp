@@ -13,7 +13,7 @@ class Point {
 class Envelope
 {
     public:
-        static const int MAX_POINTS = 5;
+        static const int MAX_POINTS = 6;
         Envelope() {}
         void init(float sampleRate, int pointCount = 3, float length = 1, bool repeat = false);
         void trigger();

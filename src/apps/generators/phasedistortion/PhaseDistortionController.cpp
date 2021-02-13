@@ -6,6 +6,12 @@
 
 #define TABLE_SIZE 256
 
+#if defined(XEN_CV6)
+    #define POINT_COUNT 1
+#else
+    #define POINT_COUNT 4
+#endif
+
 void PhaseDistortionController::init(float sampleRate) {
     wavetable1.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
     WaveTableGenerator::addSine(wavetable1, 0.5);
@@ -22,12 +28,14 @@ void PhaseDistortionController::init(float sampleRate) {
     wavetable5.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
     WaveTableGenerator::addSine(wavetable5, 0.5, 5);
 
-    oscillator.init(sampleRate, TABLE_SIZE);
+    oscillator.init(sampleRate, TABLE_SIZE, POINT_COUNT);
     oscillator.getOscillator().setWaveTable(0, &wavetable1);
     oscillator.getOscillator().setWaveTable(1, &wavetable2);
     oscillator.getOscillator().setWaveTable(2, &wavetable3);
     oscillator.getOscillator().setWaveTable(3, &wavetable4);
     oscillator.getOscillator().setWaveTable(4, &wavetable5);
+    oscillator.getEnvelope().setPoint(0, Point(0, 0));
+    oscillator.getEnvelope().setPoint(POINT_COUNT+1, Point(1, 1));
 
     displayPage.initTitle("Phase Distortion", "PHSD");
 }
@@ -45,13 +53,28 @@ void PhaseDistortionController::update() {
         oscillator.setFrequency(pitchInput.getValue());
     }
 
-    if(xInput.update() || yInput.update()) {
-        oscillator.getEnvelope().setPoint(1, Point(xInput.getValue(), yInput.getValue()));
+    if(x1Input.update() || y1Input.update()) {
+        Serial.println("x");
+        Serial.println(x1Input.getValue());
+        Serial.println("y");
+        Serial.println(y1Input.getValue());
+        oscillator.getEnvelope().setPoint(1, Point(x1Input.getValue(), y1Input.getValue()));
     }
+    #if defined(XEN_CV12)
+        if(x2Input.update() || y2Input.update()) {
+            oscillator.getEnvelope().setPoint(2, Point(x2Input.getValue(), y2Input.getValue()));
+        }
+        if(x3Input.update() || y3Input.update()) {
+            oscillator.getEnvelope().setPoint(3, Point(x3Input.getValue(), y3Input.getValue()));
+        }
+        if(x4Input.update() || y4Input.update()) {
+            oscillator.getEnvelope().setPoint(4, Point(x4Input.getValue(), y4Input.getValue()));
+        }
+    #endif
 
-    if(phaseOffsetInput.update()) {
-        oscillator.setPhaseOffset(phaseOffsetInput.getValue());
-    }
+    // if(phaseOffsetInput.update()) {
+    //     oscillator.setPhaseOffset(phaseOffsetInput.getValue());
+    // }
 
     if(harmonicsInput.update()) {
         oscillator.getOscillator().setInterpolation(harmonicsInput.getValue());

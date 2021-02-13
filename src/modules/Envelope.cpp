@@ -30,9 +30,14 @@ float Envelope::process() {
     Point point1 = points[segment];
     Point point2 = points[segment+1];
     float gradient = (point2.y-point1.y) / (point2.x-point1.x); //TODO precalculate gradients
-    float segmentX = position - point1.x;
-    float segmentY = segmentX * gradient;
-    float value = point1.y + segmentY;
+    float value;
+    if(isinf(gradient)) {
+        value = point2.y;
+    } else {
+        float segmentX = position - point1.x;
+        float segmentY = segmentX * gradient;
+        value = point1.y + segmentY;
+    }
 
     if(!stopped) {
         incrementPosition();

@@ -14,11 +14,26 @@ class PhaseDistortionController : public Controller {
         virtual void update();
 
     private:
-        ExpInput pitchInput = ExpInput(A0);
-        AnalogInput xInput = AnalogInput(A1, -5, 5, 0, 1);
-        AnalogInput yInput = AnalogInput(A2, -5, 5, 0, 1);
-        AnalogInput phaseOffsetInput = AnalogInput(A3, -5, 5, 0, 1);
-        AnalogInput harmonicsInput = AnalogInput(A4, -5, 5, 0, 4);
+
+        #if defined(XEN_CV6)
+            ExpInput pitchInput = ExpInput(A0);
+            AnalogInput x1Input = AnalogInput(A1, -5, 5, 0, 1);
+            AnalogInput y1Input = AnalogInput(A2, -5, 5, 0, 1);
+            AnalogInput phaseOffsetInput = AnalogInput(A3, -5, 5, 0, 1);
+            AnalogInput harmonicsInput = AnalogInput(A4, -5, 5, 0, 4);
+        #else
+            ExpInput pitchInput = ExpInput(A0);
+            AnalogInput x1Input = AnalogInput(A2, -5, 5, 0, 0.25);
+            AnalogInput y1Input = AnalogInput(A3, -5, 5, 0, 1);
+            AnalogInput x2Input = AnalogInput(A4, -5, 5, 0.25, 0.5);
+            AnalogInput y2Input = AnalogInput(A5, -5, 5, 0, 1);
+            AnalogInput x3Input = AnalogInput(A6, -5, 5, 0.5, 0.75);
+            AnalogInput y3Input = AnalogInput(A7, -5, 5, 0, 1);
+            AnalogInput x4Input = AnalogInput(A8, -5, 5, 0.75, 1);
+            AnalogInput y4Input = AnalogInput(A9, -5, 5, 0, 1);
+            AnalogInput phaseOffsetInput = AnalogInput(A10, -5, 5, 0, 1);
+            AnalogInput harmonicsInput = AnalogInput(A11, -5, 5, 0, 4);
+        #endif
 
         PhaseDistortionOscillator oscillator;
         WaveTable wavetable1;

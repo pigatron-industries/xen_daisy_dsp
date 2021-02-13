@@ -1,14 +1,15 @@
 #include "PhaseDistortionOscillator.h"
 
-void PhaseDistortionOscillator::init(float sampleRate, int tableSize) { 
+void PhaseDistortionOscillator::init(float sampleRate, int tableSize, int pointCount) { 
     this->sampleRate = sampleRate;
     phaseOffset = 0;
     oscillator.init(sampleRate, tableSize);
 
-    envelope.init(sampleRate, 3, 1, true);
-    envelope.setPoint(0, Point(0, 0));
-    envelope.setPoint(1, Point(0.5, 0.5));
-    envelope.setPoint(2, Point(1, 1));
+    int envelopePoints = pointCount + 2;
+    envelope.init(sampleRate, envelopePoints, 1, true);
+    for(int i = 0; i < envelopePoints; i++) {
+        envelope.setPoint(i, Point(float(i)/float(envelopePoints), 0));
+    }
     envelope.setFrequency(100);
 }
 

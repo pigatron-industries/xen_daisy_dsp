@@ -10,7 +10,7 @@ void SpatializerController::init(float sampleRate) {
     spatializer2.init(sampleRate);
     spatializer2.setDestinationPosition(0, 0.0, 0.1);
     spatializer2.setDestinationPosition(0, 0.0, -0.1);
-    displayPage.initTitle("Spatializer", "SPCE");
+    displayPage.initTitle("Spatializer", "SPTL");
 }
 
 void SpatializerController::process(float **in, float **out, size_t size) {

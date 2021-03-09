@@ -100,8 +100,8 @@ void Tract::addTurbulenceNoiseAtIndex(float turbulenceNoise, float index, float 
 	long i = (long) floor(index);
 	float delta = index - (float) i;
 	turbulenceNoise *= getNoiseModulator();
-	float thinness0 = clamp(8.0 * (0.7 - diameter), 0.0, 1.0);
-	float openness = clamp(30.0 * (diameter - 0.3), 0.0, 1.0);
+	float thinness0 = fclamp(8.0 * (0.7 - diameter), 0.0, 1.0);
+	float openness = fclamp(30.0 * (diameter - 0.3), 0.0, 1.0);
 	float noise0 = turbulenceNoise * (1.0 - delta) * thinness0 * openness;
 	float noise1 = turbulenceNoise * delta * thinness0 * openness;
 	this->R[i + 1] += noise0 / 2.0;

@@ -2,6 +2,7 @@
 #define OscillatorController_h
 
 #include "Controller.h"
+#include "modules/oscillators/Oscillator.h"
 #include "io/input/ExpInput.h"
 
 class OscillatorController : public Controller {
@@ -14,7 +15,7 @@ class OscillatorController : public Controller {
     private:
         ExpInput pitchInput = ExpInput(A0);
 
-        Oscillator oscillator;
+        pigatron::Oscillator oscillator;
 };
 
 #endif

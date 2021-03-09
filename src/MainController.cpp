@@ -1,3 +1,4 @@
+#include <DaisyDuino.h>
 #include "MainController.h"
 #include "util/Profiler.h"
 #include "io/MemPool.h"
@@ -39,6 +40,8 @@ void MainController::init(float sampleRate) {
 }
 
 void MainController::update() {
+    Serial.println("MainController::update START");
+
     UIEvent event = updateUIEvent();
 
     if(controllers[activeController]->getDisplayPage()->selectedItem == 0) {
@@ -76,10 +79,12 @@ void MainController::update() {
 
     Hardware::hw.display.render();
     
+    Serial.println("MainController::update END");
     PROFILE_DUMP
 }
 
 void MainController::setActiveController(int controllerIndex) {
+    Serial.println("MainController::setActiveController START");
     //DAISY.end();
     audio_stop(DSY_AUDIO_INTERNAL);  // Temp workaround for linker issue in DaisyDuino lib
  
@@ -91,6 +96,7 @@ void MainController::setActiveController(int controllerIndex) {
     activeController = controllerIndex;
 
     DAISY.begin(MainController::audioCallback);
+    Serial.println("MainController::setActiveController END");
 }
 
 UIEvent MainController::updateUIEvent() {

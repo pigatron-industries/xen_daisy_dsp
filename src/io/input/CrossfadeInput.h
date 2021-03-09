@@ -2,7 +2,6 @@
 #define CrossfadeInput_h
 
 #include <inttypes.h>
-#include "DaisyDuino.h"
 #include "AnalogInput.h"
 
 class CrossfadeInput : public AnalogInput {

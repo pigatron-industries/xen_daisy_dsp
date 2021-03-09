@@ -2,7 +2,6 @@
 #define GateInput_h
 
 #include <inttypes.h>
-#include "DaisyDuino.h"
 #include "AnalogInput.h"
 
 

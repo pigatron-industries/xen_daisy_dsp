@@ -1,7 +1,7 @@
 #ifndef MemPool_h
 #define MemPool_h
 
-#include <DaisyDuino.h>
+#include <Arduino.h>
 
 #define SDRAM_TOTAL_SIZE (64*1024*1024)
 #define SDRAM_PERM_SIZE (1*1024*1024)

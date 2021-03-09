@@ -2,7 +2,6 @@
 #define PitchOutput_h
 
 #include <inttypes.h>
-#include "DaisyDuino.h"
 
 class PitchOutput {
     public:

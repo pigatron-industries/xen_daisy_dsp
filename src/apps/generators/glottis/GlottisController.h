@@ -1,7 +1,7 @@
 #ifndef GlottisController_h
 #define GlottisController_h
 
-#include "DaisyDuino.h"
+#include <utility/DaisySP/daisysp.h>
 #include "Glottis.h"
 #include "Vibrato.h"
 #include "Controller.h"

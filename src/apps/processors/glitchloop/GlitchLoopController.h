@@ -1,7 +1,6 @@
 #ifndef GlitchLoopController_h
 #define GlitchLoopController_h
 
-#include "DaisyDuino.h"
 #include "Controller.h"
 #include "io/input/AnalogInput.h"
 #include "io/input/ExpInput.h"

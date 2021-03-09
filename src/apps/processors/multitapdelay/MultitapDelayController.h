@@ -1,7 +1,6 @@
 #ifndef MultitapDelayController_h
 #define MultitapDelayController_h
 
-#include "DaisyDuino.h"
 #include "Controller.h"
 #include "io/input/AnalogInput.h"
 #include "modules/delays/MultiTapDelay.h"

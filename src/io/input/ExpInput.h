@@ -2,7 +2,6 @@
 #define ExpInput_h
 
 #include <inttypes.h>
-#include "DaisyDuino.h"
 #include "AbstractInput.h"
 
 class ExpInput : public AbstractInput {

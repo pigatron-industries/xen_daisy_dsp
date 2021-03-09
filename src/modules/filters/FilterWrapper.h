@@ -1,7 +1,7 @@
 #ifndef FilterWrapper_h
 #define FilterWrapper_h
 
-#include "DaisyDuino.h"
+#include <DaisyDSP.h>
 #include "BiquadFilter.h"
 #include "StateVariableFilter.h"
 
@@ -42,7 +42,7 @@ class FilterWrapper {
 
         StateVariableFilter svfFilter;
         BiquadFilter biquadFilter;
-        MoogLadder moogLadderFilter;
+        daisysp::MoogLadder moogLadderFilter;
 
 };
 

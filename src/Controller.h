@@ -1,7 +1,6 @@
 #ifndef Controller_h
 #define Controller_h
 
-#include "DaisyDuino.h"
 #include "io/Hardware.h"
 #include "io/display/DisplayPage.h"
 

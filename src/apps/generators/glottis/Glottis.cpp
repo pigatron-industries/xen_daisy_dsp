@@ -51,7 +51,7 @@ void Glottis::finishBlock() {
 	
 	if (this->isTouched || alwaysVoice) this->intensity += 0.13;
 	else this->intensity -= 0.05;
-	this->intensity = clamp(this->intensity, 0.0, 1.0);
+	this->intensity = fclamp(this->intensity, 0.0, 1.0);
 }
 
 

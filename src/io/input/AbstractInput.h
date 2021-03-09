@@ -2,10 +2,10 @@
 #define AbstractInput_h
 
 #include <inttypes.h>
-#include "DaisyDuino.h"
 #include "Arduino.h"
+#include "util/util.h"
 
-#define SMOOTHING_FAST 0.001
+#define SMOOTHING_FAST 0.0005
 #define SMOOTHING_SLOW 0.1
 
 class AbstractInput {
@@ -30,7 +30,7 @@ class AbstractInput {
         inline uint32_t getRawValue() { return value; }
 
         inline float getSmoothedVoltage() { 
-            smoothedVoltage = smoothingWeight*targetVoltage + (1-smoothingWeight)*smoothedVoltage;
+            smoothedVoltage = smooth(targetVoltage, smoothedVoltage, smoothingWeight);
             return smoothedVoltage;
         }
 
@@ -47,10 +47,11 @@ class AbstractInput {
         inline bool readVoltage() {
             uint32_t value = analogRead(pin);
             float prevVoltage = smoothedVoltage;
-            targetVoltage = ((value / 4095.0) * -10.0) + 5; //represents actual voltage on input of op-amp -5v to +5v
-            float diff = fabsf(targetVoltage-prevVoltage);
+            float newVoltage = ((value / 4095.0) * -10.0) + 5; //represents actual voltage on input of op-amp -5v to +5v
+            float diff = fabsf(newVoltage-prevVoltage);
             if(diff > 0.02) {
                 changed = true;
+                targetVoltage = newVoltage;
             } else {
                 changed = false;
             }

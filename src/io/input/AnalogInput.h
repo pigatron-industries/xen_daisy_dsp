@@ -2,7 +2,6 @@
 #define AnalogInput_h
 
 #include <inttypes.h>
-#include "DaisyDuino.h"
 #include "AbstractInput.h"
 
 

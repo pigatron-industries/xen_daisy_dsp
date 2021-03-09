@@ -3,7 +3,7 @@
 
 using namespace pigatron;
 
-void Oscillator::init(float sample_rate)
+void pigatron::Oscillator::init(float sample_rate)
 {
     sr_        = sample_rate;
     sr_recip_  = 1.0f / sample_rate;

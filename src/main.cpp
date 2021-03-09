@@ -1,5 +1,4 @@
-#include "DaisyDuino.h"
-#include <RotaryEncoder.h>
+#include <DaisyDuino.h>
 #include "MainController.h"
 #include "io/Hardware.h"
 #include "apps.h"

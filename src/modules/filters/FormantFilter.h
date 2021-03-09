@@ -1,8 +1,8 @@
 #ifndef FormantFilter_h
 #define FormantFilter_h
 
+#include <DaisyDSP.h>
 #include <inttypes.h>
-#include "DaisyDuino.h"
 #include "Formant.h"
 
 class FormantFilter {

@@ -1,7 +1,6 @@
 #ifndef Delay_h
 #define Delay_h
 
-#include "DaisyDuino.h"
 #include "TappableDelayLine.h"
 
 class Delay {

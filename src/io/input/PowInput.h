@@ -2,7 +2,6 @@
 #define PowInput_h
 
 #include <inttypes.h>
-#include "DaisyDuino.h"
 #include "AnalogInput.h"
 
 class PowInput : public AnalogInput {

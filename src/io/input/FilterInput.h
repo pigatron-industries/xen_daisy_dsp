@@ -2,7 +2,6 @@
 #define FilterInput_h
 
 #include <inttypes.h>
-#include "DaisyDuino.h"
 #include "AbstractInput.h"
 
 class FilterInput : public AbstractInput {

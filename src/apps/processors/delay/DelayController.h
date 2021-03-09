@@ -15,7 +15,7 @@ class DelayController : public Controller {
         virtual void update();
 
     private:
-        AnalogInput delayTimeInput = AnalogInput(A0, -5, 5, 0.001, 10);
+        AnalogInput delayTimeInput = AnalogInput(A0, -5, 5, 0.1, 1);
         AnalogInput feedbackInput = AnalogInput(A1, -5, 5, 0, 1);
         CrossfadeInput dryWetMixInput = CrossfadeInput(A2, -5, 5);
 

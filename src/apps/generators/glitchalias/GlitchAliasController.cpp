@@ -6,8 +6,10 @@
 void GlitchAliasController::init(float sampleRate) {
     square.init(sampleRate);
     square.setWaveform(pigatron::Oscillator::WAVE_SQUARE);
+    square.setAllowHighFrequency(true);
     saw.init(sampleRate);
     saw.setWaveform(pigatron::Oscillator::WAVE_SAW);
+    saw.setAllowHighFrequency(true);
     
     displayPage.initTitle("Aliasing Oscillator", "ALIA");
 }

@@ -69,12 +69,15 @@ class Oscillator
     */
     void setPhase(float _phase = 0.0f) { phase_ = _phase; }
 
+    void setAllowHighFrequency(bool allowHighFrequency) { this->allowHighFrequency = allowHighFrequency; }
+
   private:
     float   calcPhaseInc(float f);
     uint8_t waveform_;
     float   amp_, freq_;
     float   sr_, sr_recip_, phase_, phase_inc_;
     float   last_out_, last_freq_;
+    bool allowHighFrequency;
 };
 
 
@@ -98,7 +101,7 @@ static inline float polyblep(float phase_inc, float t)
 }
 
 inline float Oscillator::process() {
-    if(amp_ == 0 || freq_ >= sr_ * 0.5) {
+    if(amp_ == 0 || (!allowHighFrequency && freq_ >= sr_ * 0.5)) {
         return 0;
     }
     float out, t;

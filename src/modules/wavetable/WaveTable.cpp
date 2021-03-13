@@ -16,6 +16,7 @@ void WaveTable::init(float sampleRate, size_t tableSize, size_t tableCount, void
         zeroBuffer(table[i], tableSize);
     }
     calcTableFrequencies();
+    inited = true;
 }
 
 void WaveTable::init(float sampleRate, WaveTable& waveTable) {
@@ -27,6 +28,7 @@ void WaveTable::init(float sampleRate, WaveTable& waveTable) {
         this->table[i] = waveTable.getTables()[i];
     }
     calcTableFrequencies();
+    inited = true;
 }
 
 void WaveTable::setTableSample(int index, float sample) {

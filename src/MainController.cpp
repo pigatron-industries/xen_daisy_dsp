@@ -4,12 +4,6 @@
 #include "io/MemPool.h"
 #include "io/Config.h"
 
-// Temp workaround for linker issue in DaisyDuino lib
-// #include "utility/hid_audio.h"
-// extern "C" {
-//     void audio_stop(uint8_t intext);
-// }
-
 MainController MainController::instance;
 
 void MainController::audioCallback(float **in, float **out, size_t size) {
@@ -82,7 +76,6 @@ void MainController::update() {
 
 void MainController::setActiveController(int controllerIndex) {
     DAISY.end();
-    //audio_stop(DSY_AUDIO_INTERNAL);  // Temp workaround for linker issue in DaisyDuino lib
  
     MemPool::resetPool();
     controllers[controllerIndex]->init(sampleRate);

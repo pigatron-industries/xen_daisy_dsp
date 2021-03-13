@@ -1,6 +1,7 @@
 #include "VocoderController.h"
 
 #include "modules/wavetable/WaveTableGenerator.h"
+#include "modules/wavetable/WaveTablePresets.h"
 
 #define LEFT 0
 #define RIGHT 1
@@ -10,12 +11,11 @@
 #define FIELD_VOCODER_PITCHINTERVAL 3
 
 void VocoderController::init(float sampleRate) {
-    wavetable.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
-    WaveTableGenerator::addSine(wavetable, 0.5);
+    WaveTablePresets::presets.init(sampleRate);
 
     vocoder.init(sampleRate);
     vocoder.initBandsByCentreFrequency(centreFrequencyInput.getValue(), 0.3333, bands); // 1/3 octave 400 cents
-    vocoder.setCarrierOscillator(&wavetable);
+    vocoder.setCarrierOscillator(WaveTablePresets::presets.getWaveTable(WaveTablePresets::WaveformPreset::WAVE_SINE));
 
     displayPage.initTitle("Vocoder", "VOCO");
     displayPage.initField(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands), true);

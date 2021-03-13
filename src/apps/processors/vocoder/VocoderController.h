@@ -38,8 +38,6 @@ class VocoderController : public Controller {
         Vocoder vocoder;
         StereoPan oddPan;
         StereoPan evenPan;
-        
-        WaveTable wavetable;
 };
 
 #endif

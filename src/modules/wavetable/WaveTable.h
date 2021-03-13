@@ -11,6 +11,7 @@ class WaveTable {
         WaveTable() {}
         void init(float sampleRate, size_t tableSize, size_t tableCount, void* (*allocate)(size_t) = SDRAM_POOL);
         void init(float sampleRate, WaveTable& waveTable);
+        bool isInited() { return inited; }
 
         float process();
         float read(float position);
@@ -33,6 +34,8 @@ class WaveTable {
         void addTempBufferToTable(int tableIndex);
 
     private:
+        bool inited = false;
+
         float* table[MAX_TABLES];
         float tableFrequency[MAX_TABLES];
         size_t tableSize;

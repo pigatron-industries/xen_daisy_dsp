@@ -3,7 +3,7 @@
 
 #include "VocoderBand.h"
 
-#define MAX_VOCODER_BANDS 20
+#define MAX_VOCODER_BANDS 31
 #define MIN_VOCODER_BANDS 1
 
 class Vocoder {
@@ -16,7 +16,7 @@ class Vocoder {
         void initBandsByCentreFrequency(float centreFrequency, float pitchInterval, int bandCount);
 
         void setResonance(float resonance);
-        void setUseCarrierOscillator(bool value);
+        void setCarrierOscillator(WaveTable* wavetable);
 
         int getBandCount() { return bandCount; }
         float getPitchInterval() { return pitchInterval; }

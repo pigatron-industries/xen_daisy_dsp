@@ -4,9 +4,12 @@
 #include "modules/filters/StateVariableFilter.h"
 #include "modules/filters/BiquadFilter.h"
 #include "modules/oscillators/Oscillator.h"
+#include "modules/wavetable/WaveTableOscillator.h"
 #include "EnvelopeFollower.h"
 
 using namespace pigatron;
+
+#define TABLE_SIZE 256
 
 class VocoderBand {
     public:
@@ -16,15 +19,15 @@ class VocoderBand {
 
         void setFrequency(float frequency);
         void setResonance(float resonance);
-        void setUseCarrierOscillator(bool value) { useCarrierOscillator = value; }
+        void setCarrierOscillator(WaveTable* wavetable);
 
         float getFrequency() { return modulatorFilter.getFrequency(); }
 
     private:
         BiquadFilter modulatorFilter;
         EnvelopeFollower envelopeFollower;
-        StateVariableFilter carrierFilter;
-        pigatron::Oscillator carrierOscillator;
+        BiquadFilter carrierFilter;
+        WaveTableOscillator carrierOscillator;
         bool useCarrierOscillator = false;
 
 };
@@ -38,8 +41,7 @@ inline float VocoderBand::process(float modulatorIn, float carrierIn) {
         float osc = carrierOscillator.process();
         return osc * env;
     } else {
-        carrierFilter.process(carrierIn);
-        float car = carrierFilter.band();
+        float car = carrierFilter.process(carrierIn);
         return car * env;
     }
 }

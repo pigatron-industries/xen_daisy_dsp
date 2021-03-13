@@ -5,10 +5,10 @@
 #include "io/Config.h"
 
 // Temp workaround for linker issue in DaisyDuino lib
-#include "utility/hid_audio.h"
-extern "C" {
-    void audio_stop(uint8_t intext);
-}
+// #include "utility/hid_audio.h"
+// extern "C" {
+//     void audio_stop(uint8_t intext);
+// }
 
 MainController MainController::instance;
 
@@ -40,8 +40,6 @@ void MainController::init(float sampleRate) {
 }
 
 void MainController::update() {
-    Serial.println("MainController::update START");
-
     UIEvent event = updateUIEvent();
 
     if(controllers[activeController]->getDisplayPage()->selectedItem == 0) {
@@ -79,14 +77,12 @@ void MainController::update() {
 
     Hardware::hw.display.render();
     
-    Serial.println("MainController::update END");
     PROFILE_DUMP
 }
 
 void MainController::setActiveController(int controllerIndex) {
-    Serial.println("MainController::setActiveController START");
-    //DAISY.end();
-    audio_stop(DSY_AUDIO_INTERNAL);  // Temp workaround for linker issue in DaisyDuino lib
+    DAISY.end();
+    //audio_stop(DSY_AUDIO_INTERNAL);  // Temp workaround for linker issue in DaisyDuino lib
  
     MemPool::resetPool();
     controllers[controllerIndex]->init(sampleRate);
@@ -96,7 +92,8 @@ void MainController::setActiveController(int controllerIndex) {
     activeController = controllerIndex;
 
     DAISY.begin(MainController::audioCallback);
-    Serial.println("MainController::setActiveController END");
+    DAISY.end();
+    DAISY.begin(MainController::audioCallback);
 }
 
 UIEvent MainController::updateUIEvent() {

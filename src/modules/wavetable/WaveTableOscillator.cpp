@@ -5,6 +5,7 @@ void WaveTableOscillator::init(float sampleRate, int tableSize) {
     this->tableSize = tableSize;
     this->tableCount = 0;
     this->sampleRateReciprocal = 1/sampleRate;
+    this->interpolation = 0.0;
 }
 
 void WaveTableOscillator::setWaveTable(int index, WaveTable* wavetable) {
@@ -20,24 +21,4 @@ void WaveTableOscillator::setFrequency(float frequency) {
     for(int i = 0; i < tableCount; i++) {
         wavetables[i]->setFrequencyTable(frequency);
     }
-}
-
-float WaveTableOscillator::process() {
-    int index = static_cast<int>(interpolation);
-    float output = 0;
-    if(index < tableCount-1) {
-        float fraction = interpolation - static_cast<float>(index);
-        float a = wavetables[index]->read(position);
-        float b = wavetables[index+1]->read(position);
-        output = a + (b - a) * fraction;
-    } else {
-        output = wavetables[tableCount-1]->read(position);
-    }
-
-    position += increment;
-    if(position > tableSize-1) {
-        position -= tableSize-1;
-    }
-
-    return output;
 }

@@ -13,7 +13,7 @@ void Vocoder::initBandsByBaseFrequency(float baseFrequency, float pitchInterval,
     this->pitchInterval = pitchInterval;
     this->baseFrequency = baseFrequency;
     this->bandCount = bandCount;
-    frequencyRatio = exp2f(pitchInterval);
+    frequencyRatio = powf(2, pitchInterval);
 
     float frequency = baseFrequency;
     for(int i = 0; i < bandCount; i++) {
@@ -24,7 +24,7 @@ void Vocoder::initBandsByBaseFrequency(float baseFrequency, float pitchInterval,
 
 void Vocoder::initBandsByCentreFrequency(float centreFrequency, float pitchInterval, int bandCount) {
     float halfBandsInterval = pitchInterval * float(bandCount-1) * 0.5;
-    float baseFrequency = centreFrequency * exp2f(-halfBandsInterval);
+    float baseFrequency = centreFrequency * powf(2, -halfBandsInterval);
     initBandsByBaseFrequency(baseFrequency, pitchInterval, bandCount);
 }
 

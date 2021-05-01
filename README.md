@@ -5,7 +5,7 @@ Various audio processors and generators made for [Electrosmith Daisy](https://ww
 
 ## Processors
 
-* [Comb Filter](src/apps/processors/combfilter/readme.md)
+* [Comb Filter](src/apps/processors/combfilter/)
 * [Filter](src/apps/processors/dualfilter/readme.md)
 * [Delay](src/apps/processors/combfilter/readme.md)
 * [Envelope](src/apps/processors/envelope/readme.md)

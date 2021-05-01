@@ -30,7 +30,7 @@ class VocoderController : public Controller {
     private:
         AnalogInput resonanceInput = AnalogInput(A0, -5, 5, 0, 1);
         ExpInput centreFrequencyInput = ExpInput(A1);
-        AnalogInput pitchIntervalInput = AnalogInput(A2, -5, 5, 0.25, 1.0);
+        AnalogInput pitchIntervalInput = AnalogInput(A2, -5, 5, 0.1, 1.0);
         AnalogInput stereoMixInput = AnalogInput(A3, -5, 5, 0, 1);
 
         int bands = 10;

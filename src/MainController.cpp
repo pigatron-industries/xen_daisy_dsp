@@ -4,7 +4,12 @@
 #include "io/MemPool.h"
 #include "io/Config.h"
 
+#include "utility/gpio.h"
+#include "stm32h7xx_hal.h"
+
 MainController MainController::instance;
+
+DaisyHardware hardware;
 
 void MainController::audioCallback(float **in, float **out, size_t size) {
     MainController::instance.process(in, out, size);
@@ -17,8 +22,10 @@ void MainController::registerController(Controller* controller) {
     controller->getDisplayPage()->setNumber(0, controllerSize);
 }
 
-void MainController::init(float sampleRate) {
-    this->sampleRate = sampleRate;
+void MainController::init() {
+    hardware = DAISY.init(DAISY_SEED, AUDIO_SR_48K);
+    sampleRate = DAISY.get_samplerate();
+
     Hardware::hw.init();
     refreshTimer.start(100000);
 
@@ -58,7 +65,7 @@ void MainController::update() {
             controllers[activeController]->getDisplayPage()->nextSelection();
         }
         if(event == UIEvent::EVENT_LONG_PRESS) {
-            controllers[activeController]->getDisplayPage()->setSelection(0);
+            rebootToBootloader();
         }
     }
 
@@ -113,4 +120,22 @@ void MainController::process(float **in, float **out, size_t size) {
     PROFILE_START
     controllers[activeController]->process(in, out, size);
     PROFILE_END
+}
+
+void MainController::rebootToBootloader() {
+    // Initialize Boot Pin
+    dsy_gpio_pin bootpin = {DSY_GPIOG, 3};
+    dsy_gpio pin;
+    pin.mode = DSY_GPIO_MODE_OUTPUT_PP;
+    pin.pin = bootpin;
+    dsy_gpio_init(&pin);
+
+    // Pull Pin HIGH
+    dsy_gpio_write(&pin, 1);
+
+	// wait a few ms for cap to charge
+	delay(10);
+
+    // Software Reset
+	HAL_NVIC_SystemReset();
 }

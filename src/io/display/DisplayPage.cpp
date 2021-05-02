@@ -4,7 +4,7 @@
 
 void DisplayPage::initTitle(String text, char* shortName) {
     items[0].text = text;
-    items[0].selectable = false;
+    items[0].selectable = true;
     items[0].shortName[0] = shortName[0];
     items[0].shortName[1] = shortName[1];
     items[0].shortName[2] = shortName[2];

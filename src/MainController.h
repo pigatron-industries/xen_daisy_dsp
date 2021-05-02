@@ -13,7 +13,7 @@ class MainController {
 
         MainController() {}
         void registerController(Controller* controller);
-        void init(float sampleRate);
+        void init();
         void update();
         void process(float **in, float **out, size_t size);
 
@@ -38,6 +38,7 @@ class MainController {
         bool isPausing() { return pausing; }
         bool isPaused() { return paused; }
 
+        void rebootToBootloader();
 };
 
 #endif

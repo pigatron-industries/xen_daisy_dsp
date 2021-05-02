@@ -22,6 +22,7 @@ public:
     void init();
     void setDisplayedPage(DisplayPage* page);
     void render();
+    void prog();
     
 private:
     #if defined(XEN_TFT)

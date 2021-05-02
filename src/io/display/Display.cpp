@@ -129,3 +129,18 @@ void Display::render(bool all) {
     }
 #endif
 
+#if defined(XEN_ALPHA)
+void Display::prog() {
+    alpha4.writeDigitAscii(0, 'P');
+    alpha4.writeDigitAscii(1, 'R');
+    alpha4.writeDigitAscii(2, 'O');
+    alpha4.writeDigitAscii(3, 'G');
+    alpha4.writeDisplay();
+}
+#endif
+
+#if defined(XEN_TFT)
+void Display::prog() {
+    //TODO
+}
+#endif

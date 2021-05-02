@@ -123,6 +123,8 @@ void MainController::process(float **in, float **out, size_t size) {
 }
 
 void MainController::rebootToBootloader() {
+    Hardware::hw.display.prog();
+
     // Initialize Boot Pin
     dsy_gpio_pin bootpin = {DSY_GPIOG, 3};
     dsy_gpio pin;

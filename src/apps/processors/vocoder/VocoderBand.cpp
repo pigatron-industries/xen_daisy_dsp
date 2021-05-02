@@ -21,11 +21,10 @@ void VocoderBand::setResonance(float resonance) {
     carrierFilter.setQ(resonance);
 }
 
-void VocoderBand::setCarrierOscillator(WaveTable* wavetable) { 
-    if(wavetable != NULL) {
-        useCarrierOscillator = true;
-        carrierOscillator.setWaveTable(0, wavetable);
-    } else {
-        useCarrierOscillator = false;
-    }
+void VocoderBand::setCarrierOscillator(WaveTable& wavetable) { 
+    carrierOscillator.setWaveTable(0, wavetable);
+}
+
+void VocoderBand::setUseCarrierOscillator(bool userCarrier) {
+    useCarrierOscillator = userCarrier;
 }

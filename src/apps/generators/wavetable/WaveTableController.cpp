@@ -22,10 +22,10 @@ void WaveTableController::firstInit(float sampleRate) {
     WaveTableGenerator::addViolin(wavetable4, 0.5);
 
     oscillator.init(sampleRate, TABLE_SIZE);
-    oscillator.setWaveTable(0, &wavetable1);
-    oscillator.setWaveTable(1, &wavetable2);
-    oscillator.setWaveTable(2, &wavetable3);
-    oscillator.setWaveTable(3, &wavetable4);
+    oscillator.setWaveTable(0, wavetable1);
+    oscillator.setWaveTable(1, wavetable2);
+    oscillator.setWaveTable(2, wavetable3);
+    oscillator.setWaveTable(3, wavetable4);
 
     displayPage.initTitle("Wave Table", "TABL");
 }

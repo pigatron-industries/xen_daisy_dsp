@@ -11,7 +11,7 @@ class WaveTableOscillator {
         void init(float sampleRate, int tableSize);
         float process();
 
-        void setWaveTable(int index, WaveTable* wavetable);
+        void setWaveTable(int index, WaveTable& wavetable);
         void setFrequency(float frequency);
         void setInterpolation(float interpolation) { this->interpolation = interpolation; }
         void setPhase(float phase) { position = float(tableSize) * phase; }

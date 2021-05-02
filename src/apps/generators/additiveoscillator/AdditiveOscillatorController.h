@@ -5,7 +5,7 @@
 #include "io/input/ExpInput.h"
 #include "io/input/AnalogInput.h"
 #include "AdditiveOscillator.h"
-#include "Normalizer.h"
+#include "modules/Normalizer.h"
 
 #define OSCILLATOR_COUNT 10
 

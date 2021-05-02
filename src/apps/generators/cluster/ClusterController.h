@@ -1,11 +1,10 @@
-#ifndef AdditiveOscillatorController_h
-#define AdditiveOscillatorController_h
+#ifndef ClusterController_h
+#define ClusterController_h
 
 #include "Controller.h"
-#include "OscillatorCluster.h"
+#include "OscillatorBank.h"
 #include "io/input/ExpInput.h"
 #include "io/input/AnalogInput.h"
-#define OSCILLATOR_COUNT 10
 
 class ClusterController : public Controller {
     public:
@@ -16,9 +15,9 @@ class ClusterController : public Controller {
 
     private:
         ExpInput frequencyInput = ExpInput(A0);
+        AnalogInput interval1Input = AnalogInput(A1, -5, 5, 0, 1);
 
-        // AdditiveOscillator oscillator;
-        // Normalizer normalizer;
+        pigatron::OscillatorBank oscillatorBank;
 };
 
 #endif

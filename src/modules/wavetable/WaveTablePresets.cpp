@@ -7,38 +7,38 @@ void WaveTablePresets::init(float sampleRate) {
     this->sampleRate = sampleRate;
 }
 
-WaveTable* WaveTablePresets::getWaveTable(WaveformPreset waveformPreset) {
+WaveTable& WaveTablePresets::getWaveTable(WaveformPreset waveformPreset) {
     switch (waveformPreset) {
         case WAVE_SINE:
             if(!sine.isInited()) {
                 initSine();
             } 
-            return &sine;
+            return sine;
         case WAVE_TRIANGLE:
             if(!triangle.isInited()) {
                 initTriangle();
             } 
-            return &sine;
+            return sine;
         case WAVE_RAMP:
             if(!ramp.isInited()) {
                 initRamp();
             } 
-            return &ramp;
+            return ramp;
         case WAVE_SQUARE:
             if(!square.isInited()) {
                 initSquare();
             } 
-            return &square;
+            return square;
         case WAVE_IMPULSE:
             if(!triangle.isInited()) {
                 initTriangle();
             } 
-            return &ramp;
+            return ramp;
         case WAVE_VIOLIN:
             if(!violin.isInited()) {
                 initViolin();
             } 
-            return &violin;
+            return violin;
     }
 }
 

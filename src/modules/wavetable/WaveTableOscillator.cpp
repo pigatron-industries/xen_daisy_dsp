@@ -8,8 +8,8 @@ void WaveTableOscillator::init(float sampleRate, int tableSize) {
     this->interpolation = 0.0;
 }
 
-void WaveTableOscillator::setWaveTable(int index, WaveTable* wavetable) {
-    wavetables[index] = wavetable;
+void WaveTableOscillator::setWaveTable(int index, WaveTable& wavetable) {
+    wavetables[index] = &wavetable;
     if(tableCount <= index) {
         tableCount = index+1;
     }

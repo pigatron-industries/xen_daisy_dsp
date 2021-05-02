@@ -29,11 +29,11 @@ void PhaseDistortionController::init(float sampleRate) {
     WaveTableGenerator::addSine(wavetable5, 0.5, 5);
 
     oscillator.init(sampleRate, TABLE_SIZE, POINT_COUNT);
-    oscillator.getOscillator().setWaveTable(0, &wavetable1);
-    oscillator.getOscillator().setWaveTable(1, &wavetable2);
-    oscillator.getOscillator().setWaveTable(2, &wavetable3);
-    oscillator.getOscillator().setWaveTable(3, &wavetable4);
-    oscillator.getOscillator().setWaveTable(4, &wavetable5);
+    oscillator.getOscillator().setWaveTable(0, wavetable1);
+    oscillator.getOscillator().setWaveTable(1, wavetable2);
+    oscillator.getOscillator().setWaveTable(2, wavetable3);
+    oscillator.getOscillator().setWaveTable(3, wavetable4);
+    oscillator.getOscillator().setWaveTable(4, wavetable5);
     oscillator.getEnvelope().setPoint(0, Point(0, 0));
     oscillator.getEnvelope().setPoint(POINT_COUNT+1, Point(1, 1));
 

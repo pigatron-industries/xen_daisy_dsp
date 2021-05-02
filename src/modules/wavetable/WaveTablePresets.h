@@ -19,7 +19,7 @@ class WaveTablePresets {
         };
 
         void init(float sampleRate);
-        WaveTable* getWaveTable(WaveformPreset waveformPreset);
+        WaveTable& getWaveTable(WaveformPreset waveformPreset);
 
     private:
         float sampleRate;

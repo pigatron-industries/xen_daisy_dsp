@@ -34,8 +34,14 @@ void Vocoder::setResonance(float resonance) {
     }
 }
 
-void Vocoder::setCarrierOscillator(WaveTable* wavetable) {
+void Vocoder::setCarrierOscillator(WaveTable& wavetable) {
     for(int i = 0; i < MAX_VOCODER_BANDS; i++) {
         bands[i].setCarrierOscillator(wavetable);
+    }
+}
+
+void Vocoder::setUseCarrierOscillator(bool useCarrier) {
+    for(int i = 0; i < MAX_VOCODER_BANDS; i++) {
+        bands[i].setUseCarrierOscillator(useCarrier);
     }
 }

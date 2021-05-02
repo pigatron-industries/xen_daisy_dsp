@@ -16,6 +16,7 @@ void VocoderController::init(float sampleRate) {
     vocoder.init(sampleRate);
     vocoder.initBandsByCentreFrequency(centreFrequencyInput.getValue(), 0.3333, bands); // 1/3 octave 400 cents
     vocoder.setCarrierOscillator(WaveTablePresets::presets.getWaveTable(WaveTablePresets::WaveformPreset::WAVE_SINE));
+    vocoder.setUseCarrierOscillator(true);
 
     displayPage.initTitle("Vocoder", "VOCO");
     displayPage.initField(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands), true);

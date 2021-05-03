@@ -9,6 +9,8 @@ void FDNReverb::init(float sampleRate) {
     this->modPhase[2] = 0.5;
     this->modPhase[3] = 0.75;
 
+    normalizer.init(4096);
+
     for(int i = 0; i < DELAY_LINES; i++) {
         multitapDelay[i].init(sampleRate, 1.0);
         multitapDelay[i].setDelayTime(delayTimes[i]*delayTime);
@@ -98,5 +100,5 @@ void FDNReverb::process(float in) {
 }
 
 float FDNReverb::getOutput(int channel) {
-    return output[channel] * wetLevel + input[0] * dryLevel;
+    return normalizer.process(output[channel] * wetLevel + input[0] * dryLevel);
 }

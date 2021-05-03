@@ -4,6 +4,7 @@
 #include "modules/filters/AllPass.h"
 #include "modules/delays/MultiTapDelay.h"
 #include "modules/filters/StateVariableFilter.h"
+#include "modules/Normalizer.h"
 #include "util/util.h"
 
 
@@ -34,6 +35,7 @@ class FDNReverb {
         StateVariableFilter highPassFilter[DELAY_LINES];
         AllPass allPassFilter[DELAY_LINES][ALL_PASS_FILTERS];
         MultitapDelay multitapDelay[DELAY_LINES];
+        Normalizer normalizer;
 
         float delayTimes[DELAY_LINES] = { 0.541, 0.971, 0.797, 0.673 };
 

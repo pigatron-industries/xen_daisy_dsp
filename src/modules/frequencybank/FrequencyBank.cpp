@@ -7,6 +7,14 @@ FrequencyBank::FrequencyBank() {
     pitches[0] = 0;
 }
 
+void FrequencyBank::init(int bandCount, PivotPoint pivotPoint, float frequency) {
+    this->bandCount = bandCount;
+    this->pivotPoint = pivotPoint;
+    this->baseFrequency = frequency;
+    this->centreFrequency = frequency;
+    setAllPitchIntervals(0);
+}
+
 void FrequencyBank::init(int bandCount, PivotPoint pivotPoint, float frequency, float pitchInterval) {
     this->bandCount = bandCount;
     this->pivotPoint = pivotPoint;
@@ -19,18 +27,14 @@ void FrequencyBank::setBandCount(int bandCount) {
     this->bandCount = bandCount;
 }
 
-void FrequencyBank::setBaseFrequency(float baseFrequency) {
-    this->baseFrequency = baseFrequency;
-    pivotPoint = PivotPoint::BASE;
-    for(int i = 0; i < bandCount; i++) {
-        calcFrequency(i);
+void FrequencyBank::setFrequency(float frequency) {
+    if(pivotPoint == PivotPoint::BASE) {
+        this->baseFrequency = frequency;
+    } else {
+        this->centreFrequency = frequency;
+        calcBaseFrequency(centreFrequency, pitches[bandCount-1]);
     }
-}
 
-void FrequencyBank::setCentreFrequency(float centreFrequency) {
-    this->centreFrequency = centreFrequency;
-    calcBaseFrequency(centreFrequency, pitches[bandCount-1]);
-    pivotPoint = PivotPoint::CENTRE;
     for(int i = 0; i < bandCount; i++) {
         calcFrequency(i);
     }

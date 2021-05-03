@@ -27,13 +27,20 @@ void ClusterController::process(float **in, float **out, size_t size) {
 
 void ClusterController::update() {
     if(frequencyInput.update()) {
-        oscillatorBank.setBaseFrequency(frequencyInput.getValue());
+        oscillatorBank.setFrequency(frequencyInput.getValue());
     }
 
-    // if(interval1Input.update()) {
-    //     oscillatorBank.setPitchInterval(1, 0+interval1Input.getValue());
-    //     oscillatorBank.setPitchInterval(3, 1+interval1Input.getValue());
-    //     oscillatorBank.setPitchInterval(5, 2+interval1Input.getValue());
-    //     oscillatorBank.setPitchInterval(7, 3+interval1Input.getValue());
-    // }
+    if(interval1Input.update()) {
+        oscillatorBank.setPitchInterval(1, 0+interval1Input.getValue());
+        oscillatorBank.setPitchInterval(4, 1+interval1Input.getValue());
+        oscillatorBank.setPitchInterval(7, 2+interval1Input.getValue());
+        oscillatorBank.setPitchInterval(10, 3+interval1Input.getValue());
+    }
+
+    if(interval2Input.update()) {
+        oscillatorBank.setPitchInterval(2, 0+interval2Input.getValue());
+        oscillatorBank.setPitchInterval(5, 1+interval2Input.getValue());
+        oscillatorBank.setPitchInterval(8, 2+interval2Input.getValue());
+        oscillatorBank.setPitchInterval(11, 3+interval2Input.getValue());
+    }
 }

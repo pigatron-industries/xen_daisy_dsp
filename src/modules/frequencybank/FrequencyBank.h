@@ -14,11 +14,11 @@ class FrequencyBank {
         };
 
         FrequencyBank();
+        void init(int bandCount, PivotPoint pivotPoint, float frequency);
         void init(int bandCount, PivotPoint pivotPoint, float frequency, float pitchInterval);
 
         void setBandCount(int bandCount);
-        void setBaseFrequency(float baseFrequency);
-        void setCentreFrequency(float centreFrequency);
+        void setFrequency(float frequency);
         void setAllPitchIntervals(float pitchInterval);
         void setPitchInterval(int index, float pitchInterval);
 
@@ -26,7 +26,7 @@ class FrequencyBank {
         float getFrequency(int index) { return frequencies[index]; }
 
     protected:
-        PivotPoint pivotPoint = BASE;
+        PivotPoint pivotPoint = PivotPoint::BASE;
         float baseFrequency, centreFrequency;
         int bandCount;
         float pitches[MAX_BANDS];

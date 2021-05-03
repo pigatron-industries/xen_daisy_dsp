@@ -1,7 +1,7 @@
 #ifndef OscillatorBank_h
 #define OscillatorBank_h
 
-#include "modules/FrequencyBank.h"
+#include "modules/frequencybank/FrequencyBank.h"
 #include "io/input/ExpInput.h"
 #include "io/input/AnalogInput.h"
 #include "modules/wavetable/WaveTableOscillator.h"
@@ -17,7 +17,7 @@ class OscillatorBank {
         void init(float sampleRate, WaveTable& wavetable, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency, float pitchInterval);
         float process();
         
-        void setBaseFrequency(float frequency) { frequencyBank.setBaseFrequency(frequency); updateFrequencies(); }
+        void setFrequency(float frequency) { frequencyBank.setFrequency(frequency); updateFrequencies(); }
         void setPitchInterval(int index, float interval) { frequencyBank.setPitchInterval(index, interval); updateFrequencies(); }
         void setAllPitchIntervals(float interval) { frequencyBank.setAllPitchIntervals(interval); updateFrequencies(); }
 

@@ -5,8 +5,12 @@
 
 using namespace pigatron;
 
-void OscillatorBank::init(float sampleRate, WaveTable& wavetable, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency, float pitchInterval) {
-    frequencyBank.init(bandCount, pivotPoint, frequency, pitchInterval);
+void OscillatorBank::init(float sampleRate, WaveTable& wavetable, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency) {
+    init(sampleRate, wavetable, 1, bandCount, pivotPoint, frequency);
+}
+
+void OscillatorBank::init(float sampleRate, WaveTable& wavetable, int bankCount, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency) {
+    frequencyBank.init(bankCount, bandCount, pivotPoint, frequency);
     normalizer.init(4096);
     for(int i = 0; i < MAX_OSCILLATORS; i++) {
         oscillators[i].init(sampleRate, wavetable.getSize());

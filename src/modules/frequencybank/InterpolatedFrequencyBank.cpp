@@ -13,9 +13,23 @@ void InterpolatedFrequencyBank::init(int bankCount, int bandCount, FrequencyBank
     }
 }
 
+void InterpolatedFrequencyBank::setFrequency(float frequency) {
+    if(pivotPoint == FrequencyBank::PivotPoint::BASE) {
+        this->baseFrequency = frequency;
+    } else {
+        this->centreFrequency = frequency;
+    }
+
+    for(int bankIndex = 0; bankIndex < bankCount; bankIndex++) {
+        banks[bankIndex].setFrequency(frequency);
+    }
+}
+
 void InterpolatedFrequencyBank::setPitchInterval(int bankIndex, int bandIndex, float interval) {
     banks[bankIndex].setPitchInterval(bandIndex, interval);
 }
+
+#include <Arduino.h>
 
 void InterpolatedFrequencyBank::setInterpolation(float interpolationValue) {
     interpolation.setInterpolation(interpolationValue);

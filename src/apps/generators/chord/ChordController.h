@@ -15,7 +15,7 @@ class ChordController : public Controller {
 
     private:
         ExpInput frequencyInput = ExpInput(A0);
-        AnalogInput chordInput = AnalogInput(A1, -5, 5, 0, 1);
+        AnalogInput chordInput = AnalogInput(A1, -4.9, 4.9, 0, 1);
 
         pigatron::OscillatorBank oscillatorBank;
 };

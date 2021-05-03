@@ -7,12 +7,18 @@
 
 void ChordController::init(float sampleRate) {
     oscillatorBank.init(sampleRate, WaveTablePresets::presets.getWaveTable(WaveTablePresets::WaveformPreset::WAVE_SINE), 
-                        12, FrequencyBank::PivotPoint::BASE, 100, 1);
-    int index = 0;
-    for(int octave = 0; octave < 4; octave++) {
-        oscillatorBank.setPitchInterval(index++, octave);
-        oscillatorBank.setPitchInterval(index++, octave+0.3219);
-        oscillatorBank.setPitchInterval(index++, octave+0.5849);
+                        2, 12, FrequencyBank::PivotPoint::BASE, 100);
+
+    for(int octave = 0, bandIndex = 0; octave < 4; octave++) {
+        oscillatorBank.getFrequencyBank().setPitchInterval(0, bandIndex++, octave);
+        oscillatorBank.getFrequencyBank().setPitchInterval(0, bandIndex++, octave+0.3333);
+        oscillatorBank.getFrequencyBank().setPitchInterval(0, bandIndex++, octave+0.5849);
+    }
+
+    for(int octave = 0, bandIndex = 0; octave < 4; octave++) {
+        oscillatorBank.getFrequencyBank().setPitchInterval(1, bandIndex++, octave);
+        oscillatorBank.getFrequencyBank().setPitchInterval(1, bandIndex++, octave+0.25);
+        oscillatorBank.getFrequencyBank().setPitchInterval(1, bandIndex++, octave+0.5849);
     }
 
     displayPage.initTitle("Chord", "CHRD");
@@ -27,13 +33,11 @@ void ChordController::process(float **in, float **out, size_t size) {
 
 void ChordController::update() {
     if(frequencyInput.update()) {
-        oscillatorBank.setFrequency(frequencyInput.getValue());
+        oscillatorBank.getFrequencyBank().setFrequency(frequencyInput.getValue());
+        oscillatorBank.updateFrequencies();
     }
-
-    // if(interval1Input.update()) {
-    //     oscillatorBank.setPitchInterval(1, 0+interval1Input.getValue());
-    //     oscillatorBank.setPitchInterval(3, 1+interval1Input.getValue());
-    //     oscillatorBank.setPitchInterval(5, 2+interval1Input.getValue());
-    //     oscillatorBank.setPitchInterval(7, 3+interval1Input.getValue());
-    // }
+    if(chordInput.update()) {
+        oscillatorBank.getFrequencyBank().setInterpolation(chordInput.getValue());
+        oscillatorBank.updateFrequencies();
+    }
 }

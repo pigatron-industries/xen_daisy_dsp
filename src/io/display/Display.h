@@ -2,6 +2,7 @@
 #define Display_h
 
 #include "DisplayPage.h"
+#include "DisplayRenderer.h"
 #include "../Timer.h"
 
 #if defined(XEN_TFT)
@@ -11,31 +12,34 @@
     #include <Adafruit_LEDBackpack.h>
 #endif
 
-#define LINE_HEIGHT 16
-#define LINE_INDENT 2
-#define LINE_FONT 2
+// #define LINE_HEIGHT 16
+// #define LINE_INDENT 2
+// #define LINE_FONT 2
 
 class Display {
 
 public:
-    Display() {}
+    Display();
     void init();
     void setDisplayedPage(DisplayPage* page);
     void render();
-    void prog();
+    void alert(char* text);
     
 private:
-    #if defined(XEN_TFT)
-        TFT_eSPI tft = TFT_eSPI();
-    #endif
-    #if defined(XEN_ALPHA)
-        Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
-    #endif
+    DisplayRenderer* renderer;
+
+    // #if defined(XEN_TFT)
+    //     TFT_eSPI tft = TFT_eSPI();
+    // #endif
+    // #if defined(XEN_ALPHA)
+    //     Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
+    // #endif
 
     DisplayPage* displayedPage;
 
-    void render(bool all);
-    void renderItem(int index, bool all);
+    // void render(bool all);
+    // void renderCommon();
+    // void renderItem(int index, bool all);
 
 };
 

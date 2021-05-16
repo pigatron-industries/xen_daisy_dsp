@@ -18,7 +18,7 @@ class DisplayPage {
 
         DisplayItem items[MAX_DISPLAY_ITEMS];
         int size = 1;
-        int selectedItem = -1;
+        int selectedItem = 0;
 };
 
 #endif

@@ -59,6 +59,6 @@ void DisplayPage::nextSelection() {
     }
 
     if(!itemFound) {
-        selectedItem = NO_SELECTION;
+        selectedItem = 0;
     }
 }

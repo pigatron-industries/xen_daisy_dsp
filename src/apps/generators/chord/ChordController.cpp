@@ -40,4 +40,7 @@ void ChordController::update() {
         oscillatorBank.getFrequencyBank().setInterpolation(chordInput.getValue());
         oscillatorBank.updateFrequencies();
     }
+    if(gainInput.update()) {
+        gain = gainInput.getValue();
+    }
 }

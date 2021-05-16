@@ -43,30 +43,29 @@ void MainController::init() {
 void MainController::update() {
     UIEvent event = updateUIEvent();
 
-    if(controllers[activeController]->getDisplayPage()->selectedItem == 0) {
-        // When title is selected then encoder switches controller
-        if(event == UIEvent::EVENT_CLOCKWISE) {
-            int controllerIndex = ((activeController + 1) % (controllerSize));
-            setActiveController(controllerIndex);
-        } else if(event == UIEvent::EVENT_COUNTERCLOCKWISE) {
-            int controllerIndex = activeController > 0 ? activeController - 1 : controllerSize - 1;
-            setActiveController(controllerIndex);
-        }
-        if(event == UIEvent::EVENT_SHORT_PRESS) {
-            controllers[activeController]->getDisplayPage()->setSelection(-1);
-        }
-    } else {
-        if(event == UIEvent::EVENT_CLOCKWISE) {
-            controllers[activeController]->event(event, controllers[activeController]->getDisplayPage()->selectedItem);
-        } else if (event == UIEvent::EVENT_COUNTERCLOCKWISE) {
-            controllers[activeController]->event(event, controllers[activeController]->getDisplayPage()->selectedItem);
-        }
-        if(event == UIEvent::EVENT_SHORT_PRESS) {
+    switch(event) {
+        case UIEvent::EVENT_CLOCKWISE: 
+            if(controllers[activeController]->getDisplayPage()->selectedItem == 0) {
+                int controllerIndex = ((activeController + 1) % (controllerSize));
+                setActiveController(controllerIndex);
+            } else {
+                controllers[activeController]->event(event, controllers[activeController]->getDisplayPage()->selectedItem);
+            }
+            break;
+        case UIEvent::EVENT_COUNTERCLOCKWISE:
+            if(controllers[activeController]->getDisplayPage()->selectedItem == 0) {
+                int controllerIndex = activeController > 0 ? activeController - 1 : controllerSize - 1;
+                setActiveController(controllerIndex);
+            } else {
+                controllers[activeController]->event(event, controllers[activeController]->getDisplayPage()->selectedItem);
+            }
+            break;
+        case UIEvent::EVENT_SHORT_PRESS:
             controllers[activeController]->getDisplayPage()->nextSelection();
-        }
-        if(event == UIEvent::EVENT_LONG_PRESS) {
+            break;
+        case UIEvent::EVENT_LONG_PRESS:
             rebootToBootloader();
-        }
+            break;
     }
 
     controllers[activeController]->update();
@@ -123,7 +122,7 @@ void MainController::process(float **in, float **out, size_t size) {
 }
 
 void MainController::rebootToBootloader() {
-    Hardware::hw.display.prog();
+    Hardware::hw.display.alert("PROG");
 
     // Initialize Boot Pin
     dsy_gpio_pin bootpin = {DSY_GPIOG, 3};

@@ -5,6 +5,12 @@
 
 class DisplayItem {
     public:
+        enum Type {
+            TEXT,
+            NUMBER
+        };
+
+        Type type;
         uint8_t number;
         char shortName[4];
         String text;

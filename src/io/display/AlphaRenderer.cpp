@@ -19,12 +19,21 @@ void AlphaRenderer::renderItem(DisplayPage* displayedPage, int index, bool all) 
     DisplayItem &item = displayedPage->items[index];
     if(all || item.dirty) {
         bool selected = index == displayedPage->selectedItem;
-        //if(index == 0) {
-            alpha4.writeDigitAscii(0, item.shortName[0], index == 0);
-            alpha4.writeDigitAscii(1, item.shortName[1], index == 1);
-            alpha4.writeDigitAscii(2, item.shortName[2], index == 2);
-            alpha4.writeDigitAscii(3, item.shortName[3], index == 3);
-        //}
+        if(selected) {
+            if(item.type == DisplayItem::Type::TEXT) {
+                alpha4.writeDigitAscii(0, item.shortName[0], displayedPage->selectedItem == 0);
+                alpha4.writeDigitAscii(1, item.shortName[1], displayedPage->selectedItem == 1);
+                alpha4.writeDigitAscii(2, item.shortName[2], displayedPage->selectedItem == 2);
+                alpha4.writeDigitAscii(3, item.shortName[3], displayedPage->selectedItem == 3);
+            } else {
+                char numtext[5];
+                sprintf(numtext, "%04d", item.number);
+                alpha4.writeDigitAscii(0, numtext[0], displayedPage->selectedItem == 0);
+                alpha4.writeDigitAscii(1, numtext[1], displayedPage->selectedItem == 1);
+                alpha4.writeDigitAscii(2, numtext[2], displayedPage->selectedItem == 2);
+                alpha4.writeDigitAscii(3, numtext[3], displayedPage->selectedItem == 3);
+            }
+        }
     }
 }
 

@@ -3,6 +3,7 @@
 #define NO_SELECTION -1
 
 void DisplayPage::initTitle(String text, char* shortName) {
+    items[0].type = DisplayItem::Type::TEXT;
     items[0].text = text;
     items[0].selectable = true;
     items[0].shortName[0] = shortName[0];
@@ -13,12 +14,14 @@ void DisplayPage::initTitle(String text, char* shortName) {
 
 void DisplayPage::initField(int index, bool selectable) {
     if(index >= size) size = index+1;
+    items[index].type = selectable ? DisplayItem::Type::NUMBER : DisplayItem::Type::TEXT;
     items[index].text = String("");
     items[index].selectable = selectable;
 }
 
 void DisplayPage::initField(int index, String text, bool selectable) {
     if(index >= size) size = index+1;
+    items[index].type = selectable ? DisplayItem::Type::NUMBER : DisplayItem::Type::TEXT;
     items[index].text = text;
     items[index].selectable = selectable;
 }

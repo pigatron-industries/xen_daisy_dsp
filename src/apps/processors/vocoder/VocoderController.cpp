@@ -20,6 +20,7 @@ void VocoderController::init(float sampleRate) {
 
     displayPage.initTitle("Vocoder", "VOCO");
     displayPage.initField(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands), true);
+    displayPage.setNumber(FIELD_VOCODER_BANDS, bands);
     displayPage.initField(FIELD_VOCODER_FREQUENCYBASE, false);
     displayPage.initField(FIELD_VOCODER_PITCHINTERVAL, false);
 }
@@ -58,12 +59,14 @@ void VocoderController::event(UIEvent event, int itemIndex) {
                 bands++;
                 vocoder.initBandsByCentreFrequency(centreFrequencyInput.getValue(), pitchIntervalInput.getValue(), bands);
                 displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands));
+                displayPage.setNumber(FIELD_VOCODER_BANDS, bands);
             }
         } else if (event == UIEvent::EVENT_COUNTERCLOCKWISE) {
             if(bands > MIN_VOCODER_BANDS) {
                 bands--;
                 vocoder.initBandsByCentreFrequency(centreFrequencyInput.getValue(), pitchIntervalInput.getValue(), bands);
                 displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands));
+                displayPage.setNumber(FIELD_VOCODER_BANDS, bands);
             }
         }
     }

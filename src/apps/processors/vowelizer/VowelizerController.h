@@ -3,7 +3,6 @@
 
 #include "Controller.h"
 #include "Vowelizer.h"
-#include "io/input/AnalogInput.h"
 
 class VowelizerController : public Controller {
     public:
@@ -14,10 +13,10 @@ class VowelizerController : public Controller {
 
     private:
         Vowelizer vowelizer;
-        AnalogInput rangeInput = AnalogInput(A0, -5, 5, 0, 5);
-        AnalogInput vowelInput = AnalogInput(A1, -5, 5, 0, 5);
-        AnalogInput pitchInput = AnalogInput(A2, -5, 5, 1, 2);
-        AnalogInput resonanceInput = AnalogInput(A3, -5, 5, 0, 1);
+        LinearInput rangeInput = LinearInput(A0, -5, 5, 0, 5);
+        LinearInput vowelInput = LinearInput(A1, -5, 5, 0, 5);
+        LinearInput pitchInput = LinearInput(A2, -5, 5, 1, 2);
+        LinearInput resonanceInput = LinearInput(A3, -5, 5, 0, 1);
 
 };
 

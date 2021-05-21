@@ -1,5 +1,5 @@
 #include "Tract.h"
-#include "util/util.h"
+#include "util/mathutil.h"
 #include <Arduino.h>
 
 t_tractProps defaultTractProps(int n) {

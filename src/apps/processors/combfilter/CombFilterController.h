@@ -2,9 +2,6 @@
 #define CombFilterController_h
 
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/ExpInput.h"
-#include "io/input/CrossfadeInput.h"
 #include "modules/delays/Delay.h"
 
 class CombFilterController : public Controller {
@@ -16,7 +13,7 @@ class CombFilterController : public Controller {
 
     private:
         ExpInput delayTimeInput = ExpInput(A0, 0.005);
-        AnalogInput feedbackInput = AnalogInput(A1, -5, 5, -1, 1);
+        LinearInput feedbackInput = LinearInput(A1, -5, 5, -1, 1);
         CrossfadeInput dryWetMixInput = CrossfadeInput(A2, -5, 5);
 
         Delay delayLeft;

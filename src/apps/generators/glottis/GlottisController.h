@@ -6,8 +6,6 @@
 #include "Vibrato.h"
 #include "Controller.h"
 #include "modules/filters/BiquadFilter.h"
-#include "io/input/ExpInput.h"
-#include "io/input/AnalogInput.h"
 
 class GlottisController : public Controller {
     public:
@@ -18,11 +16,11 @@ class GlottisController : public Controller {
 
     private:
         ExpInput pitchInput = ExpInput(A0);
-        AnalogInput tensenessInput = AnalogInput(A1, -5, 5, 0, 1);
-        AnalogInput vibratoAmountInput = AnalogInput(A2, -5, 5, 0, 1);
-        AnalogInput noiseAmountInput = AnalogInput(A3, -5, 5, 0, 1);
+        LinearInput tensenessInput = LinearInput(A1, -5, 5, 0, 1);
+        LinearInput vibratoAmountInput = LinearInput(A2, -5, 5, 0, 1);
+        LinearInput noiseAmountInput = LinearInput(A3, -5, 5, 0, 1);
 
-        WhiteNoise whiteNoise;
+        daisysp::WhiteNoise whiteNoise;
         BiquadFilter aspirateFilter;
         Glottis glottis;
         Vibrato vibrato;

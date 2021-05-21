@@ -2,8 +2,6 @@
 #define PhaseDistortionController_h
 
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/ExpInput.h"
 #include "modules/oscillators/PhaseDistortionOscillator.h"
 
 class PhaseDistortionController : public Controller {
@@ -17,22 +15,22 @@ class PhaseDistortionController : public Controller {
 
         #if defined(XEN_CV6)
             ExpInput pitchInput = ExpInput(A0);
-            AnalogInput x1Input = AnalogInput(A1, -5, 5, 0, 1);
-            AnalogInput y1Input = AnalogInput(A2, -5, 5, 0, 1);
-            AnalogInput phaseOffsetInput = AnalogInput(A3, -5, 5, 0, 1);
-            AnalogInput harmonicsInput = AnalogInput(A4, -5, 5, 0, 4);
+            LinearInput x1Input = LinearInput(A1, -5, 5, 0, 1);
+            LinearInput y1Input = LinearInput(A2, -5, 5, 0, 1);
+            LinearInput phaseOffsetInput = LinearInput(A3, -5, 5, 0, 1);
+            LinearInput harmonicsInput = LinearInput(A4, -5, 5, 0, 4);
         #else
             ExpInput pitchInput = ExpInput(A0);
-            AnalogInput x1Input = AnalogInput(A2, -5, 5, 0, 0.25);
-            AnalogInput y1Input = AnalogInput(A3, -5, 5, 0, 1);
-            AnalogInput x2Input = AnalogInput(A4, -5, 5, 0.25, 0.5);
-            AnalogInput y2Input = AnalogInput(A5, -5, 5, 0, 1);
-            AnalogInput x3Input = AnalogInput(A6, -5, 5, 0.5, 0.75);
-            AnalogInput y3Input = AnalogInput(A7, -5, 5, 0, 1);
-            AnalogInput x4Input = AnalogInput(A8, -5, 5, 0.75, 1);
-            AnalogInput y4Input = AnalogInput(A9, -5, 5, 0, 1);
-            AnalogInput phaseOffsetInput = AnalogInput(A10, -5, 5, 0, 1);
-            AnalogInput harmonicsInput = AnalogInput(A11, -5, 5, 0, 4);
+            LinearInput x1Input = LinearInput(A2, -5, 5, 0, 0.25);
+            LinearInput y1Input = LinearInput(A3, -5, 5, 0, 1);
+            LinearInput x2Input = LinearInput(A4, -5, 5, 0.25, 0.5);
+            LinearInput y2Input = LinearInput(A5, -5, 5, 0, 1);
+            LinearInput x3Input = LinearInput(A6, -5, 5, 0.5, 0.75);
+            LinearInput y3Input = LinearInput(A7, -5, 5, 0, 1);
+            LinearInput x4Input = LinearInput(A8, -5, 5, 0.75, 1);
+            LinearInput y4Input = LinearInput(A9, -5, 5, 0, 1);
+            LinearInput phaseOffsetInput = LinearInput(A10, -5, 5, 0, 1);
+            LinearInput harmonicsInput = LinearInput(A11, -5, 5, 0, 4);
         #endif
 
         PhaseDistortionOscillator oscillator;

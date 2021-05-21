@@ -1,5 +1,5 @@
 #include "Drip.h"
-#include "util/util.h"
+#include "util/mathutil.h"
 
 #define WUTR_SOUND_DECAY 0.95f
 #define WUTR_SYSTEM_DECAY 0.996f

@@ -3,8 +3,6 @@
 
 #include "Controller.h"
 #include "modules/oscillators/OscillatorBank.h"
-#include "io/input/ExpInput.h"
-#include "io/input/AnalogInput.h"
 
 class ClusterController : public Controller {
     public:
@@ -15,8 +13,8 @@ class ClusterController : public Controller {
 
     private:
         ExpInput frequencyInput = ExpInput(A0);
-        AnalogInput interval1Input = AnalogInput(A1, -5, 5, 0, 1);
-        AnalogInput interval2Input = AnalogInput(A2, -5, 5, 0, 1);
+        LinearInput interval1Input = LinearInput(A1, -5, 5, 0, 1);
+        LinearInput interval2Input = LinearInput(A2, -5, 5, 0, 1);
 
         pigatron::OscillatorBank oscillatorBank;
 };

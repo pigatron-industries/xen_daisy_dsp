@@ -1,5 +1,5 @@
 #include "FrequencyBank.h"
-#include "util/util.h"
+#include "util/mathutil.h"
 
 FrequencyBank::FrequencyBank() {
     bandCount = 1;

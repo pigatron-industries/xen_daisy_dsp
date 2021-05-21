@@ -1,6 +1,6 @@
 #include "WaveTable.h"
 
-#include "../../util/util.h"
+#include "util/mathutil.h"
 #include "../filters/BiquadFilter.h"
 
 #define RANGE_OCTAVES 10.0

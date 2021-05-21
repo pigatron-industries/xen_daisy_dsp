@@ -2,9 +2,6 @@
 #define DelayController_h
 
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/ExpInput.h"
-#include "io/input/CrossfadeInput.h"
 #include "modules/delays/Delay.h"
 
 class DelayController : public Controller {
@@ -15,8 +12,8 @@ class DelayController : public Controller {
         virtual void update();
 
     private:
-        AnalogInput delayTimeInput = AnalogInput(A0, -5, 5, 0.1, 1);
-        AnalogInput feedbackInput = AnalogInput(A1, -5, 5, 0, 1);
+        LinearInput delayTimeInput = LinearInput(A0, -5, 5, 0.1, 1);
+        LinearInput feedbackInput = LinearInput(A1, -5, 5, 0, 1);
         CrossfadeInput dryWetMixInput = CrossfadeInput(A2, -5, 5);
 
         Delay delayLeft;

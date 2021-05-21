@@ -2,8 +2,6 @@
 #define OscillatorBank_h
 
 #include "modules/frequencybank/InterpolatedFrequencyBank.h"
-#include "io/input/ExpInput.h"
-#include "io/input/AnalogInput.h"
 #include "modules/wavetable/WaveTableOscillator.h"
 #include "modules/wavetable/WaveTable.h"
 #include "modules/Normalizer.h"

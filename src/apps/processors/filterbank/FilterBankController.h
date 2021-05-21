@@ -3,7 +3,6 @@
 
 #include "FilterBank.h"
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
 #include "modules/StereoPan.h"
 
 class FilterBankController : public Controller {
@@ -14,18 +13,18 @@ class FilterBankController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
-        AnalogInput gainInput1 = AnalogInput(A0, -5, 5, 0, 1);
-        AnalogInput gainInput2 = AnalogInput(A1, -5, 5, 0, 1);
-        AnalogInput gainInput3 = AnalogInput(A2, -5, 5, 0, 1);
-        AnalogInput gainInput4 = AnalogInput(A3, -5, 5, 0, 1);
-        AnalogInput gainInput5 = AnalogInput(A4, -5, 5, 0, 1);
-        AnalogInput gainInput6 = AnalogInput(A5, -5, 5, 0, 1);
-        AnalogInput gainInput7 = AnalogInput(A6, -5, 5, 0, 1);
-        AnalogInput gainInput8 = AnalogInput(A7, -5, 5, 0, 1);
-        AnalogInput gainInput9 = AnalogInput(A8, -5, 5, 0, 1);
-        AnalogInput gainInput10 = AnalogInput(A9, -5, 5, 0, 1);
-        AnalogInput gainInput11 = AnalogInput(A10, -5, 5, 0, 1);
-        AnalogInput gainInput12 = AnalogInput(A11, -5, 5, 0, 1);
+        LinearInput gainInput1 = LinearInput(A0, -5, 5, 0, 1);
+        LinearInput gainInput2 = LinearInput(A1, -5, 5, 0, 1);
+        LinearInput gainInput3 = LinearInput(A2, -5, 5, 0, 1);
+        LinearInput gainInput4 = LinearInput(A3, -5, 5, 0, 1);
+        LinearInput gainInput5 = LinearInput(A4, -5, 5, 0, 1);
+        LinearInput gainInput6 = LinearInput(A5, -5, 5, 0, 1);
+        LinearInput gainInput7 = LinearInput(A6, -5, 5, 0, 1);
+        LinearInput gainInput8 = LinearInput(A7, -5, 5, 0, 1);
+        LinearInput gainInput9 = LinearInput(A8, -5, 5, 0, 1);
+        LinearInput gainInput10 = LinearInput(A9, -5, 5, 0, 1);
+        LinearInput gainInput11 = LinearInput(A10, -5, 5, 0, 1);
+        LinearInput gainInput12 = LinearInput(A11, -5, 5, 0, 1);
 
         float stereoMix = 0.2; // 0-0.5 TODO make this physical input
 

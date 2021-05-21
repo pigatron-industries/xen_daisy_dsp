@@ -3,8 +3,6 @@
 
 #include "Vocoder.h"
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/ExpInput.h"
 #include "modules/StereoPan.h"
 
 /**
@@ -28,10 +26,10 @@ class VocoderController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
-        AnalogInput resonanceInput = AnalogInput(A0, -5, 5, 0, 1);
+        LinearInput resonanceInput = LinearInput(A0, -5, 5, 0, 1);
         ExpInput centreFrequencyInput = ExpInput(A1);
-        AnalogInput pitchIntervalInput = AnalogInput(A2, -5, 5, 0.1, 1.0);
-        AnalogInput stereoMixInput = AnalogInput(A3, -5, 5, 0, 1);
+        LinearInput pitchIntervalInput = LinearInput(A2, -5, 5, 0.1, 1.0);
+        LinearInput stereoMixInput = LinearInput(A3, -5, 5, 0, 1);
 
         int bands = 10;
 

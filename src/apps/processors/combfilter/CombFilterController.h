@@ -12,9 +12,9 @@ class CombFilterController : public Controller {
         virtual void update();
 
     private:
-        ExpInput delayTimeInput = ExpInput(A0, 0.005);
-        LinearInput feedbackInput = LinearInput(A1, -5, 5, -1, 1);
-        CrossfadeInput dryWetMixInput = CrossfadeInput(A2, -5, 5);
+        ExpInput<> delayTimeInput = ExpInput<>(AnalogInputPin(A0), 0.005);
+        LinearInput<> feedbackInput = LinearInput<>(AnalogInputPin(A1), -5, 5, -1, 1);
+        CrossfadeInput<> dryWetMixInput = CrossfadeInput<>(AnalogInputPin(A2), -5, 5);
 
         Delay delayLeft;
         Delay delayRight;

@@ -12,9 +12,9 @@ class ClusterController : public Controller {
         virtual void update();
 
     private:
-        ExpInput frequencyInput = ExpInput(A0);
-        LinearInput interval1Input = LinearInput(A1, -5, 5, 0, 1);
-        LinearInput interval2Input = LinearInput(A2, -5, 5, 0, 1);
+        ExpInput<> frequencyInput = ExpInput<>(AnalogInputPin(A0));
+        LinearInput<> interval1Input = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 1);
+        LinearInput<> interval2Input = LinearInput<>(AnalogInputPin(A2), -5, 5, 0, 1);
 
         pigatron::OscillatorBank oscillatorBank;
 };

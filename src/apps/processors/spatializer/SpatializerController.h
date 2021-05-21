@@ -12,10 +12,10 @@ class SpatializerController : public Controller {
         virtual void update();
 
     private:
-        LinearInput x1Input = LinearInput(A0, -5, 5, -10, 10);
-        LinearInput y1Input = LinearInput(A1, -5, 5, -10, 10);
-        LinearInput x2Input = LinearInput(A2, -5, 5, -10, 10);
-        LinearInput y2Input = LinearInput(A3, -5, 5, -10, 10);
+        LinearInput<> x1Input = LinearInput<>(AnalogInputPin(A0), -5, 5, -10, 10);
+        LinearInput<> y1Input = LinearInput<>(AnalogInputPin(A1), -5, 5, -10, 10);
+        LinearInput<> x2Input = LinearInput<>(AnalogInputPin(A2), -5, 5, -10, 10);
+        LinearInput<> y2Input = LinearInput<>(AnalogInputPin(A3), -5, 5, -10, 10);
 
         Spatializer spatializer1;
         Spatializer spatializer2;

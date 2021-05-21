@@ -15,19 +15,19 @@ class AdditiveOscillatorController : public Controller {
         virtual void update();
 
     private:
-        LinearInput amplitudeInputs[OSCILLATOR_COUNT] = {
-            LinearInput(A0, -5, 5, 0, 1),
-            LinearInput(A1, -5, 5, 0, 1),
-            LinearInput(A2, -5, 5, 0, 1),
-            LinearInput(A3, -5, 5, 0, 1),
-            LinearInput(A4, -5, 5, 0, 1),
-            LinearInput(A5, -5, 5, 0, 1),
-            LinearInput(A6, -5, 5, 0, 1),
-            LinearInput(A7, -5, 5, 0, 1),
-            LinearInput(A8, -5, 5, 0, 1),
-            LinearInput(A9, -5, 5, 0, 1),
+        LinearInput<> amplitudeInputs[OSCILLATOR_COUNT] = {
+            LinearInput<>(AnalogInputPin(A0), -5, 5, 0, 1),
+            LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 1),
+            LinearInput<>(AnalogInputPin(A2), -5, 5, 0, 1),
+            LinearInput<>(AnalogInputPin(A3), -5, 5, 0, 1),
+            LinearInput<>(AnalogInputPin(A4), -5, 5, 0, 1),
+            LinearInput<>(AnalogInputPin(A5), -5, 5, 0, 1),
+            LinearInput<>(AnalogInputPin(A6), -5, 5, 0, 1),
+            LinearInput<>(AnalogInputPin(A7), -5, 5, 0, 1),
+            LinearInput<>(AnalogInputPin(A8), -5, 5, 0, 1),
+            LinearInput<>(AnalogInputPin(A9), -5, 5, 0, 1),
         };
-        ExpInput frequencyInput = ExpInput(A11);
+        ExpInput<> frequencyInput = ExpInput<>(AnalogInputPin(A11));
 
         AdditiveOscillator oscillator;
         Normalizer normalizer;

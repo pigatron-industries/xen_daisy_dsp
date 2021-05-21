@@ -12,7 +12,7 @@ class OscillatorController : public Controller {
         virtual void update();
 
     private:
-        ExpInput pitchInput = ExpInput(A0);
+        ExpInput<> pitchInput = ExpInput<>(AnalogInputPin(A0));
 
         pigatron::Oscillator oscillator;
 };

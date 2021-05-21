@@ -13,25 +13,11 @@ class PhaseDistortionController : public Controller {
 
     private:
 
-        #if defined(XEN_CV6)
-            ExpInput pitchInput = ExpInput(A0);
-            LinearInput x1Input = LinearInput(A1, -5, 5, 0, 1);
-            LinearInput y1Input = LinearInput(A2, -5, 5, 0, 1);
-            LinearInput phaseOffsetInput = LinearInput(A3, -5, 5, 0, 1);
-            LinearInput harmonicsInput = LinearInput(A4, -5, 5, 0, 4);
-        #else
-            ExpInput pitchInput = ExpInput(A0);
-            LinearInput x1Input = LinearInput(A2, -5, 5, 0, 0.25);
-            LinearInput y1Input = LinearInput(A3, -5, 5, 0, 1);
-            LinearInput x2Input = LinearInput(A4, -5, 5, 0.25, 0.5);
-            LinearInput y2Input = LinearInput(A5, -5, 5, 0, 1);
-            LinearInput x3Input = LinearInput(A6, -5, 5, 0.5, 0.75);
-            LinearInput y3Input = LinearInput(A7, -5, 5, 0, 1);
-            LinearInput x4Input = LinearInput(A8, -5, 5, 0.75, 1);
-            LinearInput y4Input = LinearInput(A9, -5, 5, 0, 1);
-            LinearInput phaseOffsetInput = LinearInput(A10, -5, 5, 0, 1);
-            LinearInput harmonicsInput = LinearInput(A11, -5, 5, 0, 4);
-        #endif
+        ExpInput<> pitchInput = ExpInput<>(AnalogInputPin(A0));
+        LinearInput<> x1Input = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 1);
+        LinearInput<> y1Input = LinearInput<>(AnalogInputPin(A2), -5, 5, 0, 1);
+        LinearInput<> phaseOffsetInput = LinearInput<>(AnalogInputPin(A3), -5, 5, 0, 1);
+        LinearInput<> harmonicsInput = LinearInput<>(AnalogInputPin(A4), -5, 5, 0, 4);
 
         PhaseDistortionOscillator oscillator;
         WaveTable wavetable1;

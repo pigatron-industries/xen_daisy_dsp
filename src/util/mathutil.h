@@ -1,5 +1,5 @@
-#ifndef util_h
-#define util_h
+#ifndef mathutil_h
+#define mathutil_h
 
 #include <Arduino.h>
 #include <utility/DaisySP/modules/dsp.h>
@@ -43,10 +43,6 @@ static float db2gain(float input) {
 
 static float randf(float minf, float maxf) {
   return minf + random(1UL << 31) * (maxf - minf) / (1UL << 31);  // use 1ULL<<63 for max double values)
-}
-
-inline float smooth(float currentValue, float prevValue, float smoothing = 0.2) {
-    return (currentValue*smoothing) + prevValue*(1-smoothing);
 }
 
 #endif

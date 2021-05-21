@@ -12,9 +12,9 @@ class GlitchAliasController : public Controller {
         virtual void update();
 
     private:
-        LinearInput<> pitchInput = LinearInput<>(AnalogInputPin(A0), -5, 5, 2000, 46000);
-        LinearInput<> fineInput = LinearInput<>(AnalogInputPin(A1), -5, 5, -500, 500);
-        LinearInput<> mixInput = LinearInput<>(AnalogInputPin(A2), -5, 5, 0, 1);
+        LinearInput<> pitchInput = LinearInput<>(AnalogPin(A0), -5, 5, 2000, 46000);
+        LinearInput<> fineInput = LinearInput<>(AnalogPin(A1), -5, 5, -500, 500);
+        LinearInput<> mixInput = LinearInput<>(AnalogPin(A2), -5, 5, 0, 1);
 
         pigatron::Oscillator square;
         pigatron::Oscillator saw;

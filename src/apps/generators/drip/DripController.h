@@ -12,7 +12,7 @@ class DripController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
-        AnalogGateInput<AnalogInputPin> gateInput = AnalogGateInput<AnalogInputPin>(AnalogInputPin(A5), 3);
+        AnalogGateInput<> gateInput = AnalogGateInput<>(AnalogPin(A5), 3);
 
         bool trigger;
         pigatron::Drip drip;

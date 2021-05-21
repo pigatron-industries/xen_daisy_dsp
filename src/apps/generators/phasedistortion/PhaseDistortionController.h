@@ -13,11 +13,11 @@ class PhaseDistortionController : public Controller {
 
     private:
 
-        ExpInput<> pitchInput = ExpInput<>(AnalogInputPin(A0));
-        LinearInput<> x1Input = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 1);
-        LinearInput<> y1Input = LinearInput<>(AnalogInputPin(A2), -5, 5, 0, 1);
-        LinearInput<> phaseOffsetInput = LinearInput<>(AnalogInputPin(A3), -5, 5, 0, 1);
-        LinearInput<> harmonicsInput = LinearInput<>(AnalogInputPin(A4), -5, 5, 0, 4);
+        ExpInput<> pitchInput = ExpInput<>(AnalogPin(A0));
+        LinearInput<> x1Input = LinearInput<>(AnalogPin(A1), -5, 5, 0, 1);
+        LinearInput<> y1Input = LinearInput<>(AnalogPin(A2), -5, 5, 0, 1);
+        LinearInput<> phaseOffsetInput = LinearInput<>(AnalogPin(A3), -5, 5, 0, 1);
+        LinearInput<> harmonicsInput = LinearInput<>(AnalogPin(A4), -5, 5, 0, 4);
 
         PhaseDistortionOscillator oscillator;
         WaveTable wavetable1;

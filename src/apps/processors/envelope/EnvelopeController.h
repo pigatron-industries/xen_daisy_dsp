@@ -12,9 +12,9 @@ class EnvelopeController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
-        LinearInput<> attackTimeInput = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 1);
-        LinearInput<> decayTimeInput = LinearInput<>(AnalogInputPin(A2), -5, 5, 0, 1);
-        AnalogGateInput<> gateInput = AnalogGateInput<>(AnalogInputPin(A5), 3);
+        LinearInput<> attackTimeInput = LinearInput<>(AnalogPin(A1), -5, 5, 0, 1);
+        LinearInput<> decayTimeInput = LinearInput<>(AnalogPin(A2), -5, 5, 0, 1);
+        AnalogGateInput<> gateInput = AnalogGateInput<>(AnalogPin(A5), 3);
 
         Envelope envelope;
 };

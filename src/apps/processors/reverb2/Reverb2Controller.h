@@ -2,11 +2,6 @@
 #define Reverb2Controller_h
 
 #include "Controller.h"
-#include "io/input/ExpInput.h"
-#include "io/input/PowInput.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/CrossfadeInput.h"
-#include "io/input/FilterInput.h"
 
 #include "utility/DaisySP/daisysp.h"
 
@@ -19,11 +14,11 @@ class Reverb2Controller : public Controller {
         virtual void update();
 
     private:
-        AnalogInput feedbackInput = AnalogInput(A0, -5, 5, 0, 1);
+        LinearInput feedbackInput = LinearInput(A0, -5, 5, 0, 1);
         ExpInput filterInput = ExpInput(A1);
         CrossfadeInput dryWetMix = CrossfadeInput(A2, -4.8, 4.8);
 
-        ReverbSc reverb;
+        daisysp::ReverbSc reverb;
 
         int sampleRate;
 };

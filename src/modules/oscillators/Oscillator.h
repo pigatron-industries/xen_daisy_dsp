@@ -1,7 +1,7 @@
 #ifndef Oscillator_h
 #define Oscillator_h
 #include <stdint.h>
-#include "../../util/util.h"
+#include "util/mathutil.h"
 
 constexpr float TWO_PI_F     = (float)M_PI*2;
 constexpr float TWO_PI_RECIP = 1.0f / float(M_PI*2);

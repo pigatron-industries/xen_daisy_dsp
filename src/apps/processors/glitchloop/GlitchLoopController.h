@@ -2,9 +2,6 @@
 #define GlitchLoopController_h
 
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/ExpInput.h"
-#include "io/input/GateInput.h"
 #include "modules/delays/SampleBuffer.h"
 
 enum GlitchState {
@@ -26,10 +23,10 @@ class GlitchLoopController : public Controller {
 
     private:
         ExpInput sampleTimeInput = ExpInput(A0, 0.05);
-        AnalogInput writeDelayStartInput = AnalogInput(A1, -5, 5, 0, MAX_DELAY);
-        AnalogInput readDelayStartInput = AnalogInput(A2, -5, 5, 0, MAX_DELAY);
-        AnalogInput dryGainInput = AnalogInput(A3, -5, 5, 0, 1);
-        GateInput gateInput = GateInput(A5, 3);
+        LinearInput writeDelayStartInput = LinearInput(A1, -5, 5, 0, MAX_DELAY);
+        LinearInput readDelayStartInput = LinearInput(A2, -5, 5, 0, MAX_DELAY);
+        LinearInput dryGainInput = LinearInput(A3, -5, 5, 0, 1);
+        AnalogGateInput gateInput = AnalogGateInput(A5, 3);
         
         SampleBuffer buffer1;
         SampleBuffer buffer2;

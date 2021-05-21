@@ -3,6 +3,7 @@
 
 #include "io/Hardware.h"
 #include "io/display/DisplayPage.h"
+#include <Eurorack.h>
 
 #define LINE_HEIGHT 16
 #define TEXT_INDENT 2

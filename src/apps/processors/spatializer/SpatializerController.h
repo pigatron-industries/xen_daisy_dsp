@@ -3,7 +3,6 @@
 
 #include "Spatializer.h"
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
 
 class SpatializerController : public Controller {
     public:
@@ -13,10 +12,10 @@ class SpatializerController : public Controller {
         virtual void update();
 
     private:
-        AnalogInput x1Input = AnalogInput(A0, -5, 5, -10, 10);
-        AnalogInput y1Input = AnalogInput(A1, -5, 5, -10, 10);
-        AnalogInput x2Input = AnalogInput(A2, -5, 5, -10, 10);
-        AnalogInput y2Input = AnalogInput(A3, -5, 5, -10, 10);
+        LinearInput x1Input = LinearInput(A0, -5, 5, -10, 10);
+        LinearInput y1Input = LinearInput(A1, -5, 5, -10, 10);
+        LinearInput x2Input = LinearInput(A2, -5, 5, -10, 10);
+        LinearInput y2Input = LinearInput(A3, -5, 5, -10, 10);
 
         Spatializer spatializer1;
         Spatializer spatializer2;

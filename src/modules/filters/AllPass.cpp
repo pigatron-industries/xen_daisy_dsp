@@ -1,6 +1,6 @@
 #include "AllPass.h"
 
-#include "../../util/util.h"
+#include "util/mathutil.h"
 
 void AllPass::init(float sampleRate) {
     gain = 1;

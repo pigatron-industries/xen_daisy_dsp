@@ -5,7 +5,7 @@
 #include "modules/delays/MultiTapDelay.h"
 #include "modules/filters/StateVariableFilter.h"
 #include "modules/Normalizer.h"
-#include "util/util.h"
+#include "util/mathutil.h"
 
 
 class FDNReverb {

@@ -4,8 +4,6 @@
 #include <RotaryEncoder.h>
 #include "Controller.h"
 #include "modules/filters/FilterWrapper.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/ExpInput.h"
 #include "io/Hardware.h"
 
 class DualFilterController : public Controller {
@@ -19,9 +17,9 @@ class DualFilterController : public Controller {
 
     private:
         ExpInput frequencyInput1 = ExpInput(A0);
-        AnalogInput resonanceInput1 = AnalogInput(A2, -5, 5, 0.001, 1);
+        LinearInput resonanceInput1 = LinearInput(A2, -5, 5, 0.001, 1);
         ExpInput frequencyInput2 = ExpInput(A1);
-        AnalogInput resonanceInput2 = AnalogInput(A3, -5, 5, 0.001, 1);
+        LinearInput resonanceInput2 = LinearInput(A3, -5, 5, 0.001, 1);
 
         FilterWrapper filter1;
         FilterWrapper filter2;

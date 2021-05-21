@@ -2,7 +2,6 @@
 #define MultitapDelayController_h
 
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
 #include "modules/delays/MultiTapDelay.h"
 
 
@@ -14,17 +13,17 @@ class MultitapDelayController : public Controller {
         virtual void update();
 
     private:
-        AnalogInput delayInputs[10] = {
-            AnalogInput(A0, -5, 5, 0.001, 1),
-            AnalogInput(A1, -5, 5, 0.001, 1),
-            AnalogInput(A2, -5, 5, 0.001, 1),
-            AnalogInput(A3, -5, 5, 0.001, 1),
-            AnalogInput(A4, -5, 5, 0.001, 1),
-            AnalogInput(A5, -5, 5, 0.001, 1),
-            AnalogInput(A6, -5, 5, 0.001, 1),
-            AnalogInput(A7, -5, 5, 0.001, 1),
-            AnalogInput(A8, -5, 5, 0.001, 1),
-            AnalogInput(A9, -5, 5, 0.001, 1),
+        LinearInput delayInputs[10] = {
+            LinearInput(A0, -5, 5, 0.001, 1),
+            LinearInput(A1, -5, 5, 0.001, 1),
+            LinearInput(A2, -5, 5, 0.001, 1),
+            LinearInput(A3, -5, 5, 0.001, 1),
+            LinearInput(A4, -5, 5, 0.001, 1),
+            LinearInput(A5, -5, 5, 0.001, 1),
+            LinearInput(A6, -5, 5, 0.001, 1),
+            LinearInput(A7, -5, 5, 0.001, 1),
+            LinearInput(A8, -5, 5, 0.001, 1),
+            LinearInput(A9, -5, 5, 0.001, 1),
         };
 
         MultitapDelay delayLeft;

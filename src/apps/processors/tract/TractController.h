@@ -3,7 +3,6 @@
 
 #include <DaisyDSP.h>
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
 #include "modules/filters/BiquadFilter.h"
 #include "Tract.h"
 
@@ -19,10 +18,10 @@ class TractController : public Controller {
         WhiteNoise whiteNoise;
         BiquadFilter fricativeFilter;
 
-        AnalogInput tongueX = AnalogInput(A0, -5, 5, 0, 1);
-        AnalogInput tongueY = AnalogInput(A1, -5, 5, 0, 1);
-        AnalogInput constrictionX = AnalogInput(A2, -5, 5, 0, 1);
-        AnalogInput constrictionY = AnalogInput(A3, -5, 5, 0.3, 2);
+        LinearInput tongueX = LinearInput(A0, -5, 5, 0, 1);
+        LinearInput tongueY = LinearInput(A1, -5, 5, 0, 1);
+        LinearInput constrictionX = LinearInput(A2, -5, 5, 0, 1);
+        LinearInput constrictionY = LinearInput(A3, -5, 5, 0.3, 2);
 
         float fricativeIntensity = 0.0;
 

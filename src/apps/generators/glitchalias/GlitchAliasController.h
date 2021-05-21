@@ -3,8 +3,6 @@
 
 #include "Controller.h"
 #include "modules/oscillators/Oscillator.h"
-#include "io/input/ExpInput.h"
-#include "io/input/AnalogInput.h"
 
 class GlitchAliasController : public Controller {
     public:
@@ -14,9 +12,9 @@ class GlitchAliasController : public Controller {
         virtual void update();
 
     private:
-        AnalogInput pitchInput = AnalogInput(A0, -5, 5, 2000, 46000);
-        AnalogInput fineInput = AnalogInput(A1, -5, 5, -500, 500);
-        AnalogInput mixInput = AnalogInput(A2, -5, 5, 0, 1);
+        LinearInput pitchInput = LinearInput(A0, -5, 5, 2000, 46000);
+        LinearInput fineInput = LinearInput(A1, -5, 5, -500, 500);
+        LinearInput mixInput = LinearInput(A2, -5, 5, 0, 1);
 
         pigatron::Oscillator square;
         pigatron::Oscillator saw;

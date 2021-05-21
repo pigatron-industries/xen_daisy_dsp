@@ -3,7 +3,6 @@
 
 #include "Controller.h"
 #include "modules/oscillators/Oscillator.h"
-#include "io/input/ExpInput.h"
 
 class OscillatorController : public Controller {
     public:

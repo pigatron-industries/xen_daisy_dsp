@@ -1,4 +1,4 @@
-#include "../../util/util.h"
+#include "util/mathutil.h"
 #include "StateVariableFilter.h"
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))

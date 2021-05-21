@@ -2,8 +2,6 @@
 #define PhaserController_h
 
 #include "Controller.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/CrossfadeInput.h"
 #include "modules/delays/AllPassFilter.h"
 
 class PhaserController : public Controller {
@@ -14,8 +12,8 @@ class PhaserController : public Controller {
         virtual void update();
 
     private:
-        AnalogInput delayTimeInput = AnalogInput(A0, -5, 5, 0, 1);
-        AnalogInput feedbackInput = AnalogInput(A1, -5, 5, 0, 1);
+        LinearInput delayTimeInput = LinearInput(A0, -5, 5, 0, 1);
+        LinearInput feedbackInput = LinearInput(A1, -5, 5, 0, 1);
         CrossfadeInput dryWetMixInput = CrossfadeInput(A2, -5, 5);
         bool invertedFeedback = false;
 

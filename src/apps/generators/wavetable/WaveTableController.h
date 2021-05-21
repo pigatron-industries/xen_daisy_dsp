@@ -2,8 +2,6 @@
 #define WaveTableController_h
 
 #include "Controller.h"
-#include "io/input/ExpInput.h"
-#include "io/input/AnalogInput.h"
 #include "modules/wavetable/WaveTableOscillator.h"
 
 class WaveTableController : public Controller {
@@ -16,7 +14,7 @@ class WaveTableController : public Controller {
 
     private:
         ExpInput pitchInput = ExpInput(A0);
-        AnalogInput interpolationInput = AnalogInput(A1, -5, 5, 0, 3.1);
+        LinearInput interpolationInput = LinearInput(A1, -5, 5, 0, 3.1);
 
         WaveTableOscillator oscillator;
         WaveTable wavetable1;

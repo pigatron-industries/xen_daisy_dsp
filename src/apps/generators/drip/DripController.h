@@ -3,8 +3,6 @@
 
 #include "Controller.h"
 #include "modules/physical/Drip.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/GateInput.h"
 
 class DripController : public Controller {
     public:
@@ -14,7 +12,7 @@ class DripController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
-        GateInput gateInput = GateInput(A5);
+        AnalogGateInput gateInput = AnalogGateInput(A5, 3);
 
         bool trigger;
         pigatron::Drip drip;

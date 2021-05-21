@@ -3,8 +3,6 @@
 
 #include "Controller.h"
 #include "modules/Envelope.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/GateInput.h"
 
 class EnvelopeController : public Controller {
     public:
@@ -14,9 +12,9 @@ class EnvelopeController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
-        AnalogInput attackTimeInput = AnalogInput(A1, -5, 5, 0, 1);
-        AnalogInput decayTimeInput = AnalogInput(A2, -5, 5, 0, 1);
-        GateInput gateInput = GateInput(A5);
+        LinearInput attackTimeInput = LinearInput(A1, -5, 5, 0, 1);
+        LinearInput decayTimeInput = LinearInput(A2, -5, 5, 0, 1);
+        AnalogGateInput gateInput = AnalogGateInput(A5, 3);
 
         Envelope envelope;
 };

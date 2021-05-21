@@ -1,6 +1,6 @@
 #include "Glottis.h"
 #include "modules/SimplexNoise.h"
-#include "util/util.h"
+#include "util/mathutil.h"
 #include <math.h>
 
 void Glottis::init(float sampleRate) {

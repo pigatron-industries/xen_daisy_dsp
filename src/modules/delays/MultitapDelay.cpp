@@ -1,6 +1,6 @@
 #include "MultitapDelay.h"
 #include <math.h>
-#include "../../util/util.h"
+#include "util/mathutil.h"
 
 void MultitapDelay::init(float sampleRate, float maxDelay) {
     this->sampleRate = sampleRate;

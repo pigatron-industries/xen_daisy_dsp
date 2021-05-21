@@ -1,7 +1,7 @@
 #include "WaveTableGenerator.h"
 
 #include <math.h>
-#include "../../util/util.h"
+#include "util/mathutil.h"
 
 bool WaveTableGenerator::addSine(WaveTable& wavetable, float amplitude, int mult, float phaseShift) {
     float nyquist = wavetable.getSampleRate() * 0.5;

@@ -3,11 +3,6 @@
 
 #include "FDNReverb.h"
 #include "Controller.h"
-#include "io/input/ExpInput.h"
-#include "io/input/PowInput.h"
-#include "io/input/AnalogInput.h"
-#include "io/input/CrossfadeInput.h"
-#include "io/input/FilterInput.h"
 
 
 class ReverbController : public Controller {

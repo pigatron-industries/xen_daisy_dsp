@@ -1,5 +1,4 @@
 #include "ReverbController.h"
-//#include "io/MemPool.h"
 
 #define LEFT 0
 #define RIGHT 1

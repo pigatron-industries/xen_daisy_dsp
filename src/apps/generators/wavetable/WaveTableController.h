@@ -13,8 +13,8 @@ class WaveTableController : public Controller {
         virtual void update();
 
     private:
-        ExpInput<> pitchInput = ExpInput<>(AnalogPin(A0));
-        LinearInput<> interpolationInput = LinearInput<>(AnalogPin(A1), -5, 5, 0, 3.1);
+        ExpInput<> pitchInput = ExpInput<>(AnalogInputPin(A0));
+        LinearInput<> interpolationInput = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 3.1);
 
         WaveTableOscillator oscillator;
         WaveTable wavetable1;

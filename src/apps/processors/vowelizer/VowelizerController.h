@@ -13,10 +13,10 @@ class VowelizerController : public Controller {
 
     private:
         Vowelizer vowelizer;
-        LinearInput<> rangeInput = LinearInput<>(AnalogPin(A0), -5, 5, 0, 5);
-        LinearInput<> vowelInput = LinearInput<>(AnalogPin(A1), -5, 5, 0, 5);
-        LinearInput<> pitchInput = LinearInput<>(AnalogPin(A2), -5, 5, 1, 2);
-        LinearInput<> resonanceInput = LinearInput<>(AnalogPin(A3), -5, 5, 0, 1);
+        LinearInput<> rangeInput = LinearInput<>(AnalogInputPin(A0), -5, 5, 0, 5);
+        LinearInput<> vowelInput = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 5);
+        LinearInput<> pitchInput = LinearInput<>(AnalogInputPin(A2), -5, 5, 1, 2);
+        LinearInput<> resonanceInput = LinearInput<>(AnalogInputPin(A3), -5, 5, 0, 1);
 
 };
 

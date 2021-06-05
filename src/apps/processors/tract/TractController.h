@@ -18,10 +18,10 @@ class TractController : public Controller {
         WhiteNoise whiteNoise;
         BiquadFilter fricativeFilter;
 
-        LinearInput<> tongueX = LinearInput<>(AnalogPin(A0), -5, 5, 0, 1);
-        LinearInput<> tongueY = LinearInput<>(AnalogPin(A1), -5, 5, 0, 1);
-        LinearInput<> constrictionX = LinearInput<>(AnalogPin(A2), -5, 5, 0, 1);
-        LinearInput<> constrictionY = LinearInput<>(AnalogPin(A3), -5, 5, 0.3, 2);
+        LinearInput<> tongueX = LinearInput<>(AnalogInputPin(A0), -5, 5, 0, 1);
+        LinearInput<> tongueY = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 1);
+        LinearInput<> constrictionX = LinearInput<>(AnalogInputPin(A2), -5, 5, 0, 1);
+        LinearInput<> constrictionY = LinearInput<>(AnalogInputPin(A3), -5, 5, 0.3, 2);
 
         float fricativeIntensity = 0.0;
 

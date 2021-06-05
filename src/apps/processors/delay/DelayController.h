@@ -12,9 +12,9 @@ class DelayController : public Controller {
         virtual void update();
 
     private:
-        LinearInput<> delayTimeInput = LinearInput<>(AnalogPin(A0), -5, 5, 0.1, 1);
-        LinearInput<> feedbackInput = LinearInput<>(AnalogPin(A1), -5, 5, 0, 1);
-        CrossfadeInput<> dryWetMixInput = CrossfadeInput<>(AnalogPin(A2), -5, 5);
+        LinearInput<> delayTimeInput = LinearInput<>(AnalogInputPin(A0), -5, 5, 0.1, 1);
+        LinearInput<> feedbackInput = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 1);
+        CrossfadeInput<> dryWetMixInput = CrossfadeInput<>(AnalogInputPin(A2), -5, 5);
 
         Delay delayLeft;
         Delay delayRight;

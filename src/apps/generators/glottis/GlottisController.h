@@ -15,10 +15,10 @@ class GlottisController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
-        ExpInput<> pitchInput = ExpInput<>(AnalogPin(A0));
-        LinearInput<> tensenessInput = LinearInput<>(AnalogPin(A1), -5, 5, 0, 1);
-        LinearInput<> vibratoAmountInput = LinearInput<>(AnalogPin(A2), -5, 5, 0, 1);
-        LinearInput<> noiseAmountInput = LinearInput<>(AnalogPin(A3), -5, 5, 0, 1);
+        ExpInput<> pitchInput = ExpInput<>(AnalogInputPin(A0));
+        LinearInput<> tensenessInput = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 1);
+        LinearInput<> vibratoAmountInput = LinearInput<>(AnalogInputPin(A2), -5, 5, 0, 1);
+        LinearInput<> noiseAmountInput = LinearInput<>(AnalogInputPin(A3), -5, 5, 0, 1);
 
         daisysp::WhiteNoise whiteNoise;
         BiquadFilter aspirateFilter;

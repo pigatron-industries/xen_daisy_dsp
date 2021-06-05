@@ -60,17 +60,6 @@ void PhaseDistortionController::update() {
         Serial.println(y1Input.getValue());
         oscillator.getEnvelope().setPoint(1, Point(x1Input.getValue(), y1Input.getValue()));
     }
-    #if defined(XEN_CV12)
-        if(x2Input.update() || y2Input.update()) {
-            oscillator.getEnvelope().setPoint(2, Point(x2Input.getValue(), y2Input.getValue()));
-        }
-        if(x3Input.update() || y3Input.update()) {
-            oscillator.getEnvelope().setPoint(3, Point(x3Input.getValue(), y3Input.getValue()));
-        }
-        if(x4Input.update() || y4Input.update()) {
-            oscillator.getEnvelope().setPoint(4, Point(x4Input.getValue(), y4Input.getValue()));
-        }
-    #endif
 
     // if(phaseOffsetInput.update()) {
     //     oscillator.setPhaseOffset(phaseOffsetInput.getValue());

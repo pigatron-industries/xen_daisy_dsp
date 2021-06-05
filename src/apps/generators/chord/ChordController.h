@@ -12,9 +12,9 @@ class ChordController : public Controller {
         virtual void update();
 
     private:
-        ExpInput<> frequencyInput = ExpInput<>(AnalogPin(A0));
-        LinearInput<> chordInput = LinearInput<>(AnalogPin(A1), -4.9, 4.9, 0, 1);
-        LinearInput<> gainInput = LinearInput<>(AnalogPin(A5), 0, 5, 0, 1);
+        ExpInput<> frequencyInput = ExpInput<>(AnalogInputPin(A0));
+        LinearInput<> chordInput = LinearInput<>(AnalogInputPin(A1), -4.9, 4.9, 0, 1);
+        LinearInput<> gainInput = LinearInput<>(AnalogInputPin(A5), 0, 5, 0, 1);
 
         pigatron::OscillatorBank oscillatorBank;
         float gain;

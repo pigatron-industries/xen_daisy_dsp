@@ -16,6 +16,8 @@ class CombFilterController : public Controller {
         LinearInput<> feedbackInput = LinearInput<>(AnalogInputPin(A1), -5, 5, -1, 1);
         CrossfadeInput<> dryWetMixInput = CrossfadeInput<>(AnalogInputPin(A2), -5, 5);
 
+        SlewLimiter delayTimeSlewLimiter = SlewLimiter();
+
         Delay delayLeft;
         Delay delayRight;
 

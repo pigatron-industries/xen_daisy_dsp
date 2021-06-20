@@ -7,13 +7,14 @@
 
 void ReverbController::init(float sampleRate) {
     this->sampleRate = sampleRate;
-    delayInput.setSmoothingWeight(SMOOTHING_FAST);
     reverb.init(sampleRate);
     displayPage.initTitle("Reverb", "VERB");
 }
 
 void ReverbController::update() {
-    delayInput.update();
+    if(delayInput.update()) {
+        delaySlewLimiter.setTargetValue(delayInput.getValue());
+    }
     if(dryWetMix.update()) {
         reverb.setDryLevel(dryWetMix.getDryLevel());
         reverb.setWetLevel(dryWetMix.getWetLevel());
@@ -39,7 +40,7 @@ void ReverbController::update() {
 
 void ReverbController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
-        reverb.setDelay(delayInput.getValue());
+        reverb.setDelay(delaySlewLimiter.update());
         reverb.process(in[LEFT][i] + in[RIGHT][i]);
         out[LEFT][i] = reverb.getOutput(1);
         out[RIGHT][i] = reverb.getOutput(2);

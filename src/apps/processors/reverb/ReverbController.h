@@ -18,6 +18,8 @@ class ReverbController : public Controller {
         FilterInput<> filterInput = FilterInput<>(AnalogInputPin(A2));
         CrossfadeInput<> dryWetMix = CrossfadeInput<>(AnalogInputPin(A4), -4.8, 4.8);
 
+        SlewLimiter delaySlewLimiter = SlewLimiter();
+
         FDNReverb reverb;
 
         int sampleRate;

@@ -29,8 +29,6 @@ void InterpolatedFrequencyBank::setPitchInterval(int bankIndex, int bandIndex, f
     banks[bankIndex].setPitchInterval(bandIndex, interval);
 }
 
-#include <Arduino.h>
-
 void InterpolatedFrequencyBank::setInterpolation(float interpolationValue) {
     interpolation.setInterpolation(interpolationValue);
 }

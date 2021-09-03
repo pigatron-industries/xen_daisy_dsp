@@ -15,6 +15,8 @@ class OscillatorBank {
         void init(float sampleRate, WaveTable& wavetable, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency);
         void init(float sampleRate, WaveTable& wavetable, int bankCount, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency);
         float process();
+
+        void setAmplitude(int bandIndex, float amplitude);
         
         InterpolatedFrequencyBank& getFrequencyBank() { return frequencyBank; }
         void updateFrequencies();
@@ -23,6 +25,7 @@ class OscillatorBank {
         static const int MAX_OSCILLATORS = 20;
         InterpolatedFrequencyBank frequencyBank;
         WaveTableOscillator oscillators[MAX_OSCILLATORS];
+        float amplitudes[MAX_OSCILLATORS];
         Normalizer normalizer;
 };
 

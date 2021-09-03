@@ -2,7 +2,6 @@
 #define MainController_h
 
 #include "Controller.h"
-#include "io/Timer.h"
 
 #define MAX_CONTROLLERS 20
 

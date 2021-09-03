@@ -25,8 +25,18 @@ void InterpolatedFrequencyBank::setFrequency(float frequency) {
     }
 }
 
+void InterpolatedFrequencyBank::setAllPitchIntervals(int bankIndex, float pitchInterval) {
+    for(int bankIndex = 0; bankIndex < bankCount; bankIndex++) {
+        banks[bankIndex].setAllPitchIntervals(pitchInterval);
+    }
+}
+
 void InterpolatedFrequencyBank::setPitchInterval(int bankIndex, int bandIndex, float interval) {
     banks[bankIndex].setPitchInterval(bandIndex, interval);
+}
+
+void InterpolatedFrequencyBank::setPitchOffset(int bankIndex, float pitchOffset) {
+    banks[bankIndex].setPitchOffset(pitchOffset);
 }
 
 void InterpolatedFrequencyBank::setInterpolation(float interpolationValue) {

@@ -62,5 +62,5 @@ void FrequencyBank::calcBaseFrequency(float centreFrequency, float highPitch) {
 }
 
 void FrequencyBank::calcFrequency(int index) {
-    frequencies[index] = baseFrequency * powf(2, pitches[index]);
+    frequencies[index] = baseFrequency * powf(2, pitches[index]+pitchOffset);
 }

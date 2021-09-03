@@ -16,8 +16,9 @@ class InterpolatedFrequencyBank {
 
         void setBandCount(int bandCount);
         void setFrequency(float frequency);
-        void setAllPitchIntervals(float pitchInterval);
+        void setAllPitchIntervals(int bankIndex, float pitchInterval);
         void setPitchInterval(int bankIndex, int bandIndex, float interval);
+        void setPitchOffset(int bankIndex, float pitchOffset);
         void setInterpolation(float interpolationValue);
 
         int getBandCount() { return bandCount; }

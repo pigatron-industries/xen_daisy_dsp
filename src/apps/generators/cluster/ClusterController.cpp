@@ -7,12 +7,11 @@
 
 void ClusterController::init(float sampleRate) {
     oscillatorBank.init(sampleRate, WaveTablePresets::presets.getWaveTable(WaveTablePresets::WaveformPreset::WAVE_SINE), 
-                        12, FrequencyBank::PivotPoint::BASE, 100);
+                        10, FrequencyBank::PivotPoint::CENTRE, 100);
     int index = 0;
     for(int octave = 0; octave < 4; octave++) {
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, index++, octave);
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, index++, octave+0.3219);
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, index++, octave+0.5849);
+        oscillatorBank.getFrequencyBank().setAllPitchIntervals(0, 1);
+        oscillatorBank.getFrequencyBank().setFrequency(centreFrequencyInput.getValue());
     }
 
     displayPage.initTitle("Cluster", "CLST");
@@ -26,24 +25,18 @@ void ClusterController::process(float **in, float **out, size_t size) {
 }
 
 void ClusterController::update() {
-    if(frequencyInput.update()) {
-        oscillatorBank.getFrequencyBank().setFrequency(frequencyInput.getValue());
+    if(centreFrequencyInput.update()) {
+        oscillatorBank.getFrequencyBank().setFrequency(centreFrequencyInput.getValue());
         oscillatorBank.updateFrequencies();
     }
 
-    if(interval1Input.update()) {
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, 1, 0+interval1Input.getValue());
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, 4, 1+interval1Input.getValue());
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, 7, 2+interval1Input.getValue());
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, 10, 3+interval1Input.getValue());
+    if(intervalInput.update()) {
+        oscillatorBank.getFrequencyBank().setAllPitchIntervals(0, intervalInput.getValue());
         oscillatorBank.updateFrequencies();
     }
 
-    if(interval2Input.update()) {
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, 2, 0+interval2Input.getValue());
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, 5, 1+interval2Input.getValue());
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, 8, 2+interval2Input.getValue());
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, 11, 3+interval2Input.getValue());
+    if(offsetIntervalInput.update()) {
+        oscillatorBank.getFrequencyBank().setPitchOffset(0, offsetIntervalInput.getValue());
         oscillatorBank.updateFrequencies();
     }
 }

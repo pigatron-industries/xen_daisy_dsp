@@ -5,7 +5,6 @@
 #include "io/Config.h"
 
 #include "utility/gpio.h"
-#include "stm32h7xx_hal.h"
 
 MainController MainController::instance;
 
@@ -70,9 +69,9 @@ void MainController::update() {
 
     controllers[activeController]->update();
 
-    if(refreshTimer.isFinished()) {
+    if(refreshTimer.isStopped()) {
         controllers[activeController]->updateDisplay();
-        refreshTimer.start();
+        refreshTimer.start(100000);
     }
 
     Hardware::hw.display.render();
@@ -97,16 +96,16 @@ void MainController::setActiveController(int controllerIndex) {
 
 UIEvent MainController::updateUIEvent() {
     Hardware::hw.encoderButton.update();
-    Hardware::hw.encoder.tick();
-    RotaryEncoder::Direction dir = Hardware::hw.encoder.getDirection();
+    Hardware::hw.encoder.update();
+    long movement = Hardware::hw.encoder.getMovement();
 
     if(Hardware::hw.encoderButton.held() && Hardware::hw.encoderButton.duration() >= 1000) {
         return UIEvent::EVENT_LONG_PRESS;
     }
-    if(dir == RotaryEncoder::Direction::CLOCKWISE) {
+    if(movement > 0) {
         return UIEvent::EVENT_CLOCKWISE;
     }
-    if(dir == RotaryEncoder::Direction::COUNTERCLOCKWISE) {
+    if(movement < 0) {
         return UIEvent::EVENT_COUNTERCLOCKWISE;
     }
     if(Hardware::hw.encoderButton.released() && Hardware::hw.encoderButton.previousDuration() < 1000) {

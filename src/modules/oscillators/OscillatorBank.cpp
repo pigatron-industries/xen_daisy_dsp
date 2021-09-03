@@ -15,14 +15,19 @@ void OscillatorBank::init(float sampleRate, WaveTable& wavetable, int bankCount,
     for(int i = 0; i < MAX_OSCILLATORS; i++) {
         oscillators[i].init(sampleRate, wavetable.getSize());
         oscillators[i].setWaveTable(0, wavetable);
+        amplitudes[i] = 1;
     }
     updateFrequencies();
+}
+
+void OscillatorBank::setAmplitude(int bandIndex, float amplitude) {
+    amplitudes[bandIndex] = amplitude;
 }
 
 float OscillatorBank::process() {
     float out = 0;
     for(int i = 0; i < frequencyBank.getBandCount(); i++) {
-        out += oscillators[i].process();
+        out += oscillators[i].process() * amplitudes[i];
     }
     return normalizer.process(out);
 }

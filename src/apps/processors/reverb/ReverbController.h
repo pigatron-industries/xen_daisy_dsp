@@ -13,10 +13,10 @@ class ReverbController : public Controller {
         virtual void update();
 
     private:
-        ExpInput<> delayInput = ExpInput<>(AnalogInputPin(A0), 0.01);
-        PowInput<> feedbackInput = PowInput<>(AnalogInputPin(A1), 0.333, -5, 4.8);
-        FilterInput<> filterInput = FilterInput<>(AnalogInputPin(A2));
-        CrossfadeInput<> dryWetMix = CrossfadeInput<>(AnalogInputPin(A4), -4.8, 4.8);
+        ExpInput<> delayInput = ExpInput<>(HW.A0, 0.01);
+        PowInput<> feedbackInput = PowInput<>(HW.A1, 0.333, -5, 4.8);
+        FilterInput<> filterInput = FilterInput<>(HW.A2);
+        CrossfadeInput<> dryWetMix = CrossfadeInput<>(HW.A4, -4.8, 4.8);
 
         SlewLimiter delaySlewLimiter = SlewLimiter();
 

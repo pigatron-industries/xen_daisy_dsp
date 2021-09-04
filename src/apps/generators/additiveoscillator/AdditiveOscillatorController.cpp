@@ -15,7 +15,7 @@ void AdditiveOscillatorController::init(float sampleRate) {
 
 void AdditiveOscillatorController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
-        out[LEFT][i] = normalizer.process(oscillator.process());
+        out[LEFT][i] = oscillator.process();
         out[RIGHT][i] = out[LEFT][i];
     }
 }

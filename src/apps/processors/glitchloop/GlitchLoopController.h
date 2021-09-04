@@ -22,11 +22,11 @@ class GlitchLoopController : public Controller {
         virtual void update();
 
     private:
-        ExpInput<> sampleTimeInput = ExpInput<>(AnalogInputPin(A0), 0.05);
-        LinearInput<> writeDelayStartInput = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, MAX_DELAY);
-        LinearInput<> readDelayStartInput = LinearInput<>(AnalogInputPin(A2), -5, 5, 0, MAX_DELAY);
-        LinearInput<> dryGainInput = LinearInput<>(AnalogInputPin(A3), -5, 5, 0, 1);
-        AnalogGateInput<> gateInput = AnalogGateInput<>(AnalogInputPin(A5), 3);
+        ExpInput<> sampleTimeInput = ExpInput<>(HW.A0, 0.05);
+        LinearInput<> writeDelayStartInput = LinearInput<>(HW.A1, -5, 5, 0, MAX_DELAY);
+        LinearInput<> readDelayStartInput = LinearInput<>(HW.A2, -5, 5, 0, MAX_DELAY);
+        LinearInput<> dryGainInput = LinearInput<>(HW.A3, -5, 5, 0, 1);
+        AnalogGateInput<> gateInput = AnalogGateInput<>(HW.A5, 3);
         
         SampleBuffer buffer1;
         SampleBuffer buffer2;

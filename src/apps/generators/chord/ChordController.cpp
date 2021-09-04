@@ -7,19 +7,19 @@
 
 void ChordController::init(float sampleRate) {
     oscillatorBank.init(sampleRate, WaveTablePresets::presets.getWaveTable(WaveTablePresets::WaveformPreset::WAVE_SINE), 
-                        2, 12, FrequencyBank::PivotPoint::BASE, 100);
+                        2, 3, FrequencyBank::PivotPoint::BASE, 100);
 
-    for(int octave = 0, bandIndex = 0; octave < 4; octave++) {
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, bandIndex++, octave);
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, bandIndex++, octave+0.3333);
-        oscillatorBank.getFrequencyBank().setPitchInterval(0, bandIndex++, octave+0.5849);
-    }
+    //for(int octave = 0, bandIndex = 0; octave < 4; octave++) {
+        oscillatorBank.getFrequencyBank().setPitchInterval(0, 0, 0);
+        oscillatorBank.getFrequencyBank().setPitchInterval(0, 1, 0.3333);
+        oscillatorBank.getFrequencyBank().setPitchInterval(0, 2, 0.5849);
+    //}
 
-    for(int octave = 0, bandIndex = 0; octave < 4; octave++) {
-        oscillatorBank.getFrequencyBank().setPitchInterval(1, bandIndex++, octave);
-        oscillatorBank.getFrequencyBank().setPitchInterval(1, bandIndex++, octave+0.25);
-        oscillatorBank.getFrequencyBank().setPitchInterval(1, bandIndex++, octave+0.5849);
-    }
+    //for(int octave = 0, bandIndex = 0; octave < 4; octave++) {
+        oscillatorBank.getFrequencyBank().setPitchInterval(1, 0, 0);
+        oscillatorBank.getFrequencyBank().setPitchInterval(1, 1, 0.25);
+        oscillatorBank.getFrequencyBank().setPitchInterval(1, 2, 0.5849);
+    //}
 
     displayPage.initTitle("Chord", "CHRD");
 }

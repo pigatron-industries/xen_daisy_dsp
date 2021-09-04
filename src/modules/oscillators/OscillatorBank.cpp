@@ -11,11 +11,10 @@ void OscillatorBank::init(float sampleRate, WaveTable& wavetable, int bandCount,
 
 void OscillatorBank::init(float sampleRate, WaveTable& wavetable, int bankCount, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency) {
     frequencyBank.init(bankCount, bandCount, pivotPoint, frequency);
-    normalizer.init(4096);
     for(int i = 0; i < MAX_OSCILLATORS; i++) {
         oscillators[i].init(sampleRate, wavetable.getSize());
         oscillators[i].setWaveTable(0, wavetable);
-        amplitudes[i] = 1;
+        amplitudes[i] = 0.2;
     }
     updateFrequencies();
 }
@@ -29,7 +28,7 @@ float OscillatorBank::process() {
     for(int i = 0; i < frequencyBank.getBandCount(); i++) {
         out += oscillators[i].process() * amplitudes[i];
     }
-    return normalizer.process(out);
+    return out;
 }
 
 void OscillatorBank::updateFrequencies() {

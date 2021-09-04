@@ -12,9 +12,9 @@ class PhaserController : public Controller {
         virtual void update();
 
     private:
-        LinearInput<> delayTimeInput = LinearInput<>(AnalogInputPin(A0), -5, 5, 0, 1);
-        LinearInput<> feedbackInput = LinearInput<>(AnalogInputPin(A1), -5, 5, 0, 1);
-        CrossfadeInput<> dryWetMixInput = CrossfadeInput<>(AnalogInputPin(A2), -5, 5);
+        LinearInput<> delayTimeInput = LinearInput<>(HW.A0, -5, 5, 0, 1);
+        LinearInput<> feedbackInput = LinearInput<>(HW.A1, -5, 5, 0, 1);
+        CrossfadeInput<> dryWetMixInput = CrossfadeInput<>(HW.A2, -5, 5);
         bool invertedFeedback = false;
 
         AllPassFilter filterLeft;

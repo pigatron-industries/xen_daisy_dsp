@@ -26,7 +26,6 @@ class OscillatorBank {
         InterpolatedFrequencyBank frequencyBank;
         WaveTableOscillator oscillators[MAX_OSCILLATORS];
         float amplitudes[MAX_OSCILLATORS];
-        Normalizer normalizer;
 };
 
 }

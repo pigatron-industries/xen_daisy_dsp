@@ -14,9 +14,9 @@ class Reverb2Controller : public Controller {
         virtual void update();
 
     private:
-        LinearInput<> feedbackInput = LinearInput<>(AnalogInputPin(A0), -5, 5, 0, 1);
-        ExpInput<> filterInput = ExpInput<>(AnalogInputPin(A1));
-        CrossfadeInput<> dryWetMix = CrossfadeInput<>(AnalogInputPin(A2), -4.8, 4.8);
+        LinearInput<> feedbackInput = LinearInput<>(HW.A0, -5, 5, 0, 1);
+        ExpInput<> filterInput = ExpInput<>(HW.A1);
+        CrossfadeInput<> dryWetMix = CrossfadeInput<>(HW.A2, -4.8, 4.8);
 
         daisysp::ReverbSc reverb;
 

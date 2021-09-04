@@ -1,4 +1,5 @@
 #include <DaisyDuino.h>
+#include <Arduino.h>
 #include "MainController.h"
 #include "io/Hardware.h"
 #include "apps.h"

@@ -14,16 +14,16 @@ class MultitapDelayController : public Controller {
 
     private:
         LinearInput<> delayInputs[10] = {
-            LinearInput<>(AnalogInputPin(A0), -5, 5, 0.001, 1),
-            LinearInput<>(AnalogInputPin(A1), -5, 5, 0.001, 1),
-            LinearInput<>(AnalogInputPin(A2), -5, 5, 0.001, 1),
-            LinearInput<>(AnalogInputPin(A3), -5, 5, 0.001, 1),
-            LinearInput<>(AnalogInputPin(A4), -5, 5, 0.001, 1),
-            LinearInput<>(AnalogInputPin(A5), -5, 5, 0.001, 1),
-            LinearInput<>(AnalogInputPin(A6), -5, 5, 0.001, 1),
-            LinearInput<>(AnalogInputPin(A7), -5, 5, 0.001, 1),
-            LinearInput<>(AnalogInputPin(A8), -5, 5, 0.001, 1),
-            LinearInput<>(AnalogInputPin(A9), -5, 5, 0.001, 1),
+            LinearInput<>(HW.A0, -5, 5, 0.001, 1),
+            LinearInput<>(HW.A1, -5, 5, 0.001, 1),
+            LinearInput<>(HW.A2, -5, 5, 0.001, 1),
+            LinearInput<>(HW.A3, -5, 5, 0.001, 1),
+            LinearInput<>(HW.A4, -5, 5, 0.001, 1),
+            LinearInput<>(HW.A5, -5, 5, 0.001, 1),
+            LinearInput<>(HW.A6, -5, 5, 0.001, 1),
+            LinearInput<>(HW.A7, -5, 5, 0.001, 1),
+            LinearInput<>(HW.A8, -5, 5, 0.001, 1),
+            LinearInput<>(HW.A9, -5, 5, 0.001, 1),
         };
 
         MultitapDelay delayLeft;

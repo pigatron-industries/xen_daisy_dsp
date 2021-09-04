@@ -16,10 +16,10 @@ class DualFilterController : public Controller {
         virtual void process(float **in, float **out, size_t size);
 
     private:
-        ExpInput<> frequencyInput1 = ExpInput<>(AnalogInputPin(A0));
-        LinearInput<> resonanceInput1 = LinearInput<>(AnalogInputPin(A2), -5, 5, 0.001, 1);
-        ExpInput<> frequencyInput2 = ExpInput<>(AnalogInputPin(A1));
-        LinearInput<> resonanceInput2 = LinearInput<>(AnalogInputPin(A3), -5, 5, 0.001, 1);
+        ExpInput<> frequencyInput1 = ExpInput<>(HW.A0);
+        LinearInput<> resonanceInput1 = LinearInput<>(HW.A2, -5, 5, 0.001, 1);
+        ExpInput<> frequencyInput2 = ExpInput<>(HW.A1);
+        LinearInput<> resonanceInput2 = LinearInput<>(HW.A3, -5, 5, 0.001, 1);
 
         FilterWrapper filter1;
         FilterWrapper filter2;

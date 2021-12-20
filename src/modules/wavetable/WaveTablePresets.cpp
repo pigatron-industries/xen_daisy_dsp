@@ -1,5 +1,6 @@
 #include "WaveTablePresets.h"
 #include "WaveTableGenerator.h"
+#include "io/Hardware.h"
 
 WaveTablePresets WaveTablePresets::presets = WaveTablePresets();
 
@@ -43,31 +44,31 @@ WaveTable& WaveTablePresets::getWaveTable(WaveformPreset waveformPreset) {
 }
 
 void WaveTablePresets::initSine() {
-    sine.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    sine.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSine(sine, 0.5);
 }
 
 void WaveTablePresets::initTriangle() {
-    triangle.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    triangle.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addTriangle(triangle, 0.5);
 }
 
 void WaveTablePresets::initRamp() {
-    ramp.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    ramp.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addRamp(ramp, 0.5);
 }
 
 void WaveTablePresets::initSquare() {
-    square.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    square.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSquare(square, 0.5);
 }
 
 void WaveTablePresets::initImpulse() {
-    impulse.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    impulse.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addImpulse(impulse, 0.5);
 }
 
 void WaveTablePresets::initViolin() {
-    violin.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    violin.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addViolin(violin, 0.5);
 }

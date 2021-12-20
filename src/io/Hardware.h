@@ -6,11 +6,21 @@
 
 #define HW Hardware::hw
 
+#define SDRAM_TOTAL_SIZE (16*1024*1024)
+#define SDRAM_PERM_SIZE (256*1024)
+#define SDRAM_TEMP_SIZE SDRAM_TOTAL_SIZE-SDRAM_PERM_SIZE
+
 class Hardware {
 
 public:
     static Hardware hw;
     void init();
+
+    // Memory pool
+    static float permMemBuffer[SDRAM_PERM_SIZE];
+    static float tempMemBuffer[SDRAM_TEMP_SIZE];
+    MemPool<float> permPool = MemPool<float>(Hardware::permMemBuffer, SDRAM_PERM_SIZE);
+    MemPool<float> tempPool = MemPool<float>(Hardware::tempMemBuffer, SDRAM_TEMP_SIZE);
 
     // Native pins
     DigitalInput(0)

@@ -13,19 +13,19 @@
 #endif
 
 void PhaseDistortionController::init(float sampleRate) {
-    wavetable1.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    wavetable1.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSine(wavetable1, 0.5);
 
-    wavetable2.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    wavetable2.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSine(wavetable2, 0.5, 2);
 
-    wavetable3.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    wavetable3.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSine(wavetable3, 0.5, 3);
 
-    wavetable4.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    wavetable4.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSine(wavetable4, 0.5, 4);
 
-    wavetable5.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    wavetable5.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSine(wavetable5, 0.5, 5);
 
     oscillator.init(sampleRate, TABLE_SIZE, POINT_COUNT);

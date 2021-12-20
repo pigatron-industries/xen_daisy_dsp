@@ -9,16 +9,16 @@
 void WaveTableController::firstInit(float sampleRate) {
     Controller::firstInit(sampleRate);
 
-    wavetable1.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    wavetable1.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSquare(wavetable1, 0.5);
 
-    wavetable2.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    wavetable2.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSine(wavetable2, 0.5);
 
-    wavetable3.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    wavetable3.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addRamp(wavetable3, 0.5);
 
-    wavetable4.init(sampleRate, TABLE_SIZE, 10, SDRAM_PERM);
+    wavetable4.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addViolin(wavetable4, 0.5);
 
     oscillator.init(sampleRate, TABLE_SIZE);

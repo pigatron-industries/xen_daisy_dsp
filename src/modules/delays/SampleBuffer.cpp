@@ -1,10 +1,10 @@
 #include "SampleBuffer.h"
-#include "../../io/MemPool.h"
+#include "io/Hardware.h"
 
 void SampleBuffer::init(size_t bufferSize) { 
     this->bufferSize = bufferSize;
     this->sampleSize = bufferSize;
-    buffer = new (MemPool::allocatePool(sizeof(float)*bufferSize)) float[bufferSize];
+    buffer = (float*)Hardware::hw.tempPool.allocate(bufferSize);
     reset();
     clear();
 }

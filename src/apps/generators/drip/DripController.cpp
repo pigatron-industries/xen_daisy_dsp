@@ -10,7 +10,7 @@ void DripController::init(float sampleRate) {
 
 void DripController::update() {
     if(gateInput.update()) {
-        trigger = gateInput.isTriggered();
+        trigger = gateInput.isTriggeredOn();
     } else {
         trigger = false;
     }

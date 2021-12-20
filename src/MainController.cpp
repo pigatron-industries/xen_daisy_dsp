@@ -1,7 +1,6 @@
 #include <DaisyDuino.h>
 #include "MainController.h"
 #include "util/Profiler.h"
-#include "io/MemPool.h"
 #include "io/Config.h"
 
 #include "utility/gpio.h"
@@ -75,14 +74,12 @@ void MainController::update() {
     }
 
     Hardware::hw.display.render();
-    
-    PROFILE_DUMP
 }
 
 void MainController::setActiveController(int controllerIndex) {
     DAISY.end();
  
-    MemPool::resetPool();
+    Hardware::hw.tempPool.reset();
     controllers[controllerIndex]->init(sampleRate);
     controllers[controllerIndex]->getDisplayPage()->setSelection(0);
     Hardware::hw.display.setDisplayedPage(controllers[controllerIndex]->getDisplayPage());

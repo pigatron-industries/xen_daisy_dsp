@@ -14,7 +14,7 @@ void EnvelopeController::init(float sampleRate) {
 
 void EnvelopeController::update() {
     if(gateInput.update()) {
-        if(gateInput.isTriggered()) {
+        if(gateInput.isTriggeredOn()) {
             envelope.trigger();
         }
     }

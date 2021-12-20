@@ -2,14 +2,14 @@
 #define WaveTable_h
 
 #include <stdlib.h>
-#include "../../io/MemPool.h"
+#include <eurorack.h>
 
 #define MAX_TABLES 20
 
 class WaveTable {
     public:
         WaveTable() {}
-        void init(float sampleRate, size_t tableSize, size_t tableCount, void* (*allocate)(size_t) = SDRAM_POOL);
+        void init(float sampleRate, size_t tableSize, size_t tableCount, MemPool<float>& memPool);
         void init(float sampleRate, WaveTable& waveTable);
         bool isInited() { return inited; }
 

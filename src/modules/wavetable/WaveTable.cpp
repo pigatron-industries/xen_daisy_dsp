@@ -5,14 +5,14 @@
 
 #define RANGE_OCTAVES 10.0
 
-void WaveTable::init(float sampleRate, size_t tableSize, size_t tableCount, void* (*allocate)(size_t)) {
+void WaveTable::init(float sampleRate, size_t tableSize, size_t tableCount, MemPool<float>& memPool) {
     this->sampleRate = sampleRate;
     this->sampleRateReciprocal = 1/sampleRate;
     this->tableSize = tableSize;
     this->tableCount = tableCount <= MAX_TABLES ? tableCount : MAX_TABLES;
-    tempBuffer = new (allocate(sizeof(float)*tableSize)) float[tableSize];
+    tempBuffer = (float*)memPool.allocate(tableSize);
     for(int i = 0; i < tableCount; i++) {
-        table[i] = new (allocate(sizeof(float)*tableSize)) float[tableSize];
+        table[i] = (float*)memPool.allocate(tableSize);
         zeroBuffer(table[i], tableSize);
     }
     calcTableFrequencies();

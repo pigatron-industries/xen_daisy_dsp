@@ -1,5 +1,4 @@
 #include "Delay.h"
-#include "../../io/MemPool.h"
 
 void Delay::init(float sampleRate, float maxDelay) {
     this->sampleRate = sampleRate;

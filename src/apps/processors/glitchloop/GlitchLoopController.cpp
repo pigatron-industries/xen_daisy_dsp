@@ -33,10 +33,10 @@ void GlitchLoopController::update() {
     }
 
     if(gateInput.update()) {
-        if(!gateInput.isOpen()) {
+        if(!gateInput.isGateOn()) {
             state = GlitchState::GLITCH_OFF;
         }
-        if(gateInput.isTriggered()) {
+        if(gateInput.isTriggeredOn()) {
             state = writeDelaySamples > 0 ? GlitchState::GLITCH_WRITE_DELAY : GlitchState::GLITCH_WRITE;
             writeDelayCounter = 0;
             buffer1.reset();

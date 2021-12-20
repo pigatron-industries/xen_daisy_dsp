@@ -1,9 +1,9 @@
 #include "TappableDelayLine.h"
-#include "../../io/MemPool.h"
+#include "io/Hardware.h"
 
 void TappableDelayLine::init(size_t bufferSize) { 
     this->bufferSize = bufferSize;
-    buffer = new (MemPool::allocatePool(sizeof(float)*bufferSize)) float[bufferSize];
+    buffer = (float*)Hardware::hw.tempPool.allocate(bufferSize);
     reset();
 }
 

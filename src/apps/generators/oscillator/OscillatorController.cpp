@@ -5,6 +5,7 @@
 
 void OscillatorController::init(float sampleRate) {
     oscillator.init(sampleRate);
+    oscillator.setPolyblep(true);
     displayPage.initTitle("Oscillator", "OSC ");
 }
 

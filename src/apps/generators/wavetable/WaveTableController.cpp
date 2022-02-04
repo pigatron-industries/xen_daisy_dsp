@@ -6,8 +6,8 @@
 
 #define TABLE_SIZE 256
 
-void WaveTableController::firstInit(float sampleRate) {
-    Controller::firstInit(sampleRate);
+void WaveTableController::init(float sampleRate) {
+    Controller::init(sampleRate);
 
     wavetable1.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
     WaveTableGenerator::addSquare(wavetable1, 0.5);
@@ -28,10 +28,6 @@ void WaveTableController::firstInit(float sampleRate) {
     oscillator.setWaveTable(3, wavetable4);
 
     displayPage.initTitle("Wave Table", "TABL");
-}
-
-void WaveTableController::init(float sampleRate) {
-    Controller::init(sampleRate);
 }
 
 void WaveTableController::process(float **in, float **out, size_t size) {

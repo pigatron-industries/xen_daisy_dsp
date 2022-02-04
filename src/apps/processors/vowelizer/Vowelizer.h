@@ -7,7 +7,7 @@
 class Vowelizer {
     public:
         Vowelizer() {}
-        void init(float sampleRate);
+        virtual void init(float sampleRate);
         float process(float in);
 
         // 0=i 1=e 2=a 3=o 5=u

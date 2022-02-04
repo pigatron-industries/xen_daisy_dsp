@@ -8,6 +8,6 @@ DSY_SDRAM_BSS float Hardware::tempMemBuffer[SDRAM_TEMP_SIZE];
 
 void Hardware::init() {
     display.init();
-    encoderButton.update();
+    //encoderButton.update();
     analogReadResolution(12);
 }

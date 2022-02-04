@@ -1,7 +1,6 @@
 #ifndef FilterController_h
 #define FilterController_h
 
-#include <RotaryEncoder.h>
 #include "Controller.h"
 #include "modules/filters/FilterWrapper.h"
 #include "io/Hardware.h"
@@ -12,7 +11,7 @@ class DualFilterController : public Controller {
         virtual void init(float sampleRate);
         virtual void update();
         virtual void updateDisplay();
-        virtual void event(UIEvent event, int itemIndex);
+        virtual void event(RotaryEncoderButton::EncoderEvent event, int itemIndex);
         virtual void process(float **in, float **out, size_t size);
 
     private:

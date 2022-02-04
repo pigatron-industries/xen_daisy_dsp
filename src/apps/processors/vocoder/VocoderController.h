@@ -22,7 +22,7 @@ class VocoderController : public Controller {
         virtual void init(float sampleRate);
         virtual void update();
         virtual void updateDisplay();
-        virtual void event(UIEvent event, int itemIndex);
+        virtual void event(RotaryEncoderButton::EncoderEvent event, int itemIndex);
         virtual void process(float **in, float **out, size_t size);
 
     private:

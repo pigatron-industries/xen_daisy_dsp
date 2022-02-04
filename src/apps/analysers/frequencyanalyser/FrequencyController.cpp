@@ -49,12 +49,12 @@ void FrequencyController::updateDisplay() {
     }
 }
 
-void FrequencyController::event(UIEvent event, int itemIndex) {
+void FrequencyController::event(RotaryEncoderButton::EncoderEvent event, int itemIndex) {
     if(itemIndex == FIELD_TYPE) {
-        if(event == UIEvent::EVENT_CLOCKWISE) {
+        if(event == RotaryEncoderButton::EncoderEvent::EVENT_CLOCKWISE) {
             type = static_cast<AnalyserType>((type + 1)%(AnalyserType::AUTOCORRELATION + 1));
             displayPage.setText(FIELD_TYPE, getTypeText());
-        } else if (event == UIEvent::EVENT_COUNTERCLOCKWISE) {
+        } else if (event == RotaryEncoderButton::EncoderEvent::EVENT_ANTICLOCKWISE) {
             type = static_cast<AnalyserType>(type > 0 ? type - 1 : AnalyserType::AUTOCORRELATION);
             displayPage.setText(FIELD_TYPE, getTypeText());
         }

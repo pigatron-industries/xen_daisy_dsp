@@ -23,7 +23,6 @@ public:
     MemPool<float> tempPool = MemPool<float>(Hardware::tempMemBuffer, SDRAM_TEMP_SIZE);
 
     // Native pins
-    DigitalInput(0)
     AnalogInput(A0)
     AnalogInput(A1)
     AnalogInput(A2)
@@ -37,8 +36,7 @@ public:
     AnalogInput(A10)
     AnalogInput(A11)
 
-    PushButton<> encoderButton = PushButton<>(D0);
-    RotaryEncoder encoder = RotaryEncoder(29, 30);
+    RotaryEncoderButton rotaryEncoderButton = RotaryEncoderButton(29, 30, 0);
     Display display;
 
 private:

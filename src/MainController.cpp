@@ -5,19 +5,16 @@
 
 #include "utility/gpio.h"
 
-MainController MainController::instance;
+MainController* MainController::mainController = nullptr;
 
 DaisyHardware hardware;
 
-void MainController::audioCallback(float **in, float **out, size_t size) {
-    MainController::instance.process(in, out, size);
+MainController::MainController() : AbstractMainController(Hardware::hw.rotaryEncoderButton) {
+    mainController = this;
 }
 
-
-void MainController::registerController(Controller* controller) {
-    controllers[controllerSize] = controller;
-    controllerSize++;
-    controller->getDisplayPage()->setNumber(0, controllerSize);
+void MainController::audioCallback(float **in, float **out, size_t size) {
+    MainController::mainController->process(in, out, size);
 }
 
 void MainController::init() {
@@ -27,93 +24,73 @@ void MainController::init() {
     Hardware::hw.init();
     refreshTimer.start(100000);
 
-    activeController = Config::getSelectedApp();
-    if(activeController >= controllerSize) {
-        activeController = 0;
-        Config::setSelectedApp(0);
-    }
-
-    controllers[activeController]->init(sampleRate);
-    Hardware::hw.display.setDisplayedPage(controllers[activeController]->getDisplayPage());
+    //AbstractMainController::init();
+    controllerInit();
+    
+    Hardware::hw.display.setDisplayedPage(controllers.getSelected()->getDisplayPage());
     DAISY.begin(MainController::audioCallback);
 }
 
 void MainController::update() {
-    UIEvent event = updateUIEvent();
+    RotaryEncoderButton::EncoderEvent event = encoder.getEncoderEvent();
 
     switch(event) {
-        case UIEvent::EVENT_CLOCKWISE: 
-            if(controllers[activeController]->getDisplayPage()->selectedItem == 0) {
-                int controllerIndex = ((activeController + 1) % (controllerSize));
-                setActiveController(controllerIndex);
-            } else {
-                controllers[activeController]->event(event, controllers[activeController]->getDisplayPage()->selectedItem);
-            }
+        case RotaryEncoderButton::EncoderEvent::EVENT_HELD_CLOCKWISE: 
+            cycleController(1);
             break;
-        case UIEvent::EVENT_COUNTERCLOCKWISE:
-            if(controllers[activeController]->getDisplayPage()->selectedItem == 0) {
-                int controllerIndex = activeController > 0 ? activeController - 1 : controllerSize - 1;
-                setActiveController(controllerIndex);
-            } else {
-                controllers[activeController]->event(event, controllers[activeController]->getDisplayPage()->selectedItem);
-            }
+        case RotaryEncoderButton::EncoderEvent::EVENT_HELD_ANTICLOCKWISE: 
+            cycleController(-1);
             break;
-        case UIEvent::EVENT_SHORT_PRESS:
-            controllers[activeController]->getDisplayPage()->nextSelection();
+        case RotaryEncoderButton::EncoderEvent::EVENT_CLOCKWISE: 
+            controllers.getSelected()->event(event, controllers.getSelected()->getDisplayPage()->selectedItem);
             break;
-        case UIEvent::EVENT_LONG_PRESS:
+        case RotaryEncoderButton::EncoderEvent::EVENT_ANTICLOCKWISE:
+            controllers.getSelected()->event(event, controllers.getSelected()->getDisplayPage()->selectedItem);
+            break;
+        case RotaryEncoderButton::EncoderEvent::EVENT_SHORT_PRESS:
+            controllers.getSelected()->getDisplayPage()->nextSelection();
+            break;
+        case RotaryEncoderButton::EncoderEvent::EVENT_LONG_HOLD:
             rebootToBootloader();
             break;
     }
 
-    controllers[activeController]->update();
+    controllers.getSelected()->update();
 
     if(refreshTimer.isStopped()) {
-        controllers[activeController]->updateDisplay();
+        controllers.getSelected()->updateDisplay();
         refreshTimer.start(100000);
     }
 
     Hardware::hw.display.render();
 }
 
-void MainController::setActiveController(int controllerIndex) {
+void MainController::cycleController(uint8_t direction) {
+    Serial.println("controllerChange");
     DAISY.end();
- 
-    Hardware::hw.tempPool.reset();
-    controllers[controllerIndex]->init(sampleRate);
-    controllers[controllerIndex]->getDisplayPage()->setSelection(0);
-    Hardware::hw.display.setDisplayedPage(controllers[controllerIndex]->getDisplayPage());
-    Config::setSelectedApp(controllerIndex);
-    activeController = controllerIndex;
+
+    controllers.cycle(direction);
+    controllerInit();
 
     DAISY.begin(MainController::audioCallback);
     DAISY.end();
     DAISY.begin(MainController::audioCallback);
 }
 
-UIEvent MainController::updateUIEvent() {
-    Hardware::hw.encoderButton.update();
-    Hardware::hw.encoder.update();
-    long movement = Hardware::hw.encoder.getMovement();
-
-    if(Hardware::hw.encoderButton.held() && Hardware::hw.encoderButton.duration() >= 1000) {
-        return UIEvent::EVENT_LONG_PRESS;
-    }
-    if(movement > 0) {
-        return UIEvent::EVENT_CLOCKWISE;
-    }
-    if(movement < 0) {
-        return UIEvent::EVENT_COUNTERCLOCKWISE;
-    }
-    if(Hardware::hw.encoderButton.released() && Hardware::hw.encoderButton.previousDuration() < 1000) {
-        return UIEvent::EVENT_SHORT_PRESS;
-    }
-    return UIEvent::EVENT_NONE;
+void MainController::controllerInit() {
+    //AbstractMainController::controllerInit();
+    configMode.data.controllerIndex = controllers.getSelectedIndex();
+    controllers.getSelected()->init();
+ 
+    Hardware::hw.tempPool.reset();
+    controllers.getSelected()->init(sampleRate);
+    controllers.getSelected()->getDisplayPage()->setSelection(0);
+    Hardware::hw.display.setDisplayedPage(controllers.getSelected()->getDisplayPage());
 }
 
 void MainController::process(float **in, float **out, size_t size) {
     PROFILE_START
-    controllers[activeController]->process(in, out, size);
+    controllers.getSelected()->process(in, out, size);
     PROFILE_END
 }
 

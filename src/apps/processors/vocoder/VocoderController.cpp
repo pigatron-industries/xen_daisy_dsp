@@ -52,16 +52,16 @@ void VocoderController::updateDisplay() {
     // }
 }
 
-void VocoderController::event(UIEvent event, int itemIndex) {
+void VocoderController::event(RotaryEncoderButton::EncoderEvent event, int itemIndex) {
     if(itemIndex > 0) {
-        if(event == UIEvent::EVENT_CLOCKWISE) {
+        if(event == RotaryEncoderButton::EncoderEvent::EVENT_CLOCKWISE) {
             if(bands < MAX_VOCODER_BANDS) {
                 bands++;
                 vocoder.initBandsByCentreFrequency(centreFrequencyInput.getValue(), pitchIntervalInput.getValue(), bands);
                 displayPage.setText(FIELD_VOCODER_BANDS, String("Bands: ") + String(bands));
                 displayPage.setNumber(FIELD_VOCODER_BANDS, bands);
             }
-        } else if (event == UIEvent::EVENT_COUNTERCLOCKWISE) {
+        } else if (event == RotaryEncoderButton::EncoderEvent::EVENT_ANTICLOCKWISE) {
             if(bands > MIN_VOCODER_BANDS) {
                 bands--;
                 vocoder.initBandsByCentreFrequency(centreFrequencyInput.getValue(), pitchIntervalInput.getValue(), bands);

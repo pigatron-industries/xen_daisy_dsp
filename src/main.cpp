@@ -4,16 +4,15 @@
 #include "io/Hardware.h"
 #include "apps.h"
 
+MainController mainController = MainController();
+
 void setup() {
     Serial.begin(115200);
     Serial.println("Pigatron Industries");
 
-    registerApps();
-
-    // Initialize for Daisy pod at 48kHz
-    MainController::instance.init();
+    mainController.init();
 }
 
 void loop() {
-    MainController::instance.update();
+    mainController.update();
 }

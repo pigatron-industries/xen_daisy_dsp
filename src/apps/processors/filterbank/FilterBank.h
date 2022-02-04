@@ -8,7 +8,7 @@
 class FilterBank {
     public:
         FilterBank() {}
-        void init(float sampleRate);
+        virtual void init(float sampleRate);
         float process(float in);
         float processSerial(float in);
         float processParallel(float in);

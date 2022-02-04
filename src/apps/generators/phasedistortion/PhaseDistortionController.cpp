@@ -34,8 +34,8 @@ void PhaseDistortionController::init(float sampleRate) {
     oscillator.getOscillator().setWaveTable(2, wavetable3);
     oscillator.getOscillator().setWaveTable(3, wavetable4);
     oscillator.getOscillator().setWaveTable(4, wavetable5);
-    oscillator.getEnvelope().setPoint(0, Point(0, 0));
-    oscillator.getEnvelope().setPoint(POINT_COUNT+1, Point(1, 1));
+    oscillator.getEnvelope().setPoint(0, deprecated::Point(0, 0));
+    oscillator.getEnvelope().setPoint(POINT_COUNT+1, deprecated::Point(1, 1));
 
     displayPage.initTitle("Phase Distortion", "PHSD");
 }
@@ -58,7 +58,7 @@ void PhaseDistortionController::update() {
         Serial.println(x1Input.getValue());
         Serial.println("y");
         Serial.println(y1Input.getValue());
-        oscillator.getEnvelope().setPoint(1, Point(x1Input.getValue(), y1Input.getValue()));
+        oscillator.getEnvelope().setPoint(1, deprecated::Point(x1Input.getValue(), y1Input.getValue()));
     }
 
     // if(phaseOffsetInput.update()) {

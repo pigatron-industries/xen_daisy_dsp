@@ -8,7 +8,7 @@ void PhaseDistortionOscillator::init(float sampleRate, int tableSize, int pointC
     int envelopePoints = pointCount + 2;
     envelope.init(sampleRate, envelopePoints, 1, true);
     for(int i = 0; i < envelopePoints; i++) {
-        envelope.setPoint(i, Point(float(i)/float(envelopePoints), 0));
+        envelope.setPoint(i, deprecated::Point(float(i)/float(envelopePoints), 0));
     }
     envelope.setFrequency(100);
 }

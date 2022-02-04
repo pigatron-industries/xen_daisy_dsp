@@ -5,9 +5,9 @@
 
 void EnvelopeController::init(float sampleRate) {
     envelope.init(sampleRate, 3, 1, false);
-    envelope.setPoint(0, Point(0, 0));
-    envelope.setPoint(1, Point(1, 1));
-    envelope.setPoint(2, Point(2, 0));
+    envelope.setPoint(0, deprecated::Point(0, 0));
+    envelope.setPoint(1, deprecated::Point(1, 1));
+    envelope.setPoint(2, deprecated::Point(2, 0));
 
     displayPage.initTitle("Envelope", "ENV ");
 }

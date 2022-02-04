@@ -10,7 +10,7 @@ class PhaseDistortionOscillator
         void init(float sampleRate, int tableSize = 256, int pointCount = 1);
         float process();
 
-        Envelope& getEnvelope() { return envelope; }
+        deprecated::Envelope& getEnvelope() { return envelope; }
         WaveTableOscillator& getOscillator() { return oscillator; }
 
         void setFrequency(float frequency);
@@ -18,7 +18,7 @@ class PhaseDistortionOscillator
 
     private:
         WaveTableOscillator oscillator;
-        Envelope envelope;
+        deprecated::Envelope envelope;
 
         float sampleRate;
         float phaseOffset;

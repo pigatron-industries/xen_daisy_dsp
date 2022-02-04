@@ -16,7 +16,7 @@ class EnvelopeController : public Controller {
         LinearInput<> decayTimeInput = LinearInput<>(HW.A2, -5, 5, 0, 1);
         AnalogGateInput<> gateInput = AnalogGateInput<>(HW.A5, 3);
 
-        Envelope envelope;
+        deprecated::Envelope envelope;
 };
 
 #endif

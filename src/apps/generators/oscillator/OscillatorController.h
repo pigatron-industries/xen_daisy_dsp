@@ -1,8 +1,10 @@
 #ifndef OscillatorController_h
 #define OscillatorController_h
 
+#include <eurorack_dsp.h>
 #include "Controller.h"
-#include "modules/oscillators/Oscillator.h"
+
+using namespace eurorack;
 
 class OscillatorController : public Controller {
     public:
@@ -13,8 +15,10 @@ class OscillatorController : public Controller {
 
     private:
         ExpInput<> pitchInput = ExpInput<>(HW.A0);
+        LinearInput<> waveInput = LinearInput<>(HW.A1, -5, 5, 0, 5);
 
-        pigatron::Oscillator oscillator;
+        WaveSelector<Sine, Triangle, Saw, Pulse> waveSelector;
+        WaveOscillator<WaveSelector<Sine, Triangle, Saw, Pulse>&> oscillator = WaveOscillator<WaveSelector<Sine, Triangle, Saw, Pulse>&>(waveSelector);
 };
 
 #endif

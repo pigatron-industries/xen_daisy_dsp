@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+using namespace deprecated;
+
 void Envelope::init(float sampleRate, int pointCount, float length, bool repeat) {
     this->sampleRate = sampleRate;
     this->sampleRateRecip = 1/sampleRate;

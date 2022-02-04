@@ -3,11 +3,8 @@
 
 #include "modules/filters/StateVariableFilter.h"
 #include "modules/filters/BiquadFilter.h"
-#include "modules/oscillators/Oscillator.h"
 #include "modules/wavetable/WaveTableOscillator.h"
 #include "EnvelopeFollower.h"
-
-using namespace pigatron;
 
 #define TABLE_SIZE 256
 

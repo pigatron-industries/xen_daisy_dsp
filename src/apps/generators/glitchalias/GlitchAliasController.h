@@ -2,7 +2,9 @@
 #define GlitchAliasController_h
 
 #include "Controller.h"
-#include "modules/oscillators/Oscillator.h"
+#include <eurorack_dsp.h>
+
+using namespace eurorack;
 
 class GlitchAliasController : public Controller {
     public:
@@ -16,8 +18,8 @@ class GlitchAliasController : public Controller {
         LinearInput<> fineInput = LinearInput<>(HW.A1, -5, 5, -500, 500);
         LinearInput<> mixInput = LinearInput<>(HW.A2, -5, 5, 0, 1);
 
-        pigatron::Oscillator square;
-        pigatron::Oscillator saw;
+        WaveOscillator<Pulse> square;
+        WaveOscillator<Saw> saw;
 
         float mix;
 };

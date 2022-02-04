@@ -8,8 +8,7 @@
 
 namespace pigatron
 {
-
-class OscillatorBank {
+class [[deprecated]] OscillatorBank {
     public:
         OscillatorBank() {}
         void init(float sampleRate, WaveTable& wavetable, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency);

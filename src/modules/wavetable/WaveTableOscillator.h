@@ -5,7 +5,7 @@
 
 #define MAX_WAVETABLE_COUNT 10
 
-class WaveTableOscillator {
+class [[deprecated]] WaveTableOscillator {
     public:
         WaveTableOscillator() {}
         void init(float sampleRate, int tableSize);

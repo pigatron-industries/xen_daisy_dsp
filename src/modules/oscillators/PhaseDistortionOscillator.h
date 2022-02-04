@@ -4,7 +4,7 @@
 #include "../wavetable/WaveTableOscillator.h"
 #include "../Envelope.h"
 
-class PhaseDistortionOscillator
+class [[deprecated]] PhaseDistortionOscillator
 {
     public:
         void init(float sampleRate, int tableSize = 256, int pointCount = 1);

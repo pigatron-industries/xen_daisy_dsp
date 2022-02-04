@@ -10,7 +10,7 @@ namespace pigatron
 {
 /** Synthesis of several waveforms, including polyBLEP bandlimited waveforms.
 */
-class Oscillator
+class [[deprecated]] Oscillator
 {
   public:
     Oscillator() {}

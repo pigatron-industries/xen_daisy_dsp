@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-class PitchOutput {
+class [[deprecated]] PitchOutput {
     public:
         PitchOutput(uint8_t _pin) : pin(_pin) {
         }

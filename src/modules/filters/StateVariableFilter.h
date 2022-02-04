@@ -15,7 +15,7 @@ Stefan Diedrichsen for the correct notch output
 Ported by: Stephen Hensley
 Performance Enhancements: Robert Ellis
 */
-class StateVariableFilter
+class [[deprecated]] StateVariableFilter
 {
   public:
     StateVariableFilter() {}

@@ -3,7 +3,7 @@
 
 namespace deprecated {
 
-    class Point {
+    class [[deprecated]] Point {
         public:
             Point() { x=0; y=0; }
             Point(float x, float y) { this->x = x; this->y = y; }
@@ -11,7 +11,7 @@ namespace deprecated {
             float y;
     };
 
-    class Envelope
+    class [[deprecated]] Envelope
     {
         public:
             static const int MAX_POINTS = 6;

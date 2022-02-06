@@ -20,11 +20,11 @@ class PhaseDistortionController : public Controller {
         LinearInput<> harmonicsInput = LinearInput<>(HW.A4, -5, 5, 0, 4);
 
         PhaseDistortionOscillator oscillator;
-        WaveTable wavetable1;
-        WaveTable wavetable2;
-        WaveTable wavetable3;
-        WaveTable wavetable4;
-        WaveTable wavetable5;
+        deprecated::WaveTable wavetable1;
+        deprecated::WaveTable wavetable2;
+        deprecated::WaveTable wavetable3;
+        deprecated::WaveTable wavetable4;
+        deprecated::WaveTable wavetable5;
 };
 
 #endif

@@ -11,13 +11,13 @@ class [[deprecated]] WaveTableOscillator {
         void init(float sampleRate, int tableSize);
         float process();
 
-        void setWaveTable(int index, WaveTable& wavetable);
+        void setWaveTable(int index, deprecated::WaveTable& wavetable);
         void setFrequency(float frequency);
         void setInterpolation(float interpolation) { this->interpolation = interpolation; }
         void setPhase(float phase) { position = float(tableSize) * phase; }
 
     private:
-        WaveTable* wavetables[MAX_WAVETABLE_COUNT];
+        deprecated::WaveTable* wavetables[MAX_WAVETABLE_COUNT];
         int tableSize;
         int tableCount;
 

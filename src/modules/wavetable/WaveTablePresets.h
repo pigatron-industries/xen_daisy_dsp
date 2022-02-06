@@ -19,17 +19,17 @@ class WaveTablePresets {
         };
 
         void init(float sampleRate);
-        WaveTable& getWaveTable(WaveformPreset waveformPreset);
+        deprecated::WaveTable& getWaveTable(WaveformPreset waveformPreset);
 
     private:
         float sampleRate;
 
-        WaveTable sine;
-        WaveTable triangle;
-        WaveTable ramp;
-        WaveTable square;
-        WaveTable impulse;
-        WaveTable violin;
+        deprecated::WaveTable sine;
+        deprecated::WaveTable triangle;
+        deprecated::WaveTable ramp;
+        deprecated::WaveTable square;
+        deprecated::WaveTable impulse;
+        deprecated::WaveTable violin;
 
         void initSine();
         void initTriangle();

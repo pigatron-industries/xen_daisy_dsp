@@ -2,6 +2,8 @@
 #include "WaveTableGenerator.h"
 #include "io/Hardware.h"
 
+using namespace deprecated;
+
 WaveTablePresets WaveTablePresets::presets = WaveTablePresets();
 
 void WaveTablePresets::init(float sampleRate) {

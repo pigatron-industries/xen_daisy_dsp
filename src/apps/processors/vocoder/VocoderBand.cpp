@@ -21,7 +21,7 @@ void VocoderBand::setResonance(float resonance) {
     carrierFilter.setQ(resonance);
 }
 
-void VocoderBand::setCarrierOscillator(WaveTable& wavetable) { 
+void VocoderBand::setCarrierOscillator(deprecated::WaveTable& wavetable) { 
     carrierOscillator.setWaveTable(0, wavetable);
 }
 

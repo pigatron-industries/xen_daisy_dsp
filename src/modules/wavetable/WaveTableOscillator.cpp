@@ -1,5 +1,7 @@
 #include "WaveTableOscillator.h"
 
+using namespace deprecated;
+
 void WaveTableOscillator::init(float sampleRate, int tableSize) {
     this->sampleRate = sampleRate;
     this->tableSize = tableSize;

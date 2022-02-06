@@ -5,6 +5,8 @@
 
 #define RANGE_OCTAVES 10.0
 
+using namespace deprecated;
+
 void WaveTable::init(float sampleRate, size_t tableSize, size_t tableCount, MemPool<float>& memPool) {
     this->sampleRate = sampleRate;
     this->sampleRateReciprocal = 1/sampleRate;

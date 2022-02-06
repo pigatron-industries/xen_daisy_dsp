@@ -16,7 +16,7 @@ class VocoderBand {
 
         void setFrequency(float frequency);
         void setResonance(float resonance);
-        void setCarrierOscillator(WaveTable& wavetable);
+        void setCarrierOscillator(deprecated::WaveTable& wavetable);
         void setUseCarrierOscillator(bool userCarrier);
 
         float getFrequency() { return modulatorFilter.getFrequency(); }

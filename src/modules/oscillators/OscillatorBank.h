@@ -11,8 +11,8 @@ namespace pigatron
 class [[deprecated]] OscillatorBank {
     public:
         OscillatorBank() {}
-        void init(float sampleRate, WaveTable& wavetable, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency);
-        void init(float sampleRate, WaveTable& wavetable, int bankCount, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency);
+        void init(float sampleRate, deprecated::WaveTable& wavetable, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency);
+        void init(float sampleRate, deprecated::WaveTable& wavetable, int bankCount, int bandCount, FrequencyBank::PivotPoint pivotPoint, float frequency);
         float process();
 
         void setAmplitude(int bandIndex, float amplitude);

@@ -3,7 +3,7 @@
 #include <math.h>
 #include "util/mathutil.h"
 
-bool WaveTableGenerator::addSine(WaveTable& wavetable, float amplitude, int mult, float phaseShift) {
+bool WaveTableGenerator::addSine(deprecated::WaveTable& wavetable, float amplitude, int mult, float phaseShift) {
     float nyquist = wavetable.getSampleRate() * 0.5;
     size_t size = wavetable.getSize();
     float* tempBuffer = wavetable.getTempBuffer();
@@ -28,7 +28,7 @@ bool WaveTableGenerator::addSine(WaveTable& wavetable, float amplitude, int mult
     return added;
 }
 
-void WaveTableGenerator::addHarmonics(WaveTable& wavetable, RollOffFunction* rolloff, float amplitude, int mult) {
+void WaveTableGenerator::addHarmonics(deprecated::WaveTable& wavetable, RollOffFunction* rolloff, float amplitude, int mult) {
     int harmonic = 1;
     bool added = true;
     while(added) {
@@ -41,27 +41,27 @@ void WaveTableGenerator::addHarmonics(WaveTable& wavetable, RollOffFunction* rol
     }
 }
 
-void WaveTableGenerator::addSquare(WaveTable& wavetable, float amplitude, int mult) {
+void WaveTableGenerator::addSquare(deprecated::WaveTable& wavetable, float amplitude, int mult) {
     SquareRollOffFunction rolloff = SquareRollOffFunction();
     addHarmonics(wavetable, &rolloff, amplitude, mult);
 }
 
-void WaveTableGenerator::addTriangle(WaveTable& wavetable, float amplitude, int mult) {
+void WaveTableGenerator::addTriangle(deprecated::WaveTable& wavetable, float amplitude, int mult) {
     TriangleRollOffFunction rolloff = TriangleRollOffFunction();
     addHarmonics(wavetable, &rolloff, amplitude, mult);
 }
 
-void WaveTableGenerator::addRamp(WaveTable& wavetable, float amplitude, int mult) {
+void WaveTableGenerator::addRamp(deprecated::WaveTable& wavetable, float amplitude, int mult) {
     RampRollOffFunction rolloff = RampRollOffFunction();
     addHarmonics(wavetable, &rolloff, amplitude, mult);
 }
 
-void WaveTableGenerator::addPulse(WaveTable& wavetable, float amplitude, int mult) {
+void WaveTableGenerator::addPulse(deprecated::WaveTable& wavetable, float amplitude, int mult) {
     PulseRollOffFunction rolloff = PulseRollOffFunction();
     addHarmonics(wavetable, &rolloff, amplitude, mult);
 }
 
-void WaveTableGenerator::addImpulse(WaveTable& wavetable, float amplitude, int mult) {
+void WaveTableGenerator::addImpulse(deprecated::WaveTable& wavetable, float amplitude, int mult) {
     float amp = amplitude * -0.18;
     addSine(wavetable, amp *  1.0, mult * 1,  0);
     addSine(wavetable, amp * -0.9, mult * 2,  M_PI*0.5);
@@ -75,7 +75,7 @@ void WaveTableGenerator::addImpulse(WaveTable& wavetable, float amplitude, int m
     addSine(wavetable, amp * -0.1, mult * 10, M_PI*0.5);
 }
 
-void WaveTableGenerator::addViolin(WaveTable& wavetable, float amplitude, int mult) {
+void WaveTableGenerator::addViolin(deprecated::WaveTable& wavetable, float amplitude, int mult) {
     float amp = amplitude * 0.490;
     addSine(wavetable, amp * 0.995, mult * 1,  0);
     addSine(wavetable, amp * 0.940, mult * 2,  M_PI*0.5);
@@ -87,7 +87,7 @@ void WaveTableGenerator::addViolin(WaveTable& wavetable, float amplitude, int mu
     addSine(wavetable, amp * 0.090, mult * 10, M_PI*0.5);
 }
 
-void WaveTableGenerator::pulse(WaveTable& wavetable, float pulseWidth, float amplitude, int mult) {
+void WaveTableGenerator::pulse(deprecated::WaveTable& wavetable, float pulseWidth, float amplitude, int mult) {
     size_t size = wavetable.getSize();
     for(int i = 0; i < size; i++) {
         float phase = (float(i) / float(size)) * mult;
@@ -97,7 +97,7 @@ void WaveTableGenerator::pulse(WaveTable& wavetable, float pulseWidth, float amp
     }
 }
 
-void WaveTableGenerator::triangle(WaveTable& wavetable, float amplitude, int mult) {
+void WaveTableGenerator::triangle(deprecated::WaveTable& wavetable, float amplitude, int mult) {
     size_t size = wavetable.getSize();
     for(int i = 0; i < size; i++) {
         float phase = (float(i) / float(size)) * mult;
@@ -106,7 +106,7 @@ void WaveTableGenerator::triangle(WaveTable& wavetable, float amplitude, int mul
     }
 }
 
-void WaveTableGenerator::ramp(WaveTable& wavetable, float amplitude, int mult) {
+void WaveTableGenerator::ramp(deprecated::WaveTable& wavetable, float amplitude, int mult) {
     size_t size = wavetable.getSize();
     for(int i = 0; i < size; i++) {
         float phase = (float(i) / float(size)) * mult;

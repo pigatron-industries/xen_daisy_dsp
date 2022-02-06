@@ -16,10 +16,10 @@ class WaveTableController : public Controller {
         LinearInput<> interpolationInput = LinearInput<>(HW.A1, -5, 5, 0, 3.1);
 
         WaveTableOscillator oscillator;
-        WaveTable wavetable1;
-        WaveTable wavetable2;
-        WaveTable wavetable3;
-        WaveTable wavetable4;
+        deprecated::WaveTable wavetable1;
+        deprecated::WaveTable wavetable2;
+        deprecated::WaveTable wavetable3;
+        deprecated::WaveTable wavetable4;
 };
 
 #endif

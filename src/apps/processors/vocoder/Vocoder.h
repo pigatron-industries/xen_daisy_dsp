@@ -16,7 +16,7 @@ class Vocoder {
         void initBandsByCentreFrequency(float centreFrequency, float pitchInterval, int bandCount);
 
         void setResonance(float resonance);
-        void setCarrierOscillator(WaveTable& wavetable);
+        void setCarrierOscillator(deprecated::WaveTable& wavetable);
         void setUseCarrierOscillator(bool userCarrier);
 
         int getBandCount() { return bandCount; }

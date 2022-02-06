@@ -1,58 +1,61 @@
-#ifndef WaveTable_h
-#define WaveTable_h
+#ifndef deprecated_WaveTable_h
+#define deprecated_WaveTable_h
 
 #include <stdlib.h>
 #include <eurorack.h>
 
 #define MAX_TABLES 20
 
-class WaveTable {
-    public:
-        WaveTable() {}
-        void init(float sampleRate, size_t tableSize, size_t tableCount, MemPool<float>& memPool);
-        void init(float sampleRate, WaveTable& waveTable);
-        bool isInited() { return inited; }
+namespace deprecated {
 
-        float process();
-        float read(float position);
+    class WaveTable {
+        public:
+            WaveTable() {}
+            void init(float sampleRate, size_t tableSize, size_t tableCount, MemPool<float>& memPool);
+            void init(float sampleRate, WaveTable& waveTable);
+            bool isInited() { return inited; }
 
-        void setFrequency(float frequency);
-        void setFrequencyTable(float frequency);
+            float process();
+            float read(float position);
 
-        size_t getSize() { return tableSize; }
-        size_t getTableCount() { return tableCount; }
-        float getTableFrequency(int tableIndex) { return tableFrequency[tableIndex]; }
-        float** getTables() { return table; }
-        float getSampleRate() { return sampleRate; }
+            void setFrequency(float frequency);
+            void setFrequencyTable(float frequency);
 
-        void setTableSample(int index, float sample);
-        void addTableSample(int index, float sample);
-        void setTableSample(int tableIndex, int sampleIndex, float sample);
-        void addTableSample(int tableIndex, int sampleIndex, float sample);
+            size_t getSize() { return tableSize; }
+            size_t getTableCount() { return tableCount; }
+            float getTableFrequency(int tableIndex) { return tableFrequency[tableIndex]; }
+            float** getTables() { return table; }
+            float getSampleRate() { return sampleRate; }
 
-        float* getTempBuffer() { return tempBuffer; }
-        void addTempBufferToTable(int tableIndex);
+            void setTableSample(int index, float sample);
+            void addTableSample(int index, float sample);
+            void setTableSample(int tableIndex, int sampleIndex, float sample);
+            void addTableSample(int tableIndex, int sampleIndex, float sample);
 
-    private:
-        bool inited = false;
+            float* getTempBuffer() { return tempBuffer; }
+            void addTempBufferToTable(int tableIndex);
 
-        float* table[MAX_TABLES];
-        float tableFrequency[MAX_TABLES];
-        size_t tableSize;
-        size_t tableCount;
+        private:
+            bool inited = false;
 
-        int tableIndex;
+            float* table[MAX_TABLES];
+            float tableFrequency[MAX_TABLES];
+            size_t tableSize;
+            size_t tableCount;
 
-        float sampleRate;
-        float sampleRateReciprocal;
-        float position;
-        float increment;
-        float frequency;
+            int tableIndex;
 
-        float* tempBuffer;
+            float sampleRate;
+            float sampleRateReciprocal;
+            float position;
+            float increment;
+            float frequency;
 
-        int getTableForFrequency(float frequency);
-        void calcTableFrequencies();
-};
+            float* tempBuffer;
+
+            int getTableForFrequency(float frequency);
+            void calcTableFrequencies();
+    };
+}
 
 #endif

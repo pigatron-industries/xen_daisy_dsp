@@ -29,7 +29,7 @@ void OscillatorController::update() {
 
 void OscillatorController::process(float **in, float **out, size_t size) {
     for (size_t i = 0; i < size; i++) {
-        out[LEFT][i] = oscillator.process() * 0.8;
+        out[LEFT][i] = oscillator.process();
         out[RIGHT][i] = out[LEFT][i];
     }
 }

@@ -24,7 +24,7 @@ class MainController : public AbstractMainController<Controller, CONTROLLERS> {
 
         Timer refreshTimer;
 
-        void cycleController(uint8_t direction);
+        void cycleController(int8_t direction);
         void controllerInit();
 
         void pause() { pausing = true; }

@@ -35,10 +35,10 @@ void MainController::update() {
     RotaryEncoderButton::EncoderEvent event = encoder.getEncoderEvent();
 
     switch(event) {
-        case RotaryEncoderButton::EncoderEvent::EVENT_HELD_CLOCKWISE: 
+        case RotaryEncoderButton::EncoderEvent::EVENT_HELD_CLOCKWISE:
             cycleController(1);
             break;
-        case RotaryEncoderButton::EncoderEvent::EVENT_HELD_ANTICLOCKWISE: 
+        case RotaryEncoderButton::EncoderEvent::EVENT_HELD_ANTICLOCKWISE:
             cycleController(-1);
             break;
         case RotaryEncoderButton::EncoderEvent::EVENT_CLOCKWISE: 
@@ -65,7 +65,7 @@ void MainController::update() {
     Hardware::hw.display.render();
 }
 
-void MainController::cycleController(uint8_t direction) {
+void MainController::cycleController(int8_t direction) {
     Serial.println("controllerChange");
     DAISY.end();
 

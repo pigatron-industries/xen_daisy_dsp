@@ -1,77 +1,81 @@
-#ifndef SampleBuffer_h
-#define SampleBuffer_h
+#ifndef deprecated_SampleBuffer_h
+#define deprecated_SampleBuffer_h
 #include <stdlib.h>
 #include <stdint.h>
 
-class SampleBuffer
-{
-    public:
-        SampleBuffer() {}
+namespace deprecated {
 
-        void init(size_t bufferSize);
-        void reset();
-        void clear();
+    class SampleBuffer
+    {
+        public:
+            SampleBuffer() {}
 
-        void setSampleSize(size_t sampleSize);
+            void init(size_t bufferSize);
+            void reset();
+            void clear();
 
-        bool write(const float sample);
-        const float read();
-        const float read(float increment);
+            void setSampleSize(size_t sampleSize);
 
-        bool isSampleFull() { return sampleFull; }
-        bool isBufferFull() { return bufferFull; }
-        bool isReadFull() { return readFull; }
+            bool write(const float sample);
+            const float read();
+            const float read(float increment);
 
-    private:
-        size_t bufferSize;
-        size_t sampleSize;
-        float* buffer;
-        
-        bool sampleFull;
-        bool bufferFull;
-        bool readFull;
+            bool isSampleFull() { return sampleFull; }
+            bool isBufferFull() { return bufferFull; }
+            bool isReadFull() { return readFull; }
 
-        size_t writePointer;
-        size_t readPointer;
-        float readFraction;
+        private:
+            size_t bufferSize;
+            size_t sampleSize;
+            float* buffer;
+            
+            bool sampleFull;
+            bool bufferFull;
+            bool readFull;
 
-        void readIncrement();
-};
+            size_t writePointer;
+            size_t readPointer;
+            float readFraction;
+
+            void readIncrement();
+    };
 
 
-inline bool SampleBuffer::write(const float sample) {
-    buffer[writePointer] = sample;
-    writePointer++;
-    if(!sampleFull && writePointer >= sampleSize) {
-        sampleFull = true;
+    inline bool SampleBuffer::write(const float sample) {
+        buffer[writePointer] = sample;
+        writePointer++;
+        if(!sampleFull && writePointer >= sampleSize) {
+            sampleFull = true;
+        }
+        if(writePointer >= bufferSize) {
+            bufferFull = true;
+            writePointer = 0;
+        }
+        return sampleFull;
     }
-    if(writePointer >= bufferSize) {
-        bufferFull = true;
-        writePointer = 0;
+
+    inline const float SampleBuffer::read() {
+        float sample = buffer[readPointer];
+        readIncrement();
+        return sample;
     }
-    return sampleFull;
-}
 
-inline const float SampleBuffer::read() {
-    float sample = buffer[readPointer];
-    readIncrement();
-    return sample;
-}
-
-inline const float SampleBuffer::read(float increment) {
-    float sample = buffer[readPointer];
-    readIncrement();
-    return sample;
-}
-
-inline void SampleBuffer::readIncrement() {
-    readPointer++;
-    if(readPointer > sampleSize) {
-        readPointer = 0;
-        readFull = true;
-    } else {
-        readFull = false;
+    inline const float SampleBuffer::read(float increment) {
+        float sample = buffer[readPointer];
+        readIncrement();
+        return sample;
     }
+
+    inline void SampleBuffer::readIncrement() {
+        readPointer++;
+        if(readPointer > sampleSize) {
+            readPointer = 0;
+            readFull = true;
+        } else {
+            readFull = false;
+        }
+    }
+    
 }
 
 #endif

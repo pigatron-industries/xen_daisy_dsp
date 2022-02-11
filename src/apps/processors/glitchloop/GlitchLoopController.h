@@ -4,6 +4,8 @@
 #include "Controller.h"
 #include "modules/delays/SampleBuffer.h"
 
+using namespace deprecated;
+
 enum GlitchState {
     GLITCH_OFF,
     GLITCH_WRITE_DELAY,

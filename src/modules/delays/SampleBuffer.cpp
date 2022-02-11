@@ -1,6 +1,8 @@
 #include "SampleBuffer.h"
 #include "io/Hardware.h"
 
+using namespace deprecated;
+
 void SampleBuffer::init(size_t bufferSize) { 
     this->bufferSize = bufferSize;
     this->sampleSize = bufferSize;

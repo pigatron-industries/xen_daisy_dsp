@@ -4,28 +4,22 @@
 #define LEFT 0
 #define RIGHT 1
 
-#define TABLE_SIZE 256
-
 void WaveTableController::init(float sampleRate) {
     Controller::init(sampleRate);
 
-    wavetable1.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    WaveTableGenerator::addSquare(wavetable1, 0.5);
+    wavetable1.init(Hardware::hw.permPool);
+    WaveTableFactory::addSquare(&wavetable1, 0.5);
 
-    wavetable2.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    WaveTableGenerator::addSine(wavetable2, 0.5);
+    // wavetable2.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
+    // WaveTableGenerator::addSine(wavetable2, 0.5);
 
-    wavetable3.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    WaveTableGenerator::addRamp(wavetable3, 0.5);
+    // wavetable3.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
+    // WaveTableGenerator::addRamp(wavetable3, 0.5);
 
-    wavetable4.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    WaveTableGenerator::addViolin(wavetable4, 0.5);
+    // wavetable4.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
+    // WaveTableGenerator::addViolin(wavetable4, 0.5);
 
-    oscillator.init(sampleRate, TABLE_SIZE);
-    oscillator.setWaveTable(0, wavetable1);
-    oscillator.setWaveTable(1, wavetable2);
-    oscillator.setWaveTable(2, wavetable3);
-    oscillator.setWaveTable(3, wavetable4);
+    oscillator.init(sampleRate);
 
     displayPage.initTitle("Wave Table", "TABL");
 }
@@ -44,7 +38,7 @@ void WaveTableController::update() {
     }
 
     if(interpolationInput.update()) {
-        Serial.println(interpolationInput.getValue());
-        oscillator.setInterpolation(interpolationInput.getValue());
+        //Serial.println(interpolationInput.getValue());
+        //oscillator.setInterpolation(interpolationInput.getValue());
     }
 }

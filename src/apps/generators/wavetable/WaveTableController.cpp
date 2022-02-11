@@ -19,8 +19,6 @@ void WaveTableController::init(float sampleRate) {
     wavetable4.init(Hardware::hw.permPool);
     WaveTableFactory::addViolin(&wavetable4, 0.5);
 
-    selector.select(0);
-
     oscillator.init(sampleRate);
 
     displayPage.initTitle("Wave Table", "TABL");
@@ -41,6 +39,6 @@ void WaveTableController::update() {
 
     if(interpolationInput.update()) {
         float value = interpolationInput.getValue();
-        selector.select(int(value));
+        interpolator.select(value);
     }
 }

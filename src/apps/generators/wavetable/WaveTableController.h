@@ -7,6 +7,9 @@
 
 using namespace eurorack;
 
+typedef WaveTable<10, 128> WaveTableT;
+typedef WaveSelector<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveSelectorT;
+
 class WaveTableController : public Controller {
     public:
         WaveTableController() {}
@@ -16,16 +19,14 @@ class WaveTableController : public Controller {
 
     private:
         ExpInput<> pitchInput = ExpInput<>(HW.A0);
-        LinearInput<> interpolationInput = LinearInput<>(HW.A1, -5, 5, 0, 3.1);
+        LinearInput<> interpolationInput = LinearInput<>(HW.A1, -5, 5, 0, 3.9);
 
-        WaveTable<10, 128> wavetable1;
-        WaveOscillator<WaveTable<10, 128>&> oscillator = WaveOscillator<WaveTable<10, 128>&>(wavetable1);
-
-        //WaveTableOscillator oscillator;
-        // deprecated::WaveTable wavetable1;
-        // deprecated::WaveTable wavetable2;
-        // deprecated::WaveTable wavetable3;
-        // deprecated::WaveTable wavetable4;
+        WaveTableT wavetable1;
+        WaveTableT wavetable2;
+        WaveTableT wavetable3;
+        WaveTableT wavetable4;
+        WaveSelectorT selector = WaveSelectorT(wavetable1, wavetable2, wavetable3, wavetable4);
+        WaveOscillator<WaveSelectorT&> oscillator = WaveOscillator<WaveSelectorT&>(selector);
 };
 
 #endif

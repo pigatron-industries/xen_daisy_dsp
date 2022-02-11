@@ -10,14 +10,16 @@ void WaveTableController::init(float sampleRate) {
     wavetable1.init(Hardware::hw.permPool);
     WaveTableFactory::addSquare(&wavetable1, 0.5);
 
-    // wavetable2.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    // WaveTableGenerator::addSine(wavetable2, 0.5);
+    wavetable2.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetable2, 0.5);
 
-    // wavetable3.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    // WaveTableGenerator::addRamp(wavetable3, 0.5);
+    wavetable3.init(Hardware::hw.permPool);
+    WaveTableFactory::addRamp(&wavetable3, 0.5);
 
-    // wavetable4.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    // WaveTableGenerator::addViolin(wavetable4, 0.5);
+    wavetable4.init(Hardware::hw.permPool);
+    WaveTableFactory::addViolin(&wavetable4, 0.5);
+
+    selector.select(0);
 
     oscillator.init(sampleRate);
 
@@ -38,7 +40,7 @@ void WaveTableController::update() {
     }
 
     if(interpolationInput.update()) {
-        //Serial.println(interpolationInput.getValue());
-        //oscillator.setInterpolation(interpolationInput.getValue());
+        float value = interpolationInput.getValue();
+        selector.select(int(value));
     }
 }

@@ -8,16 +8,16 @@ void WaveTableController::init(float sampleRate) {
     Controller::init(sampleRate);
 
     wavetable1.init(Hardware::hw.permPool);
-    WaveTableFactory::addSquare(&wavetable1, 0.5);
+    WaveTableFactory::addSine(&wavetable1, 0.5);
 
     wavetable2.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable2, 0.5);
+    WaveTableFactory::addViolin(&wavetable2, 0.5);
 
     wavetable3.init(Hardware::hw.permPool);
-    WaveTableFactory::addRamp(&wavetable3, 0.5);
+    WaveTableFactory::addSquare(&wavetable3, 0.5);
 
     wavetable4.init(Hardware::hw.permPool);
-    WaveTableFactory::addViolin(&wavetable4, 0.5);
+    WaveTableFactory::addRamp(&wavetable4, 0.5);
 
     oscillator.init(sampleRate);
 

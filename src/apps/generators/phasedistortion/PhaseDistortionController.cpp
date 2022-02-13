@@ -13,29 +13,31 @@
 #endif
 
 void PhaseDistortionController::init(float sampleRate) {
-    wavetable1.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    WaveTableGenerator::addSine(wavetable1, 0.5);
 
-    wavetable2.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    WaveTableGenerator::addSine(wavetable2, 0.5, 2);
+    distortionFunction.segment(0).setLength(0.5);
+    distortionFunction.segment(0).setStartValue(0);
+    distortionFunction.segment(0).setEndValue(0.5);
+    
+    distortionFunction.segment(1).setLength(0.5);
+    distortionFunction.segment(1).setStartValue(0.5);
+    distortionFunction.segment(1).setEndValue(1);
 
-    wavetable3.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    WaveTableGenerator::addSine(wavetable3, 0.5, 3);
+    wavetable1.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetable1, 0.5);
 
-    wavetable4.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    WaveTableGenerator::addSine(wavetable4, 0.5, 4);
+    wavetable2.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetable2, 0.5);
 
-    wavetable5.init(sampleRate, TABLE_SIZE, 10, Hardware::hw.permPool);
-    WaveTableGenerator::addSine(wavetable5, 0.5, 5);
+    wavetable3.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetable3, 0.5);
 
-    oscillator.init(sampleRate, TABLE_SIZE, POINT_COUNT);
-    oscillator.getOscillator().setWaveTable(0, wavetable1);
-    oscillator.getOscillator().setWaveTable(1, wavetable2);
-    oscillator.getOscillator().setWaveTable(2, wavetable3);
-    oscillator.getOscillator().setWaveTable(3, wavetable4);
-    oscillator.getOscillator().setWaveTable(4, wavetable5);
-    oscillator.getEnvelope().setPoint(0, deprecated::Point(0, 0));
-    oscillator.getEnvelope().setPoint(POINT_COUNT+1, deprecated::Point(1, 1));
+    wavetable4.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetable4, 0.5);
+
+    wavetable5.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetable5, 0.5);
+
+    oscillator.init(sampleRate);
 
     displayPage.initTitle("Phase Distortion", "PHSD");
 }
@@ -54,11 +56,16 @@ void PhaseDistortionController::update() {
     }
 
     if(x1Input.update() || y1Input.update()) {
-        Serial.println("x");
-        Serial.println(x1Input.getValue());
-        Serial.println("y");
-        Serial.println(y1Input.getValue());
-        oscillator.getEnvelope().setPoint(1, deprecated::Point(x1Input.getValue(), y1Input.getValue()));
+        // Serial.println("x");
+        // Serial.println(x1Input.getValue());
+        // Serial.println("y");
+        // Serial.println(y1Input.getValue());
+
+        distortionFunction.segment(0).setEndValue(x1Input.getValue());
+        distortionFunction.segment(1).setStartValue(x1Input.getValue());
+        
+        distortionFunction.segment(0).setLength(y1Input.getValue());
+        distortionFunction.segment(1).setLength(1.0-y1Input.getValue());
     }
 
     // if(phaseOffsetInput.update()) {
@@ -66,6 +73,6 @@ void PhaseDistortionController::update() {
     // }
 
     if(harmonicsInput.update()) {
-        oscillator.getOscillator().setInterpolation(harmonicsInput.getValue());
+        //oscillator.getOscillator().setInterpolation(harmonicsInput.getValue());
     }
 }

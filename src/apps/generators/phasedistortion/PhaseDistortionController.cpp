@@ -14,14 +14,6 @@
 
 void PhaseDistortionController::init(float sampleRate) {
 
-    distortionFunction.segment(0).setLength(0.5);
-    distortionFunction.segment(0).setStartValue(0);
-    distortionFunction.segment(0).setEndValue(0.5);
-    
-    distortionFunction.segment(1).setLength(0.5);
-    distortionFunction.segment(1).setStartValue(0.5);
-    distortionFunction.segment(1).setEndValue(1);
-
     wavetable1.init(Hardware::hw.permPool);
     WaveTableFactory::addSine(&wavetable1, 0.5);
 
@@ -56,16 +48,7 @@ void PhaseDistortionController::update() {
     }
 
     if(x1Input.update() || y1Input.update()) {
-        // Serial.println("x");
-        // Serial.println(x1Input.getValue());
-        // Serial.println("y");
-        // Serial.println(y1Input.getValue());
-
-        distortionFunction.segment(0).setEndValue(x1Input.getValue());
-        distortionFunction.segment(1).setStartValue(x1Input.getValue());
-        
-        distortionFunction.segment(0).setLength(y1Input.getValue());
-        distortionFunction.segment(1).setLength(1.0-y1Input.getValue());
+        distortionFunction.setMidPoint(x1Input.getValue(), y1Input.getValue());
     }
 
     // if(phaseOffsetInput.update()) {

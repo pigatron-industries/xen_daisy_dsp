@@ -7,7 +7,6 @@
 using namespace eurorack;
 
 typedef WaveTable<10, 128> WaveTableT;
-typedef WaveSequence<2, eurorack::Line> DistortionT;
 
 class PhaseDistortionController : public Controller {
     public:
@@ -30,15 +29,8 @@ class PhaseDistortionController : public Controller {
         WaveTableT wavetable4;
         WaveTableT wavetable5;
 
-        DistortionT distortionFunction;
-        PhaseDistortionOscillator<WaveTableT&, DistortionT&> oscillator = PhaseDistortionOscillator<WaveTableT&, DistortionT&>(wavetable1, distortionFunction);
-
-        // PhaseDistortionOscillator oscillator;
-        // deprecated::WaveTable wavetable1;
-        // deprecated::WaveTable wavetable2;
-        // deprecated::WaveTable wavetable3;
-        // deprecated::WaveTable wavetable4;
-        // deprecated::WaveTable wavetable5;
+        TwoLineFunction distortionFunction;
+        PhaseDistortionOscillator<WaveTableT&, TwoLineFunction&> oscillator = PhaseDistortionOscillator<WaveTableT&, TwoLineFunction&>(wavetable1, distortionFunction);
 };
 
 #endif

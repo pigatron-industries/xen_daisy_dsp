@@ -6,7 +6,6 @@
 
 using namespace eurorack;
 
-typedef WaveTable<10, 128> WaveTableT;
 
 class PhaseDistortionController : public Controller {
     public:
@@ -23,6 +22,9 @@ class PhaseDistortionController : public Controller {
         LinearInput<> phaseOffsetInput = LinearInput<>(HW.A3, -5, 5, 0, 1);
         LinearInput<> harmonicsInput = LinearInput<>(HW.A4, -5, 5, 0, 4);
 
+        typedef WaveTable<10, 128> WaveTableT;
+        typedef WaveInterpolator<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveInterpolatorT;
+
         WaveTableT wavetable1;
         WaveTableT wavetable2;
         WaveTableT wavetable3;
@@ -30,7 +32,9 @@ class PhaseDistortionController : public Controller {
         WaveTableT wavetable5;
 
         TwoLineFunction distortionFunction;
-        PhaseDistortionOscillator<WaveTableT&, TwoLineFunction&> oscillator = PhaseDistortionOscillator<WaveTableT&, TwoLineFunction&>(wavetable1, distortionFunction);
+
+        WaveInterpolatorT interpolator = WaveInterpolatorT(wavetable1, wavetable2, wavetable3, wavetable4, wavetable5);
+        PhaseDistortionOscillator<WaveInterpolatorT&, TwoLineFunction&> oscillator = PhaseDistortionOscillator<WaveInterpolatorT&, TwoLineFunction&>(interpolator, distortionFunction);
 };
 
 #endif

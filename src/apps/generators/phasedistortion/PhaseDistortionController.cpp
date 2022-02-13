@@ -18,16 +18,16 @@ void PhaseDistortionController::init(float sampleRate) {
     WaveTableFactory::addSine(&wavetable1, 0.5);
 
     wavetable2.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable2, 0.5);
+    WaveTableFactory::addSine(&wavetable2, 0.5, 2);
 
     wavetable3.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable3, 0.5);
+    WaveTableFactory::addSine(&wavetable3, 0.5, 3);
 
     wavetable4.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable4, 0.5);
+    WaveTableFactory::addSine(&wavetable4, 0.5, 4);
 
     wavetable5.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable5, 0.5);
+    WaveTableFactory::addSine(&wavetable5, 0.5, 5);
 
     oscillator.init(sampleRate);
 
@@ -56,6 +56,6 @@ void PhaseDistortionController::update() {
     // }
 
     if(harmonicsInput.update()) {
-        //oscillator.getOscillator().setInterpolation(harmonicsInput.getValue());
+        interpolator.select(harmonicsInput.getValue());
     }
 }

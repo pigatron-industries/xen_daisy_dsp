@@ -6,10 +6,6 @@
 
 using namespace eurorack;
 
-typedef WaveTable<10, 128> WaveTableT;
-typedef WaveSelector<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveSelectorT;
-typedef WaveInterpolator<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveInterpolatorT;
-
 class WaveTableController : public Controller {
     public:
         WaveTableController() {}
@@ -20,6 +16,10 @@ class WaveTableController : public Controller {
     private:
         ExpInput<> pitchInput = ExpInput<>(HW.A0);
         LinearInput<> interpolationInput = LinearInput<>(HW.A1, -5, 5, 0, 3.1);
+
+        typedef WaveTable<10, 128> WaveTableT;
+        typedef WaveSelector<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveSelectorT;
+        typedef WaveInterpolator<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveInterpolatorT;
 
         WaveTableT wavetable1;
         WaveTableT wavetable2;

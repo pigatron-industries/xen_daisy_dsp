@@ -14,20 +14,38 @@
 
 void PhaseDistortionController::init(float sampleRate) {
 
-    wavetable1.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable1, 0.5);
+    wavetableSine1.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetableSine1, 0.5);
+    wavetableSine2.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetableSine2, 0.5, 2);
+    wavetableSine3.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetableSine3, 0.5, 3);
+    wavetableSine4.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetableSine4, 0.5, 4);
+    wavetableSine5.init(Hardware::hw.permPool);
+    WaveTableFactory::addSine(&wavetableSine5, 0.5, 5);
 
-    wavetable2.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable2, 0.5, 2);
+    wavetableRamp1.init(Hardware::hw.permPool);
+    WaveTableFactory::addRamp(&wavetableRamp1, 0.5);
+    wavetableRamp2.init(Hardware::hw.permPool);
+    WaveTableFactory::addRamp(&wavetableRamp2, 0.5, 2);
+    wavetableRamp3.init(Hardware::hw.permPool);
+    WaveTableFactory::addRamp(&wavetableRamp3, 0.5, 3);
+    wavetableRamp4.init(Hardware::hw.permPool);
+    WaveTableFactory::addRamp(&wavetableRamp4, 0.5, 4);
+    wavetableRamp5.init(Hardware::hw.permPool);
+    WaveTableFactory::addRamp(&wavetableRamp5, 0.5, 5);
 
-    wavetable3.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable3, 0.5, 3);
-
-    wavetable4.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable4, 0.5, 4);
-
-    wavetable5.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable5, 0.5, 5);
+    wavetableSquare1.init(Hardware::hw.permPool);
+    WaveTableFactory::addSquare(&wavetableSquare1, 0.5);
+    wavetableSquare2.init(Hardware::hw.permPool);
+    WaveTableFactory::addSquare(&wavetableSquare2, 0.5, 2);
+    wavetableSquare3.init(Hardware::hw.permPool);
+    WaveTableFactory::addSquare(&wavetableSquare3, 0.5, 3);
+    wavetableSquare4.init(Hardware::hw.permPool);
+    WaveTableFactory::addSquare(&wavetableSquare4, 0.5, 4);
+    wavetableSquare5.init(Hardware::hw.permPool);
+    WaveTableFactory::addSquare(&wavetableSquare5, 0.5, 5);
 
     oscillator.init(sampleRate);
 
@@ -51,11 +69,14 @@ void PhaseDistortionController::update() {
         distortionFunction.setMidPoint(x1Input.getValue(), y1Input.getValue());
     }
 
-    // if(phaseOffsetInput.update()) {
-    //     oscillator.setPhaseOffset(phaseOffsetInput.getValue());
-    // }
+    if(waveInput.update()) {
+        //oscillator.setPhaseOffset(phaseOffsetInput.getValue());
+        interpolator.select(waveInput.getValue());
+    }
 
     if(harmonicsInput.update()) {
-        interpolator.select(harmonicsInput.getValue());
+        sineInterpolator.select(harmonicsInput.getValue());
+        rampInterpolator.select(harmonicsInput.getValue());
+        squareInterpolator.select(harmonicsInput.getValue());
     }
 }

@@ -50,13 +50,10 @@ void PhaseDistortionController::update() {
     }
 
     if(waveInput.update()) {
-        //oscillator.setPhaseOffset(phaseOffsetInput.getValue());
-        interpolator.setInterpolation(waveInput.getValue());
+        interpolator.setInterpolationY(waveInput.getValue());
     }
 
     if(harmonicsInput.update()) {
-        interpolator[0].setInterpolation(harmonicsInput.getValue());
-        interpolator[1].setInterpolation(harmonicsInput.getValue());
-        interpolator[2].setInterpolation(harmonicsInput.getValue());
+        interpolator.setInterpolationX(harmonicsInput.getValue());
     }
 }

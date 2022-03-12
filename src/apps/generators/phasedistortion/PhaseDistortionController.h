@@ -22,7 +22,7 @@ class PhaseDistortionController : public Controller {
         LinearInput<> waveInput = LinearInput<>(HW.A3, -5, 5, 0, 2);
         LinearInput<> harmonicsInput = LinearInput<>(HW.A4, -5, 5, 0, 4);
 
-        typedef WaveArrayInterpolator<WaveArrayInterpolator<WaveTable<10, 128>, 5>, 3> WaveInterpolatorT;
+        typedef WaveInterpolator2D<WaveTable<10, 128>, 5, 3> WaveInterpolatorT;
 
         WaveInterpolatorT interpolator;
 

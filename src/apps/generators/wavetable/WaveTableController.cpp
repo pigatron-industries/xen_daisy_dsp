@@ -39,6 +39,6 @@ void WaveTableController::update() {
 
     if(interpolationInput.update()) {
         float value = interpolationInput.getValue();
-        interpolator.select(value);
+        interpolator.setInterpolation(value);
     }
 }

@@ -18,7 +18,6 @@ class WaveTableController : public Controller {
         LinearInput<> interpolationInput = LinearInput<>(HW.A1, -5, 5, 0, 3.1);
 
         typedef WaveTable<10, 128> WaveTableT;
-        typedef WaveSelector<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveSelectorT;
         typedef WaveInterpolator<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveInterpolatorT;
 
         WaveTableT wavetable1;

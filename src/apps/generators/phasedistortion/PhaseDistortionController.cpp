@@ -71,12 +71,12 @@ void PhaseDistortionController::update() {
 
     if(waveInput.update()) {
         //oscillator.setPhaseOffset(phaseOffsetInput.getValue());
-        interpolator.select(waveInput.getValue());
+        interpolator.setInterpolation(waveInput.getValue());
     }
 
     if(harmonicsInput.update()) {
-        sineInterpolator.select(harmonicsInput.getValue());
-        rampInterpolator.select(harmonicsInput.getValue());
-        squareInterpolator.select(harmonicsInput.getValue());
+        sineInterpolator.setInterpolation(harmonicsInput.getValue());
+        rampInterpolator.setInterpolation(harmonicsInput.getValue());
+        squareInterpolator.setInterpolation(harmonicsInput.getValue());
     }
 }

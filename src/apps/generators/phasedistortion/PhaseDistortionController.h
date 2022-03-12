@@ -22,34 +22,13 @@ class PhaseDistortionController : public Controller {
         LinearInput<> waveInput = LinearInput<>(HW.A3, -5, 5, 0, 2);
         LinearInput<> harmonicsInput = LinearInput<>(HW.A4, -5, 5, 0, 4);
 
-        typedef WaveTable<10, 128> WaveTableT;
-        typedef WaveInterpolator<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveInterpolatorT;
-        typedef WaveInterpolator<WaveInterpolatorT&, WaveInterpolatorT&, WaveInterpolatorT&> Interpolator2T;
+        typedef WaveArrayInterpolator<WaveArrayInterpolator<WaveTable<10, 128>, 5>, 3> WaveInterpolatorT;
 
-        WaveTableT wavetableSine1;
-        WaveTableT wavetableSine2;
-        WaveTableT wavetableSine3;
-        WaveTableT wavetableSine4;
-        WaveTableT wavetableSine5;
-        WaveTableT wavetableRamp1;
-        WaveTableT wavetableRamp2;
-        WaveTableT wavetableRamp3;
-        WaveTableT wavetableRamp4;
-        WaveTableT wavetableRamp5;
-        WaveTableT wavetableSquare1;
-        WaveTableT wavetableSquare2;
-        WaveTableT wavetableSquare3;
-        WaveTableT wavetableSquare4;
-        WaveTableT wavetableSquare5;
-
-        WaveInterpolatorT sineInterpolator = WaveInterpolatorT(wavetableSine1, wavetableSine2, wavetableSine3, wavetableSine4, wavetableSine5);
-        WaveInterpolatorT rampInterpolator = WaveInterpolatorT(wavetableRamp1, wavetableRamp2, wavetableRamp3, wavetableRamp4, wavetableRamp5);
-        WaveInterpolatorT squareInterpolator = WaveInterpolatorT(wavetableSquare1, wavetableSquare2, wavetableSquare3, wavetableSquare4, wavetableSquare5);
-        Interpolator2T interpolator = Interpolator2T(sineInterpolator, rampInterpolator, squareInterpolator);
+        WaveInterpolatorT interpolator;
 
         TwoLineFunction distortionFunction;
 
-        PhaseDistortionOscillator<Interpolator2T&, TwoLineFunction&> oscillator = PhaseDistortionOscillator<Interpolator2T&, TwoLineFunction&>(interpolator, distortionFunction);
+        PhaseDistortionOscillator<WaveInterpolatorT&, TwoLineFunction&> oscillator = PhaseDistortionOscillator<WaveInterpolatorT&, TwoLineFunction&>(interpolator, distortionFunction);
 };
 
 #endif

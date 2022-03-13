@@ -7,17 +7,14 @@
 void WaveTableController::init(float sampleRate) {
     Controller::init(sampleRate);
 
-    wavetable1.init(Hardware::hw.permPool);
-    WaveTableFactory::addSine(&wavetable1, 0.5);
+    for(int i = 0; i < 4; i++) {
+        interpolator[i].init(Hardware::hw.permPool);
+    }
 
-    wavetable2.init(Hardware::hw.permPool);
-    WaveTableFactory::addViolin(&wavetable2, 0.5);
-
-    wavetable3.init(Hardware::hw.permPool);
-    WaveTableFactory::addSquare(&wavetable3, 0.5);
-
-    wavetable4.init(Hardware::hw.permPool);
-    WaveTableFactory::addRamp(&wavetable4, 0.5);
+    WaveTableFactory::addSine(&interpolator[0], 0.5);
+    WaveTableFactory::addViolin(&interpolator[1], 0.5);
+    WaveTableFactory::addSquare(&interpolator[2], 0.5);
+    WaveTableFactory::addRamp(&interpolator[3], 0.5);
 
     oscillator.init(sampleRate);
 

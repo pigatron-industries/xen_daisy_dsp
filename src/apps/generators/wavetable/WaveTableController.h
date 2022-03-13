@@ -17,15 +17,8 @@ class WaveTableController : public Controller {
         ExpInput<> pitchInput = ExpInput<>(HW.A0);
         LinearInput<> interpolationInput = LinearInput<>(HW.A1, -5, 5, 0, 3.1);
 
-        typedef WaveTable<10, 128> WaveTableT;
-        typedef WaveInterpolator<WaveTableT&, WaveTableT&, WaveTableT&, WaveTableT&> WaveInterpolatorT;
-
-        WaveTableT wavetable1;
-        WaveTableT wavetable2;
-        WaveTableT wavetable3;
-        WaveTableT wavetable4;
-
-        WaveInterpolatorT interpolator = WaveInterpolatorT(wavetable1, wavetable2, wavetable3, wavetable4);
+        typedef WaveArrayInterpolator<WaveTable<10, 128>, 4> WaveInterpolatorT;
+        WaveInterpolatorT interpolator;
         WaveOscillator<WaveInterpolatorT&> oscillator = WaveOscillator<WaveInterpolatorT&>(interpolator);
 };
 
